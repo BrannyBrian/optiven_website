@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Stairs from "@/components/stairs";
 
-export default function Home() {
+export default function Contact() {
   return (
     <>
       <Head>
@@ -14,7 +14,7 @@ export default function Home() {
         <div className="hero min-h-96">
           <div className="hero-content text-center">
             <div className="flex justify-center items-center">
-              <h1 className="text-7xl uppercase">Home</h1>
+              <h1 className="text-7xl uppercase">Contact</h1>
             </div>
           </div>
         </div>
@@ -22,4 +22,3 @@ export default function Home() {
     </>
   );
 }
-

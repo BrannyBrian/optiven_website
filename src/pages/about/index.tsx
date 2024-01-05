@@ -14,7 +14,7 @@ export default function About() {
         <div className="hero min-h-96">
           <div className="hero-content text-center">
             <div className="flex justify-center items-center">
-              <h1 className="text-7xl">ABOUT</h1>
+              <h1 className="text-7xl uppercase">About</h1>
             </div>
           </div>
         </div>

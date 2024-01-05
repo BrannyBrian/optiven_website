@@ -55,15 +55,15 @@ export default function App({ Component, pageProps, router }: AppProps) {
                     <Link href="/about">Who We Are</Link>
                   </li>
                   <li>
-                    <a>Our Team</a>
+                    <Link href="/team">Team</Link>
                   </li>
                 </ul>
               </li>
               <li>
-                <a>Testimonials</a>
+                <Link href="/testimonials">Testimonials</Link>
               </li>
               <li>
-                <a>Careers</a>
+                <Link href="/careers">Careers</Link>
               </li>
             </ul>
           </div>
@@ -80,25 +80,28 @@ export default function App({ Component, pageProps, router }: AppProps) {
               <details>
                 <summary>About Us</summary>
                 <ul className="p-2 w-32">
-                  <li className="">
+                  <li>
                     <Link href="/about">Who We Are</Link>
                   </li>
                   <li>
-                    <a>Our Team</a>
+                    <Link href="/team">Team</Link>
                   </li>
                 </ul>
               </details>
             </li>
             <li>
-              <a>Testimonials</a>
+              <Link href="/testimonials">Testimonials</Link>
             </li>
             <li>
-              <a>Careers</a>
+              <Link href="/careers">Careers</Link>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <Link href="/" className="btn btn-primary text-white uppercase">
+          <Link
+            href="/contact"
+            className="btn btn-primary text-white uppercase"
+          >
             Contact
           </Link>
         </div>
