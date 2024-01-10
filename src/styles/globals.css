@@ -14,7 +14,11 @@ body {
   overflow-x: hidden;
 }
 
-.line-width {
-  width: 0.25px;
+.vertical-line-thickness {
+  width: 0.15px;
+}
+
+.horizontal-line-thickness {
+  height: 0.15px;
 }
 
