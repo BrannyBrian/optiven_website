@@ -11,5 +11,10 @@ body {
     )
     rgb(var(--background-start-rgb));
   color: rgb(var(--foreground-rgb));
+  overflow-x: hidden;
+}
+
+.line-width {
+  width: 0.25px;
 }
 

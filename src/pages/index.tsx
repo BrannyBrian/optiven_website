@@ -1,7 +1,31 @@
 import Head from "next/head";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
 import Stairs from "@/components/stairs";
 
 export default function Home() {
+  gsap.registerPlugin(ScrollTrigger);
+  useGSAP(() => {
+    gsap.fromTo(
+      ".line",
+      { scaleY: 0, visibility: "hidden", opacity: 0 },
+      {
+        scaleY: 1,
+        opacity: 1,
+        visibility: "visible",
+        duration: 3,
+        scrollTrigger: {
+          trigger: ".line",
+          start: "top bottom",
+          end: "top center",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  });
+
   return (
     <>
       <Head>
@@ -63,6 +87,11 @@ export default function Home() {
               <p className="text-xs my-4 uppercase lg:text-base">Workforce</p>
             </div>
           </div>
+        </div>
+        <div className="grid grid-cols-3">
+          <div className="col-span-1"></div>
+          <div className="line h-screen bg-black transform origin-top line-width"></div>
+          <div className="line h-screen bg-black transform origin-top line-width"></div>
         </div>
         <section className="text-gray-600 body-font relative">
           <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
