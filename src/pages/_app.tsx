@@ -3,7 +3,6 @@ import { AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import "@/styles/globals.css";
 import "@/styles/styles.scss";
-import Image from "next/image";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
@@ -64,6 +63,14 @@ export default function App({ Component, pageProps, router }: AppProps) {
                 <Link href="/testimonials">Testimonials</Link>
               </li>
               <li>
+                <a>Information Center</a>
+                <ul className="p-2">
+                  <li>
+                    <Link href="/faqs">FAQs</Link>
+                  </li>
+                </ul>
+              </li>
+              <li>
                 <Link href="/careers">Careers</Link>
               </li>
             </ul>
@@ -92,6 +99,16 @@ export default function App({ Component, pageProps, router }: AppProps) {
             </li>
             <li>
               <Link href="/testimonials">Testimonials</Link>
+            </li>
+            <li>
+              <details>
+                <summary>Information Center</summary>
+                <ul className="p-2 w-32">
+                  <li>
+                    <Link href="/faqs">FAQs</Link>
+                  </li>
+                </ul>
+              </details>
             </li>
             <li>
               <Link href="/careers">Careers</Link>
