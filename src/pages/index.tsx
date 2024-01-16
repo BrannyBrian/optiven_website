@@ -9,6 +9,19 @@ import Image from "next/image";
 export default function Home() {
   gsap.registerPlugin(ScrollTrigger);
   useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+    // Animation for the h1 element
+    tl.fromTo("h1", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.5 });
+    // Animation for the button element
+    tl.fromTo(
+      "button",
+      { opacity: 0, x: 50 },
+      { opacity: 1, x: 0, duration: 0.5 }
+    );
+
+    tl.play();
+
     gsap.fromTo(
       ".vertical-line",
       { scaleY: 0, visibility: "hidden", opacity: 0 },
@@ -52,10 +65,22 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
-        <div className="hero min-h-screen">
-          <div className="hero-content text-center">
-            <div className="flex justify-center items-center">
-              <h1 className="text-7xl uppercase">Home</h1>
+        <div
+          className="hero min-h-screen"
+          style={{
+            backgroundImage:
+              "url(https://images.unsplash.com/photo-1548941489-3e64750ebbaa?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+          }}
+        >
+          <div className="hero-overlay bg-opacity-60"></div>
+          <div className="hero-content text-center text-neutral-content">
+            <div>
+              <h1 className="hero-h1 mb-5 text-5xl font-bold lg:text-7xl">
+                Explore Value-Added Properties for a Better Tomorrow.
+              </h1>
+              <button className="btn btn-primary text-white uppercase">
+                View Available Projects
+              </button>
             </div>
           </div>
         </div>
@@ -91,47 +116,61 @@ export default function Home() {
               </div>
               <div className="vertical-line bg-gray-800 transform origin-top vertical-line-thickness lg:min-h-96 flex items-center justify-center"></div>
               <div className="p-4 col-span-2">
-                <div className="carousel rounded-box">
+                <div className="carousel">
                   <div className="carousel-item">
                     <img
-                      src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
-                      alt="Burger"
+                      src="https://images.unsplash.com/photo-1610818544205-9830e171384c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
                     />
                   </div>
                   <div className="carousel-item">
                     <img
-                      src="https://daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.jpg"
-                      alt="Burger"
+                      src="https://images.unsplash.com/photo-1523792123638-bf76f70061c0?q=80&w=1825&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
                     />
                   </div>
                   <div className="carousel-item">
                     <img
-                      src="https://daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.jpg"
-                      alt="Burger"
+                      src="https://images.unsplash.com/photo-1610818544520-b4a38af1b64e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
                     />
                   </div>
                   <div className="carousel-item">
                     <img
-                      src="https://daisyui.com/images/stock/photo-1494253109108-2e30c049369b.jpg"
-                      alt="Burger"
+                      src="https://images.unsplash.com/photo-1610818544906-dbf75147e950?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
                     />
                   </div>
                   <div className="carousel-item">
                     <img
-                      src="https://daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.jpg"
-                      alt="Burger"
+                      src="https://images.unsplash.com/photo-1610818545760-bfdda4e22e60?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
                     />
                   </div>
                   <div className="carousel-item">
                     <img
-                      src="https://daisyui.com/images/stock/photo-1559181567-c3190ca9959b.jpg"
-                      alt="Burger"
+                      src="https://images.unsplash.com/photo-1609154767012-331529e7d73b?q=80&w=1942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
                     />
                   </div>
                   <div className="carousel-item">
                     <img
-                      src="https://daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.jpg"
-                      alt="Burger"
+                      src="https://images.unsplash.com/photo-1523792123638-bf76f70061c0?q=80&w=1825&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1610818544520-b4a38af1b64e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
                     />
                   </div>
                 </div>
@@ -152,16 +191,65 @@ export default function Home() {
                 </div>
               </div>
               <div className="vertical-line bg-gray-800 transform origin-top vertical-line-thickness lg:min-h-96 flex items-center justify-center"></div>
-              <div className="p-4">
-                <Image
-                  alt="project-image"
-                  src={
-                    "https://images.unsplash.com/photo-1563938419647-b9d577b75fb5?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  }
-                  layout="responsive"
-                  width={300}
-                  height={200}
-                />
+              <div className="p-4 col-span-2">
+                <div className="carousel">
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1635120392561-99eb64627cc5?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1568418038101-646e9a156c2e?q=80&w=1978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1564918161064-178ee6405dc1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1594872287982-4660d55cf44c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1614537064777-b62035484562?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1635120392561-99eb64627cc5?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1568418038101-646e9a156c2e?q=80&w=1978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1564918161064-178ee6405dc1?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div className="horizontal-line w-full horizontal-line-thickness bg-gray-800 transform origin-top"></div>
@@ -180,16 +268,65 @@ export default function Home() {
                 </div>
               </div>
               <div className="vertical-line bg-gray-800 transform origin-top vertical-line-thickness lg:min-h-96 flex items-center justify-center"></div>
-              <div className="p-4">
-                <Image
-                  alt="project-image"
-                  src={
-                    "https://images.unsplash.com/photo-1564998229935-8f4d16aa2f3e?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  }
-                  layout="responsive"
-                  width={300}
-                  height={200}
-                />
+              <div className="p-4 col-span-2">
+                <div className="carousel">
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1527077407109-c7a950e6ce50?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1594629696820-30799e0642b3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1608453908781-a805977d53b5?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1610818544906-dbf75147e950?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1594629681072-c973bffc79cb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1609154767012-331529e7d73b?q=80&w=1942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1523792123638-bf76f70061c0?q=80&w=1825&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="https://images.unsplash.com/photo-1610818544520-b4a38af1b64e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      alt="Slider-Image"
+                      className="h-96"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div className="horizontal-line w-full horizontal-line-thickness bg-gray-800 transform origin-top"></div>
@@ -199,7 +336,9 @@ export default function Home() {
         <div className="w-full py-16 mx-auto lg:py-20 bg-black text-white">
           <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
             <div className="text-center md:border-r">
-              <h6 className="text-4xl font-extralight lg:text-5xl xl:text-6xl">24</h6>
+              <h6 className="text-4xl font-extralight lg:text-5xl xl:text-6xl">
+                24
+              </h6>
               <p className="text-xs my-4 uppercase lg:text-base">
                 Years of Transformation
               </p>
