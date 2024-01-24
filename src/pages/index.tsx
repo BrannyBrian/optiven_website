@@ -76,13 +76,13 @@ export default function Home({ projects }: any) {
                     </Badge>
                   </div>
                 </div>
-                  <Link
-                    href={`/projects/${project.id}`}
-                    className="flex text-sm mt-4 hover:underline"
-                  >
-                    View Project
-                    <ChevronRight size={16} />
-                  </Link>
+                <Link
+                  href={`/projects/${project.id}`}
+                  className="flex text-sm mt-4 hover:underline"
+                >
+                  View Project
+                  <ChevronRight size={16} />
+                </Link>
               </div>
               <Image
                 src={`https://images.unsplash.com/photo-1429704658776-3d38c9990511?q=80&w=1979&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
@@ -94,14 +94,17 @@ export default function Home({ projects }: any) {
             </div>
           ))}
           <div className="flex justify-center items-center mt-6">
-            <Link href="/projects" className="text-3xl md:text-4xl lg:text-5xl mt-4 flex hover:underline">
+            <Link
+              href="/projects"
+              className="text-3xl md:text-4xl lg:text-5xl mt-4 flex hover:underline"
+            >
               View All Projects
               <ChevronRight size={32} />
             </Link>
           </div>
         </div>
         {/* Stats */}
-        <div className="w-full py-4 mx-auto lg:py-10">
+        <div className="w-full pt-4 border-t border-b mx-auto lg:py-10">
           <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
             <div className="text-center md:border-r">
               <h6 className="text-4xl lg:text-5xl xl:text-6xl">24</h6>
@@ -130,8 +133,10 @@ export default function Home({ projects }: any) {
           </div>
         </div>
         {/* Blogs */}
-        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-          <div className="grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+        <div className="px-4 py-10 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+          <h1 className="text-4xl border-b mb-2">Optiven in the News</h1>
+
+          <div className="mt-4 grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
               <img
                 src="https://images.pexels.com/photos/2408666/pexels-photo-2408666.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
@@ -140,35 +145,25 @@ export default function Home({ projects }: any) {
               />
               <div className="p-5 border border-t-0">
                 <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
-                  <a
-                    href="/"
-                    className="transition-colors duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
-                    aria-label="Category"
-                    title="traveling"
-                  >
-                    traveling
-                  </a>
-                  <span className="text-gray-600">— 28 Dec 2020</span>
+                  traveling
+                  <span className="text-gray-600"> — 28 Dec 2020</span>
                 </p>
-                <a
-                  href="/"
+                <Link
+                  href="#"
                   aria-label="Category"
                   title="Visit the East"
-                  className="inline-block mb-3 text-2xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
+                  className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-700"
                 >
                   Visit the East
-                </a>
+                </Link>
                 <p className="mb-2 text-gray-700">
                   Sed ut perspiciatis unde omnis iste natus error sit sed quia
                   consequuntur magni voluptatem doloremque.
                 </p>
-                <a
-                  href="/"
-                  aria-label=""
-                  className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                >
-                  Learn more
-                </a>
+                <Link href="#" className="text-sm mt-4 flex hover:underline">
+                  Read More
+                  <ChevronRight size={16} />
+                </Link>
               </div>
             </div>
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
@@ -179,35 +174,25 @@ export default function Home({ projects }: any) {
               />
               <div className="p-5 border border-t-0">
                 <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
-                  <a
-                    href="/"
-                    className="transition-colors duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
-                    aria-label="Category"
-                    title="traveling"
-                  >
-                    traveling
-                  </a>
-                  <span className="text-gray-600">— 28 Dec 2020</span>
+                  traveling
+                  <span className="text-gray-600"> — 28 Dec 2020</span>
                 </p>
-                <a
-                  href="/"
+                <Link
+                  href="#"
                   aria-label="Category"
                   title="Simple is better"
-                  className="inline-block mb-3 text-2xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
+                  className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-700"
                 >
                   Simple is better
-                </a>
+                </Link>
                 <p className="mb-2 text-gray-700">
                   Sed ut perspiciatis unde omnis iste natus error sit sed quia
                   consequuntur magni voluptatem doloremque.
                 </p>
-                <a
-                  href="/"
-                  aria-label=""
-                  className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                >
-                  Learn more
-                </a>
+                <Link href="#" className="text-sm mt-4 flex hover:underline">
+                  Read More
+                  <ChevronRight size={16} />
+                </Link>
               </div>
             </div>
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
@@ -218,37 +203,36 @@ export default function Home({ projects }: any) {
               />
               <div className="p-5 border border-t-0">
                 <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
-                  <a
-                    href="/"
-                    className="transition-colors duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
-                    aria-label="Category"
-                    title="traveling"
-                  >
-                    traveling
-                  </a>
-                  <span className="text-gray-600">— 28 Dec 2020</span>
+                  traveling
+                  <span className="text-gray-600"> — 28 Dec 2020</span>
                 </p>
-                <a
-                  href="/"
+                <Link
+                  href="#"
                   aria-label="Category"
                   title="Film It!"
-                  className="inline-block mb-3 text-2xl font-bold leading-5 transition-colors duration-200 hover:text-deep-purple-accent-700"
+                  className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-700"
                 >
                   Film It!
-                </a>
+                </Link>
                 <p className="mb-2 text-gray-700">
                   Sed ut perspiciatis unde omnis iste natus error sit sed quia
                   consequuntur magni voluptatem doloremque.
                 </p>
-                <a
-                  href="/"
-                  aria-label=""
-                  className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
-                >
-                  Learn more
-                </a>
+                <Link href="#" className="text-sm mt-4 flex hover:underline">
+                  Read More
+                  <ChevronRight size={16} />
+                </Link>
               </div>
             </div>
+          </div>
+          <div className="flex justify-center items-center mt-6">
+            <Link
+              href="/blogs"
+              className="text-3xl md:text-4xl lg:text-5xl mt-4 flex hover:underline"
+            >
+              View More Updates
+              <ChevronRight size={32} />
+            </Link>
           </div>
         </div>
       </Stairs>
