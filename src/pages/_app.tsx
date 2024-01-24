@@ -11,10 +11,6 @@ import Image from "next/image";
 const founderGrotesk = FoundersGrotesk({
   src: [
     {
-      path: '../../public/fonts/FoundersGrotesk-Bold.otf',
-      weight: '800'
-    },
-    {
       path: '../../public/fonts/FoundersGrotesk-Light.otf',
       weight: '200'
     },
@@ -22,14 +18,6 @@ const founderGrotesk = FoundersGrotesk({
       path: '../../public/fonts/FoundersGrotesk-Semibold.otf',
       weight: '600'
     },
-    {
-      path: '../../public/fonts/FoundersGrotesk-Regular.otf',
-      weight: '400'
-    },
-    {
-      path: '../../public/fonts/FoundersGrotesk-Medium.otf',
-      weight: '500'
-    }
   ],
   variable: '--font-founders-grotesk'
 })

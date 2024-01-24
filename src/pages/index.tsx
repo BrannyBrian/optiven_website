@@ -1,11 +1,13 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Card, Carousel } from "flowbite-react";
+import { Badge, Carousel } from "flowbite-react";
+import { HiCheck } from "react-icons/hi";
 import { ChevronRight } from "react-feather";
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../lib/api";
+import Image from "next/image";
 
-export default function Home({ projects }) {
+export default function Home({ projects }: any) {
   return (
     <>
       <Head>
@@ -15,7 +17,7 @@ export default function Home({ projects }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
-        <div className="h-64 md:h-96 lg:h-screen">
+        <div className="mx-2 h-64 md:h-96 lg:h-screen">
           <Carousel slideInterval={3000}>
             <img
               src="https://images.unsplash.com/photo-1590733839006-d7b9006c2e98?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -41,86 +43,89 @@ export default function Home({ projects }) {
         </div>
 
         {/* Projects */}
-        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-          <div className="flex justify-center items-center mb-6">
-            <h1 className="text-xl">Featured Projects</h1>
-          </div>
-          <div className="grid gap-5 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
-            {projects.data.map((project) => (
-              <Card
-                key={project.id} // Ensure each card has a unique key
-                className="max-w-sm"
-                imgAlt={`Image for ${project.attributes.projectName}`}
-                imgSrc={`https://images.unsplash.com/photo-1429704658776-3d38c9990511?q=80&w=1979&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
-              >
-                <Link
-                  href={`projects/${project.id}`}
-                  className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                >
-                  {project.attributes.projectName}
-                </Link>
-                <p className="font-normal text-gray-700 dark:text-gray-400">
-                  {project.attributes.projectSummary}
-                </p>
-              </Card>
-            ))}
-          </div>
-          <div className="flex justify-center items-center mt-6">
-            <Link
-              href="/projects"
-              className="flex text-green-800 hover:underline"
+        <div className="py-16 w-screen mx-auto lg:max-w-screen-xl">
+          <h1 className="text-4xl border-b m-2">Featured Projects</h1>
+          {projects.data.map((project: any) => (
+            <div
+              className="py-8 px-4 flex flex-col border-b lg:flex-row xl:flex-row"
+              key={project.id}
             >
+              <div className="flex flex-col justify-between">
+                <div>
+                  <h1 className="text-2xl uppercase font-semibold">
+                    {project.attributes.projectName}
+                  </h1>
+                  <div className="text-xs">4 stars</div>
+                  <p className="w-full lg:w-1/2">
+                    {project.attributes.projectSummary}
+                  </p>
+                  <div className="w-full -ml-2 grid grid-cols-3 gap-1 my-2 lg:w-2/3">
+                    <Badge
+                      color="gray"
+                      icon={HiCheck}
+                      className="w-full m-1 font-light"
+                    >
+                      Mesh Fence
+                    </Badge>
+                    <Badge
+                      color="gray"
+                      icon={HiCheck}
+                      className="w-full m-1 font-light"
+                    >
+                      Solar street lights
+                    </Badge>
+                  </div>
+                </div>
+                  <Link
+                    href={`/projects/${project.id}`}
+                    className="flex text-sm mt-4 hover:underline"
+                  >
+                    View Project
+                    <ChevronRight size={16} />
+                  </Link>
+              </div>
+              <Image
+                src={`https://images.unsplash.com/photo-1429704658776-3d38c9990511?q=80&w=1979&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
+                height={400}
+                width={700}
+                alt={`Image for ${project.attributes.projectName}`}
+                className="rounded-md w-full"
+              />
+            </div>
+          ))}
+          <div className="flex justify-center items-center mt-6">
+            <Link href="/projects" className="flex hover:underline">
               View All Projects
-              <ChevronRight />
+              <ChevronRight size={20} />
             </Link>
           </div>
         </div>
         {/* Stats */}
-        <div className="w-full py-16 mx-auto lg:py-20 bg-black text-white">
+        <div className="w-full py-16 mx-auto lg:py-20">
           <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
             <div className="text-center md:border-r">
-              <h6 className="text-4xl font-extralight lg:text-5xl xl:text-6xl">
-                24
-              </h6>
-              <p className="text-xs my-4 uppercase lg:text-base">
-                Years of Transformation
-              </p>
+              <h6 className="text-4xl lg:text-5xl xl:text-6xl">24</h6>
+              <p className="text-sm my-4 uppercase">Years of Transformation</p>
             </div>
             <div className="text-center md:border-r">
-              <h6 className="text-4xl font-extralight lg:text-5xl xl:text-6xl">
-                60+
-              </h6>
-              <p className="text-xs my-4 uppercase lg:text-base">
-                Completed Projects
-              </p>
+              <h6 className="text-4xl lg:text-5xl xl:text-6xl">60+</h6>
+              <p className="text-sm my-4 uppercase">Completed Projects</p>
             </div>
             <div className="text-center md:border-r">
-              <h6 className="text-4xl font-extralight lg:text-5xl xl:text-6xl">
-                7000+
-              </h6>
-              <p className="text-xs my-4 uppercase lg:text-base">
-                Disbursed Title Deeds
-              </p>
+              <h6 className="text-4xl lg:text-5xl xl:text-6xl">7000+</h6>
+              <p className="text-sm my-4 uppercase">Disbursed Title Deeds</p>
             </div>
             <div className="text-center md:border-r">
-              <h6 className="text-4xl font-extralight lg:text-5xl xl:text-6xl">
-                20+
-              </h6>
-              <p className="text-xs my-4 uppercase lg:text-base">Awards</p>
+              <h6 className="text-4xl lg:text-5xl xl:text-6xl">20+</h6>
+              <p className="text-sm my-4 uppercase">Awards</p>
             </div>
             <div className="text-center md:border-r">
-              <h6 className="text-4xl font-extralight lg:text-5xl xl:text-6xl">
-                10000+
-              </h6>
-              <p className="text-xs my-4 uppercase lg:text-base">
-                Happy Clients
-              </p>
+              <h6 className="text-4xl lg:text-5xl xl:text-6xl">10000+</h6>
+              <p className="text-sm my-4 uppercase">Happy Clients</p>
             </div>
             <div className="text-center">
-              <h6 className="text-4xl font-extralight lg:text-5xl xl:text-6xl">
-                500+
-              </h6>
-              <p className="text-xs my-4 uppercase lg:text-base">Workforce</p>
+              <h6 className="text-4xl lg:text-5xl xl:text-6xl">500+</h6>
+              <p className="text-sm my-4 uppercase">Workforce</p>
             </div>
           </div>
         </div>
