@@ -13,8 +13,8 @@ const config: Config = {
     screens: {
       sm: "480px",
       md: "768px",
-      lg: "976px",
-      xl: "1440px",
+      lg: "1200px",
+      xl: "1920px",
     },
     colors: {
       gray: colors.gray,
