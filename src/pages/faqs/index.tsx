@@ -1,4 +1,4 @@
-import FaqItem from "@/components/stairs/FaqItem";
+import FaqItem from "@/components/faqItem";
 import Head from "next/head";
 import Stairs from "@/components/stairs";
 
