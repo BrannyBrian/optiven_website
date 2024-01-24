@@ -47,7 +47,7 @@ export default function Home({ projects }: any) {
           <h1 className="text-4xl border-b m-2">Featured Projects</h1>
           {projects.data.map((project: any) => (
             <div
-              className="py-8 px-4 flex flex-col border-b lg:flex-row xl:flex-row"
+              className="py-8 px-4 flex flex-col-reverse border-b lg:flex-row xl:flex-row"
               key={project.id}
             >
               <div className="flex flex-col justify-between">
@@ -89,19 +89,19 @@ export default function Home({ projects }: any) {
                 height={400}
                 width={700}
                 alt={`Image for ${project.attributes.projectName}`}
-                className="rounded-md w-full"
+                className="rounded-md w-full mb-4"
               />
             </div>
           ))}
           <div className="flex justify-center items-center mt-6">
-            <Link href="/projects" className="flex hover:underline">
+            <Link href="/projects" className="text-3xl md:text-4xl lg:text-5xl mt-4 flex hover:underline">
               View All Projects
-              <ChevronRight size={20} />
+              <ChevronRight size={32} />
             </Link>
           </div>
         </div>
         {/* Stats */}
-        <div className="w-full py-16 mx-auto lg:py-20">
+        <div className="w-full py-4 mx-auto lg:py-10">
           <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
             <div className="text-center md:border-r">
               <h6 className="text-4xl lg:text-5xl xl:text-6xl">24</h6>
