@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { Badge, Carousel } from "flowbite-react";
 import { HiCheck } from "react-icons/hi";
-import { ChevronRight } from "react-feather";
+import { CheckCircle, ChevronRight } from "react-feather";
 import Stairs from "@/components/stairs";
 import StarRating from "@/components/starRating";
 import { fetcher } from "../../lib/api";
@@ -67,9 +67,9 @@ export default function Home({ projects }: any) {
               className="py-8 px-4 flex flex-col-reverse border-b lg:flex-row xl:flex-row"
               key={project.id}
             >
-              <div className="flex flex-col justify-between">
+              <div className="flex flex-col justify-between w-full md:w-:-1/2">
                 <div>
-                  <div className="my-3">
+                  <div className="mt-3">
                     <Link
                       href={`/projects/${project.id}`}
                       aria-label="Article"
@@ -85,20 +85,26 @@ export default function Home({ projects }: any) {
                     {project.attributes.projectSummary}
                   </p>
                   <div className="w-full -ml-2 grid grid-cols-3 gap-1 my-2 lg:w-2/3">
-                    <Badge
-                      color="gray"
-                      icon={HiCheck}
-                      className="w-full m-1 font-light"
-                    >
-                      Mesh Fence
-                    </Badge>
-                    <Badge
-                      color="gray"
-                      icon={HiCheck}
-                      className="w-full m-1 font-light"
-                    >
-                      Solar street lights
-                    </Badge>
+                    <div className="flex items-center border p-2 text-gray-700 rounded-xl">
+                      <CheckCircle color="black" size={18} />
+                      <h1 className="ml-1 text-xs">Mesh Fence</h1>
+                    </div>
+                    <div className="flex items-center border p-2 text-gray-700 rounded-xl">
+                      <CheckCircle color="black" size={18} />
+                      <h1 className="ml-1 text-xs">Electricity</h1>
+                    </div>
+                    <div className="flex items-center border p-2 text-gray-700 rounded-xl">
+                      <CheckCircle color="black" size={18} />
+                      <h1 className="ml-1 text-xs">Water on Site</h1>
+                    </div>
+                    <div className="flex items-center border p-2 text-gray-700 rounded-xl">
+                      <CheckCircle color="black" size={18} />
+                      <h1 className="ml-1 text-xs">Mesh Fence</h1>
+                    </div>
+                    <div className="flex items-center border p-2 text-gray-700 rounded-xl">
+                      <CheckCircle color="black" size={18} />
+                      <h1 className="ml-1 text-xs">Mesh Fence</h1>
+                    </div>
                   </div>
                 </div>
                 <Link
@@ -119,7 +125,15 @@ export default function Home({ projects }: any) {
             </div>
           ))}
           <div className="flex justify-center items-center mt-6">
-            {/* View All Projects link */}
+            <div className="flex justify-center items-center mt-6">
+              <Link
+                href="/projects"
+                className="text-3xl md:text-4xl lg:text-5xl mt-4 flex hover:underline hover:text-green-700"
+              >
+                View All Projects
+                <ChevronRight size={32} />
+              </Link>
+            </div>
           </div>
         </div>
         {/* Stats */}
