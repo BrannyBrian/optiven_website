@@ -6,8 +6,36 @@ import { ChevronRight } from "react-feather";
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../lib/api";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home({ projects }: any) {
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Simulate fetching image URLs
+    const fetchImageUrls = async () => {
+      const urls = [
+        "https://images.unsplash.com/photo-1590733839006-d7b9006c2e98?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1629016943072-0bf0ce4e2608?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1629016429417-0a01981c3cb1?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      ];
+
+      // Simulate asynchronous fetching of images
+      const fetchedImages = await Promise.all(
+        urls.map(async (url) => {
+          const response = await fetch(url);
+          const blob = await response.blob();
+          return URL.createObjectURL(blob);
+        })
+      );
+
+      setImageUrls(fetchedImages);
+    };
+
+    fetchImageUrls();
+  }, []);
   return (
     <>
       <Head>
@@ -19,26 +47,13 @@ export default function Home({ projects }: any) {
       <Stairs>
         <div className="mx-2 h-64 md:h-96 lg:h-screen">
           <Carousel slideInterval={3000}>
-            <img
-              src="https://images.unsplash.com/photo-1590733839006-d7b9006c2e98?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="home-carousel-banner-image"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1629016943072-0bf0ce4e2608?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="home-carousel-banner-image"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1629016429417-0a01981c3cb1?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="home-carousel-banner-image"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="home-carousel-banner-image"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="home-carousel-banner-image"
-            />
+            {imageUrls.map((imageUrl, index) => (
+              <img
+                key={index}
+                src={imageUrl}
+                alt={`home-carousel-banner-image-${index}`}
+              />
+            ))}
           </Carousel>
         </div>
         {/* Projects */}
@@ -341,4 +356,3 @@ export async function getStaticProps() {
     };
   }
 }
-
