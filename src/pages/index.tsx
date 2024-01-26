@@ -4,6 +4,7 @@ import { Badge, Carousel } from "flowbite-react";
 import { HiCheck } from "react-icons/hi";
 import { ChevronRight } from "react-feather";
 import Stairs from "@/components/stairs";
+import StarRating from "@/components/starRating";
 import { fetcher } from "../../lib/api";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -45,6 +46,7 @@ export default function Home({ projects }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
+        {/* carousel */}
         <div className="mx-2 h-64 md:h-96 lg:h-screen">
           <Carousel slideInterval={3000}>
             {imageUrls.map((imageUrl, index) => (
@@ -56,6 +58,7 @@ export default function Home({ projects }: any) {
             ))}
           </Carousel>
         </div>
+        {/* About */}
         {/* Projects */}
         <div className="py-16 w-screen mx-auto lg:max-w-screen-xl">
           <h1 className="text-4xl border-b m-2">Featured Projects</h1>
@@ -77,7 +80,7 @@ export default function Home({ projects }: any) {
                       </p>
                     </Link>
                   </div>
-                  <div className="text-xs">4 stars</div>
+                  <StarRating rating={project.attributes.projectRating} />
                   <p className="mb-4 text-sm w-full md:w-2/3 lg:w-2/3 text-gray-700 md:text-lg">
                     {project.attributes.projectSummary}
                   </p>
@@ -116,13 +119,7 @@ export default function Home({ projects }: any) {
             </div>
           ))}
           <div className="flex justify-center items-center mt-6">
-            <Link
-              href="/projects"
-              className="text-3xl md:text-4xl lg:text-5xl mt-4 flex hover:underline hover:text-green-700"
-            >
-              View All Projects
-              <ChevronRight size={32} />
-            </Link>
+            {/* View All Projects link */}
           </div>
         </div>
         {/* Stats */}
@@ -333,6 +330,11 @@ type Project = {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    isFeatured: boolean;
+    quarterAcrePrice: number;
+    halfAcrePrice: number;
+    acrePrice: number;
+    eighthAcrePrice: number;
   };
 };
 

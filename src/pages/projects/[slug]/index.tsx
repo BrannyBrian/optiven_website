@@ -17,7 +17,7 @@ const Project = ({ project }) => {
             <Accordion.Panel>
               <Accordion.Title>Price in KES</Accordion.Title>
               <Accordion.Content>
-                <p className="text-5xl mb-2 font-extrabold">
+                <p className="text-7xl mb-2 font-extrabold">
                   {project.data.attributes.eighthAcrePrice}
                 </p>
               </Accordion.Content>
@@ -25,7 +25,7 @@ const Project = ({ project }) => {
             <Accordion.Panel>
               <Accordion.Title>Price in USD</Accordion.Title>
               <Accordion.Content>
-                <p className="text-5xl mb-2 font-extrabold">
+                <p className="text-7xl mb-2 font-extrabold">
                   {project.data.attributes.eighthAcrePrice}
                 </p>
               </Accordion.Content>
@@ -33,7 +33,7 @@ const Project = ({ project }) => {
             <Accordion.Panel>
               <Accordion.Title>Price in EUR</Accordion.Title>
               <Accordion.Content>
-                <p className="text-5xl mb-2 font-extrabold">
+                <p className="text-7xl mb-2 font-extrabold">
                   {project.data.attributes.eighthAcrePrice}
                 </p>
               </Accordion.Content>
