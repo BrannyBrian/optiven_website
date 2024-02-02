@@ -197,7 +197,7 @@ export default function Home({ projects }: any) {
                 <div className="p-5 border border-t-0">
                   <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
                     traveling
-                    <span className="text-gray-600"> — 28 Dec 2020</span>
+                    <span className="text-gray-800"> — 28 Dec 2020</span>
                   </p>
                   <Link
                     href="#"
@@ -229,7 +229,7 @@ export default function Home({ projects }: any) {
                 <div className="p-5 border border-t-0">
                   <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
                     traveling
-                    <span className="text-gray-600"> — 28 Dec 2020</span>
+                    <span className="text-gray-800"> — 28 Dec 2020</span>
                   </p>
                   <Link
                     href="#"
@@ -261,7 +261,7 @@ export default function Home({ projects }: any) {
                 <div className="p-5 border border-t-0">
                   <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
                     traveling
-                    <span className="text-gray-600"> — 28 Dec 2020</span>
+                    <span className="text-gray-800"> — 28 Dec 2020</span>
                   </p>
                   <Link
                     href="#"
@@ -299,7 +299,7 @@ export default function Home({ projects }: any) {
           <div className="px-4 py-8 mx-2 bg-black rounded-lg text-white sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="px-4 pb-16 flex flex-col-reverse border-b lg:flex-row xl:flex-row">
               <div>
-                <p className="my-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                <p className="my-2 text-xs font-semibold tracking-wide text-gray-800 uppercase">
                   Project Update
                 </p>
                 <div className="my-3">
@@ -313,7 +313,7 @@ export default function Home({ projects }: any) {
                     </p>
                   </Link>
                 </div>
-                <p className="my-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                <p className="my-2 text-xs font-semibold tracking-wide text-gray-800 uppercase">
                   20 Nov 2020
                 </p>
                 <p className="mb-4 text-base w-full md:w-2/3 lg:w-2/3 text-gray-700 md:text-lg">
@@ -339,7 +339,7 @@ export default function Home({ projects }: any) {
             </div>
             <div className="flex justify-center items-center mt-6">
               <Link
-                href="/project-updates"
+                href="/projects-updates"
                 className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
               >
                 View More Updates
@@ -347,6 +347,7 @@ export default function Home({ projects }: any) {
               </Link>
             </div>
           </div>
+          {/* Contact */}
         </main>
       </Stairs>
     </>

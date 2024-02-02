@@ -56,7 +56,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
               inline
               label={<Navbar.Link href="#">Information Center</Navbar.Link>}
             >
-              <Dropdown.Item>Project Updates</Dropdown.Item>
+              <Dropdown.Item href="/projects-updates">
+                Projects Updates
+              </Dropdown.Item>
               <Dropdown.Item href="/customer-information">
                 Customer Information
               </Dropdown.Item>
