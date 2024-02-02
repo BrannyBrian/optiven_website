@@ -57,7 +57,7 @@ export default function Home({ projects }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
-        <main ref={container}>
+        <main ref={container} className="mt-16">
           {/* carousel */}
           <div className="mx-2 h-64 md:h-96 lg:h-screen">
             <Carousel slideInterval={3000}>
@@ -85,7 +85,7 @@ export default function Home({ projects }: any) {
                       <Link
                         href={`/projects/${project.id}`}
                         aria-label="Article"
-                        className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-700"
+                        className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
                       >
                         <h1 className="font-sans text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl">
                           {project.attributes.projectName}
@@ -144,7 +144,7 @@ export default function Home({ projects }: any) {
               <div className="flex justify-center items-center mt-6">
                 <Link
                   href="/projects"
-                  className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-700"
+                  className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
                 >
                   View All Projects
                   <ChevronRight size={32} />
@@ -203,7 +203,7 @@ export default function Home({ projects }: any) {
                     href="#"
                     aria-label="Category"
                     title="Visit the East"
-                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-700"
+                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                   >
                     Visit the East
                   </Link>
@@ -213,7 +213,7 @@ export default function Home({ projects }: any) {
                   </p>
                   <Link
                     href="#"
-                    className="text-sm mt-4 flex hover:underline hover:text-green-700"
+                    className="text-sm mt-4 flex hover:underline hover:text-green-600"
                   >
                     Read More
                     <ChevronRight size={16} />
@@ -235,7 +235,7 @@ export default function Home({ projects }: any) {
                     href="#"
                     aria-label="Category"
                     title="Simple is better"
-                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-700"
+                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                   >
                     Simple is better
                   </Link>
@@ -245,7 +245,7 @@ export default function Home({ projects }: any) {
                   </p>
                   <Link
                     href="#"
-                    className="text-sm mt-4 flex hover:underline hover:text-green-700"
+                    className="text-sm mt-4 flex hover:underline hover:text-green-600"
                   >
                     Read More
                     <ChevronRight size={16} />
@@ -267,7 +267,7 @@ export default function Home({ projects }: any) {
                     href="#"
                     aria-label="Category"
                     title="Film It!"
-                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-700"
+                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                   >
                     Film It!
                   </Link>
@@ -277,7 +277,7 @@ export default function Home({ projects }: any) {
                   </p>
                   <Link
                     href="#"
-                    className="text-sm mt-4 flex hover:underline hover:text-green-700"
+                    className="text-sm mt-4 flex hover:underline hover:text-green-600"
                   >
                     Read More
                     <ChevronRight size={16} />
@@ -288,7 +288,7 @@ export default function Home({ projects }: any) {
             <div className="flex justify-center items-center mt-6">
               <Link
                 href="/blogs"
-                className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-700"
+                className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
               >
                 View More Articles
                 <ChevronRight size={32} />
@@ -306,7 +306,7 @@ export default function Home({ projects }: any) {
                   <Link
                     href="#"
                     aria-label="Article"
-                    className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-700"
+                    className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
                   >
                     <p className="font-sans text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl">
                       Ocean View Ridge - Vipingo Project Update
@@ -323,7 +323,7 @@ export default function Home({ projects }: any) {
                 </p>
                 <Link
                   href={`#`}
-                  className="flex text-sm mt-4 hover:underline hover:text-green-700"
+                  className="flex text-sm mt-4 hover:underline hover:text-green-600"
                 >
                   Read More
                   <ChevronRight size={16} />
@@ -340,7 +340,7 @@ export default function Home({ projects }: any) {
             <div className="flex justify-center items-center mt-6">
               <Link
                 href="/project-updates"
-                className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-700"
+                className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
               >
                 View More Updates
                 <ChevronRight size={32} />
