@@ -1,11 +1,10 @@
 import { AppProps } from "next/app";
 import { AnimatePresence } from "framer-motion";
-import { Button, Dropdown, Navbar } from "flowbite-react";
 import FoundersGrotesk from "@next/font/local";
 import "@/styles/globals.css";
 import "@/styles/styles.scss";
 
-import Image from "next/image";
+import Navbar from "@/components/navbar";
 
 const founderGrotesk = FoundersGrotesk({
   src: [
@@ -24,7 +23,7 @@ const founderGrotesk = FoundersGrotesk({
 export default function App({ Component, pageProps, router }: AppProps) {
   return (
     <main className={founderGrotesk.className}>
-      <Navbar fluid rounded className="fixed top-0 w-full z-10 h-16">
+      {/* <Navbar fluid rounded className="fixed top-0 w-full z-10 h-16">
         <Navbar.Brand href="/">
           <Image
             src="/optiven-logo.png"
@@ -77,7 +76,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <Button href="/contact" className="bg-green-700">
           Contact
         </Button>
-      </Navbar>
+      </Navbar> */}
+      <Navbar />
       <AnimatePresence mode="wait">
         <Component key={router.route} {...pageProps} />
       </AnimatePresence>

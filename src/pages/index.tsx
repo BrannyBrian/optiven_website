@@ -57,7 +57,7 @@ export default function Home({ projects }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
-        <main ref={container} className="mt-16">
+        <main ref={container}>
           {/* carousel */}
           <div className="mx-2 h-64 md:h-96 lg:h-screen">
             <Carousel slideInterval={3000}>
@@ -70,7 +70,6 @@ export default function Home({ projects }: any) {
               ))}
             </Carousel>
           </div>
-          {/* About */}
           {/* Projects */}
           <div className="py-16 w-screen mx-auto lg:max-w-screen-xl">
             <h1 className="text-4xl border-b m-2">Featured Projects</h1>
