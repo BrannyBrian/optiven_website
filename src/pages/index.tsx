@@ -122,7 +122,7 @@ export default function Home({ projects }: any) {
                   </div>
                   <Link
                     href={`/projects/${project.id}`}
-                    className="flex mt-4 hover:underline"
+                    className="flex mt-4 un hover:text-green-600 w-24"
                   >
                     View Project
                     <ChevronRight size={18} />
@@ -375,11 +375,6 @@ export async function getStaticProps() {
   try {
     const projectsResponse = await fetcher<Project[]>(
       `${process.env.STRAPI_URL}/projects?populate=*`
-    );
-
-    console.log(
-      projectsResponse.data[0].attributes.projectMainBanner.data.attributes
-        .formats.large.url
     );
 
     return {

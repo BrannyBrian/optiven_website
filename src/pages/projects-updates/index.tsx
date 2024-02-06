@@ -23,7 +23,7 @@ const index = () => {
               aria-label="Article"
               className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
             >
-              <p className="text-2xl font-bold leading-5">
+              <p className="text-2xl font-bold leading-5 hover:text-green-600">
                 Vuyanzi Gardens Project Update
               </p>
             </a>
@@ -56,7 +56,7 @@ const index = () => {
               aria-label="Article"
               className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
             >
-              <p className="text-2xl font-bold leading-5">
+              <p className="text-2xl font-bold leading-5 hover:text-green-600">
                 Malindi Phase 7 Project Update
               </p>
             </a>
@@ -89,7 +89,7 @@ const index = () => {
               aria-label="Article"
               className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
             >
-              <p className="text-2xl font-bold leading-5">
+              <p className="text-2xl font-bold leading-5 hover:text-green-600">
                 Achiever's Paradise Project Update
               </p>
             </a>
