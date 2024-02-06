@@ -8,7 +8,7 @@ const index = () => {
     <Stairs>
       <div className="px-4 pt-10 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
         <h1 className="text-4xl border-b mb-2">Optiven in the News</h1>
-        <div className="mt-4 grid gap-8 lg:grid-cols-3 sm:max-w-sm sm:mx-auto lg:max-w-full">
+        <div className="mt-4 grid gap-8 md:grid-cols-2 lg:grid-cols-3 sm:mx-auto">
           <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
             <img
               src="https://images.pexels.com/photos/2408666/pexels-photo-2408666.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"

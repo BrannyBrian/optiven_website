@@ -58,7 +58,7 @@ export default function Navbar() {
       >
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+            <span className="sr-only">Optiven Limited</span>
             <Image
               src="/optiven-logo.png"
               alt="Optiven Logo"
@@ -78,11 +78,14 @@ export default function Navbar() {
           </button>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <Link href="/" className="font-semibold leading-6 text-gray-900 text-lg">
+          <Link
+            href="/"
+            className="leading-6 text-gray-900 text-lg un hover:text-green-600"
+          >
             Home
           </Link>
           <Popover className="relative">
-            <Popover.Button className="text-lg font-bold flex items-center gap-x-1 leading-6 text-gray-900">
+            <Popover.Button className="text-lg flex items-center gap-x-1 leading-6 text-gray-900">
               About
               <ChevronDown
                 className="h-5 w-5 flex-none text-gray-700"
@@ -130,13 +133,13 @@ export default function Navbar() {
           </Popover>
           <Link
             href="/testimonials"
-            className="font-semibold leading-6 text-gray-900 text-lg"
+            className=" leading-6 text-gray-900 text-lg un hover:text-green-600"
           >
             Testimonials
           </Link>
           <Link
             href="/careers"
-            className="font-semibold leading-6 text-gray-900 text-lg"
+            className=" leading-6 text-gray-900 text-lg un hover:text-green-600"
           >
             Careers
           </Link>
