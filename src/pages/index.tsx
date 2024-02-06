@@ -202,7 +202,7 @@ export default function Home({ projects }: any) {
                     href="#"
                     aria-label="Category"
                     title="Visit the East"
-                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
+                    className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                   >
                     Visit the East
                   </Link>
@@ -212,7 +212,7 @@ export default function Home({ projects }: any) {
                   </p>
                   <Link
                     href="#"
-                    className="text-sm mt-4 flex hover:underline hover:text-green-600"
+                    className="text-sm mt-4 flex un w-20 hover:text-green-600"
                   >
                     Read More
                     <ChevronRight size={16} />
@@ -234,7 +234,7 @@ export default function Home({ projects }: any) {
                     href="#"
                     aria-label="Category"
                     title="Simple is better"
-                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
+                    className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                   >
                     Simple is better
                   </Link>
@@ -244,7 +244,7 @@ export default function Home({ projects }: any) {
                   </p>
                   <Link
                     href="#"
-                    className="text-sm mt-4 flex hover:underline hover:text-green-600"
+                    className="text-sm mt-4 flex un w-20 hover:text-green-600"
                   >
                     Read More
                     <ChevronRight size={16} />
@@ -266,7 +266,7 @@ export default function Home({ projects }: any) {
                     href="#"
                     aria-label="Category"
                     title="Film It!"
-                    className="mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
+                    className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                   >
                     Film It!
                   </Link>
@@ -276,7 +276,7 @@ export default function Home({ projects }: any) {
                   </p>
                   <Link
                     href="#"
-                    className="text-sm mt-4 flex hover:underline hover:text-green-600"
+                    className="text-sm mt-4 flex un w-20 hover:text-green-600"
                   >
                     Read More
                     <ChevronRight size={16} />
