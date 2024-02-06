@@ -77,13 +77,12 @@ export default function Navbar() {
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <Link href="/" className="font-semibold leading-6 text-gray-900">
+          <Link href="/" className="font-semibold leading-6 text-gray-900 text-lg">
             Home
           </Link>
           <Popover className="relative">
-            <Popover.Button className="font-bold flex items-center gap-x-1 leading-6 text-gray-900">
+            <Popover.Button className="text-lg font-bold flex items-center gap-x-1 leading-6 text-gray-900">
               About
               <ChevronDown
                 className="h-5 w-5 flex-none text-gray-700"
@@ -131,13 +130,13 @@ export default function Navbar() {
           </Popover>
           <Link
             href="/testimonials"
-            className="font-semibold leading-6 text-gray-900"
+            className="font-semibold leading-6 text-gray-900 text-lg"
           >
             Testimonials
           </Link>
           <Link
             href="/careers"
-            className="font-semibold leading-6 text-gray-900"
+            className="font-semibold leading-6 text-gray-900 text-lg"
           >
             Careers
           </Link>

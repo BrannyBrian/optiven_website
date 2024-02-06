@@ -130,7 +130,7 @@ export default function Home({ projects }: any) {
                 </div>
                 <motion.div style={{ y: sm }} className="w-full">
                   <Image
-                    src={`https://images.unsplash.com/photo-1429704658776-3d38c9990511?q=80&w=1979&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
+                    src={`http://localhost:1337${project.attributes.projectMainBanner.data.attributes.formats.large.url}`}
                     height={400}
                     width={700}
                     alt={`Image for ${project.attributes.projectName}`}
@@ -374,7 +374,12 @@ type Project = {
 export async function getStaticProps() {
   try {
     const projectsResponse = await fetcher<Project[]>(
-      `${process.env.STRAPI_URL}/projects`
+      `${process.env.STRAPI_URL}/projects?populate=*`
+    );
+
+    console.log(
+      projectsResponse.data[0].attributes.projectMainBanner.data.attributes
+        .formats.large.url
     );
 
     return {
