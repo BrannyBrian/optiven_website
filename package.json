@@ -12,6 +12,7 @@
     "@gsap/react": "^2.0.2",
     "@headlessui/react": "^1.7.18",
     "@next/font": "^14.1.0",
+    "date-fns": "^3.3.1",
     "dotenv": "^16.3.2",
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",

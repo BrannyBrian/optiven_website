@@ -86,7 +86,7 @@ export default function Home({ projects }: any) {
                         aria-label="Article"
                         className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
                       >
-                        <h1 className="font-sans text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl">
+                        <h1 className="secondary-text text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl hover:text-green-700">
                           {project.attributes.projectName}
                         </h1>
                       </Link>
@@ -322,7 +322,7 @@ export default function Home({ projects }: any) {
                 </p>
                 <Link
                   href={`#`}
-                  className="flex text-sm mt-4 hover:underline hover:text-green-600"
+                  className="flex text-sm mt-4 w-20 un hover:text-green-600"
                 >
                   Read More
                   <ChevronRight size={16} />

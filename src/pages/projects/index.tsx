@@ -1,30 +1,58 @@
-import { Card } from "flowbite-react";
+import { format } from "date-fns";
 import { fetcher } from "../../../lib/api";
 import Link from "next/link";
 import Stairs from "@/components/stairs";
+import { ChevronRight } from "react-feather";
+import Image from "next/image";
 
 const Projects = ({ projects }: any) => {
   return (
     <Stairs>
-      <div className="grid grid-cols-2 p-8 md:grid-cols-4 gap-4">
-        {projects.data.map((project: any) => (
-          <Card
-            key={project.id}
-            className="max-w-sm"
-            imgAlt={`Image for ${project.attributes.projectName}`}
-            imgSrc={`http://localhost:1337${project.attributes.projectMainBanner.data.attributes.formats.large.url}`}
-          >
-            <Link
-              href={`projects/${project.id}`}
-              className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-            >
-              {project.attributes.projectName}
-            </Link>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              {project.attributes.projectSummary}
-            </p>
-          </Card>
-        ))}
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
+          {projects.data.map((project: any) => (
+            <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
+              <Link href={`projects/${project.id}`} aria-label="Article">
+                <Image
+                  src={`http://localhost:1337${project.attributes.projectMainBanner.data.attributes.formats.large.url}`}
+                  className="object-cover w-full h-64"
+                  alt={`Image for ${project.attributes.projectName}`}
+                  height={400}
+                  width={700}
+                />
+              </Link>
+              <div className="py-5">
+                <p className="mb-2 text-xs font-semibold text-gray-600 uppercase">
+                  {format(
+                    new Date(project.attributes.publishedAt),
+                    "MMMM dd, yyyy"
+                  )}
+                </p>
+                <a
+                  href="/"
+                  aria-label="Article"
+                  className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
+                >
+                  <p className="text-2xl font-bold leading-5 hover:text-green-600">
+                    {project.attributes.projectName}
+                  </p>
+                </a>
+                <p className="mb-2 text-gray-700">
+                  {project.attributes.projectSummary}
+                </p>
+                <div className="flex items-center mt-4">
+                  <Link
+                    href={`projects/${project.id}`}
+                    className="flex un hover:text-green-700"
+                  >
+                    Read More
+                    <ChevronRight size={20} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </Stairs>
   );
