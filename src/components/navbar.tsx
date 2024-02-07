@@ -78,24 +78,30 @@ export default function Navbar() {
           />
         </div>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 justify-center w-full">
-          <Link
-            href="/diaspora"
-            className="text-sm leading-6 text-gray-900 font-semibold hover:text-green-500 pr-3 border-r"
-          >
-            Diaspora
-          </Link>
-          <Link
-            href="/past-projects"
-            className="text-sm leading-6 text-gray-900 font-semibold hover:text-green-500 pr-3 border-r"
-          >
-            Past Projects
-          </Link>
-          <Link
-            href="/project-updates"
-            className="text-sm leading-6 text-gray-900 font-semibold hover:text-green-500"
-          >
-            Project Updates
-          </Link>
+          <div className="text-center border-r">
+            <Link
+              href="/diaspora"
+              className="text-md leading-6 text-gray-900 font-semibold hover:text-green-500 mr-3  un"
+            >
+              Diaspora
+            </Link>
+          </div>
+          <div className="text-center border-r">
+            <Link
+              href="/past-projects"
+              className="text-md leading-6 text-gray-900 font-semibold hover:text-green-500 mr-3 un"
+            >
+              Past Projects
+            </Link>
+          </div>
+          <div className="text-center border-r">
+            <Link
+              href="/project-updates"
+              className="text-md leading-6 text-gray-900 font-semibold hover:text-green-500 un"
+            >
+              Project Updates
+            </Link>
+          </div>
         </div>
       </div>
       <nav
