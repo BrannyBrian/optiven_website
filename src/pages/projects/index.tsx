@@ -28,7 +28,7 @@ const Projects = ({ projects }: any) => {
                     "MMMM dd, yyyy"
                   )}
                 </p>
-                <a
+                <Link
                   href="/"
                   aria-label="Article"
                   className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
@@ -36,7 +36,7 @@ const Projects = ({ projects }: any) => {
                   <p className="text-2xl font-bold leading-5 hover:text-green-600">
                     {project.attributes.projectName}
                   </p>
-                </a>
+                </Link>
                 <p className="mb-2 text-gray-700">
                   {project.attributes.projectSummary}
                 </p>
