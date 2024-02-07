@@ -57,19 +57,22 @@ export default function Footer() {
           </p>
           <div className="flex">
             <p className="mr-1 text-gray-800">Call/SMS/WhatsApp:</p>
-            <Link
-              href={"tel:+254790300300"}
-              className="text-green-600 mr-1 un hover:cursor-pointer"
-            >
-              +254790300300
-            </Link>
-            ||
-            <Link
-              href={"tel:+254723400500"}
-              className="text-green-600 ml-1 un hover:cursor-pointer"
-            >
-              +254723400500
-            </Link>
+            <div className="text-center border-r">
+              <Link
+                href={"tel:+254790300300"}
+                className="text-green-600 mr-1 un hover:cursor-pointer"
+              >
+                +254790300300
+              </Link>
+            </div>
+            <div className="text-center">
+              <Link
+                href={"tel:+254723400500"}
+                className="text-green-600 ml-1 un hover:cursor-pointer"
+              >
+                +254723400500
+              </Link>
+            </div>
           </div>
           <div className="flex">
             <p className="mr-1 text-gray-800">Diaspora:</p>
@@ -258,7 +261,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="flex flex-col-reverse justify-between pt-5 pb-10 border-t lg:flex-row">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 font-semibold">
           © Copyright {getCurrentYear()} Optiven Limited. All rights reserved.
         </p>
         <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
