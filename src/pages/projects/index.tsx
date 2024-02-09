@@ -12,7 +12,7 @@ const Projects = ({ projects }: any) => {
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {projects.data.map((project: any) => (
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
-              <Link href={`projects/${project.id}`} aria-label="Article">
+              <Link href={`projects/${project.id}`} aria-label="Project">
                 <Image
                   src={`${project.attributes.projectMainBanner.data.attributes.formats.small.url}`}
                   height={400}
@@ -29,8 +29,8 @@ const Projects = ({ projects }: any) => {
                   )}
                 </p>
                 <Link
-                  href="/"
-                  aria-label="Article"
+                  href={`projects/${project.id}`}
+                  aria-label="Project"
                   className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
                 >
                   <p className="text-2xl font-bold leading-5 hover:text-green-600">
