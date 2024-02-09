@@ -13,9 +13,10 @@ export async function fetcher<T>(
       options.headers = {};
     }
 
+    // Include the API token in the Authorization header
     options.headers["Authorization"] = `Bearer ${process.env.STRAPI_API_TOKEN}`;
 
-    const response = await fetch(url, options);
+    const response = await fetch(process.env.STRAPI_URL+ url, options);
 
     if (!response.ok) {
       const errorData = await response.json();

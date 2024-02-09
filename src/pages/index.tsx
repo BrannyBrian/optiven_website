@@ -130,7 +130,7 @@ export default function Home({ projects }: any) {
                 </div>
                 <motion.div style={{ y: sm }} className="w-full">
                   <Image
-                    src={`http://localhost:1337${project.attributes.projectMainBanner.data.attributes.formats.large.url}`}
+                    src={`${project.attributes.projectMainBanner.data.attributes.formats.medium.url}`}
                     height={400}
                     width={700}
                     alt={`Image for ${project.attributes.projectName}`}
@@ -373,10 +373,12 @@ type Project = {
 
 export async function getStaticProps() {
   try {
-    const projectsResponse = await fetcher<Project[]>(
-      `${process.env.STRAPI_URL}/projects?populate=*`
-    );
-
+    const projectsResponse = await fetcher<Project[]>("projects?populate=*");
+    // Debugging
+    // console.log(
+    //   projectsResponse.data[0].attributes.projectMainBanner.data.attributes
+    //     .formats.medium.url
+    // );
     return {
       props: {
         projects: projectsResponse,

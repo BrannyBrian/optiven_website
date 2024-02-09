@@ -54,9 +54,7 @@ type Testimonial = {
 
 export async function getStaticProps() {
   try {
-    const testimonialsResponse = await fetcher<Testimonial[]>(
-      `${process.env.STRAPI_URL}/testimonials?populate=*`
-    );
+    const testimonialsResponse = await fetcher<Testimonial[]>("testimonials?populate=*");
 
     return {
       props: {
@@ -64,10 +62,10 @@ export async function getStaticProps() {
       },
     };
   } catch (error) {
-    console.error("Error fetching projects:", error);
+    console.error("Error fetching testimonials:", error);
     return {
       props: {
-        projects: [],
+        testimonials: [],
       },
     };
   }
