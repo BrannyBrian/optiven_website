@@ -11,7 +11,10 @@ const Projects = ({ projects }: any) => {
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {projects.data.map((project: any) => (
-            <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
+            <div
+              className="overflow-hidden transition-shadow duration-300 bg-white rounded"
+              key={project.id}
+            >
               <Link href={`projects/${project.id}`} aria-label="Project">
                 <Image
                   src={`${project.attributes.projectMainBanner.data.attributes.formats.small.url}`}

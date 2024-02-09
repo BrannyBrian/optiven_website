@@ -96,7 +96,7 @@ export default function Navbar() {
           </div>
           <div className="text-center">
             <Link
-              href="/project-updates"
+              href="/projects-updates"
               className="text-md leading-6 text-gray-900 font-semibold hover:text-green-500 un"
             >
               Project Updates
