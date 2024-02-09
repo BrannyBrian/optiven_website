@@ -14,11 +14,11 @@ const Projects = ({ projects }: any) => {
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
               <Link href={`projects/${project.id}`} aria-label="Article">
                 <Image
-                  src={`http://localhost:1337${project.attributes.projectMainBanner.data.attributes.formats.large.url}`}
-                  className="object-cover w-full h-64"
-                  alt={`Image for ${project.attributes.projectName}`}
+                  src={`${project.attributes.projectMainBanner.data.attributes.formats.small.url}`}
                   height={400}
                   width={700}
+                  alt={`Image for ${project.attributes.projectName}`}
+                  className="rounded-md w-full h-2/5 mb-4"
                 />
               </Link>
               <div className="py-5">
@@ -75,9 +75,13 @@ type Project = {
 
 export async function getStaticProps() {
   try {
-    const projectsResponse = await fetcher<Project[]>(
-      `${process.env.STRAPI_URL}/projects?populate=*`
-    );
+    const projectsResponse = await fetcher<Project[]>("projects?populate=*");
+
+    // Debugging
+    // console.log(
+    //   projectsResponse.data[0].attributes.projectMainBanner.data.attributes
+    //     .formats.medium.url
+    // );
 
     return {
       props: {
