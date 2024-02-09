@@ -77,12 +77,6 @@ export async function getStaticProps() {
   try {
     const projectsResponse = await fetcher<Project[]>("projects?populate=*");
 
-    // Debugging
-    // console.log(
-    //   projectsResponse.data[0].attributes.projectMainBanner.data.attributes
-    //     .formats.medium.url
-    // );
-
     return {
       props: {
         projects: projectsResponse,
