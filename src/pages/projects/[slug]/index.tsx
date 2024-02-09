@@ -1,9 +1,15 @@
 import React from "react";
-import { fetcher } from "../../../../lib/api";
 import { Accordion } from "flowbite-react";
 import Stairs from "@/components/stairs";
 
-const Project = ({ project }) => {
+// Define the type for the params object
+type Params = {
+  params: {
+    slug: string;
+  };
+};
+
+const Project = ({ project }: any) => {
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900">
@@ -48,35 +54,34 @@ const Project = ({ project }) => {
 
 export default Project;
 
-type Project = {
-  id: number;
-  attributes: {
-    projectName: string;
-    projectRating: number;
-    projectSummary: string;
-    projectFeatures: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  };
-};
-
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params }: Params) {
   const { slug } = params;
   try {
-    const projectDetails = await fetcher(
-      `${process.env.STRAPI_URL}/projects/${slug}`
+    const response = await fetch(
+      `${process.env.STRAPI_URL}projects/${slug}?populate=*/`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+        },
+      }
     );
+
+    if (!response.ok) {
+      throw new Error(`Error fetching project details: ${response.statusText}`);
+    }
+
+    const projectDetails = await response.json();
+
     return {
       props: {
         project: projectDetails,
       },
     };
   } catch (error) {
-    console.error("Error fetching projects:", error);
+    console.error("Error fetching project details:", error);
     return {
       props: {
-        projects: [],
+        project: null,
       },
     };
   }
