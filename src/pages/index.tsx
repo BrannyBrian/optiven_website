@@ -366,7 +366,7 @@ export async function getStaticProps() {
   try {
     const articlesResponse = await fetcher<Article[]>("articles?populate=*");
     const projectsResponse = await fetcher<Project[]>("projects?populate=*");
-    const projectUpdateResponse = await fetcher<Project[]>(
+    const projectUpdateResponse = await fetcher<ProjectUpdate[]>(
       "project-updates?populate=*"
     );
 

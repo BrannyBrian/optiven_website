@@ -1,116 +1,91 @@
+import { format } from "date-fns";
+import { fetcher } from "../../../lib/api";
 import Link from "next/link";
-import React from "react";
-import { ChevronRight } from "react-feather";
 import Stairs from "@/components/stairs";
+import { ChevronRight } from "react-feather";
+import Image from "next/image";
 
-const index = () => {
+const index = ({ projectUpdates }: any) => {
   return (
     <Stairs>
-      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
-          <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
-            <a href="/" aria-label="Article">
-              <img
-                src="https://images.unsplash.com/photo-1589302714055-5f173511f297?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                className="object-cover w-full h-64 rounded"
-                alt=""
+          {projectUpdates.data.map((projectUpdate: ProjectUpdate) => (
+            <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
+              <Image
+                src={`${projectUpdate.attributes.projectUpdateMainImage.data.attributes.formats.small.url}`}
+                height={400}
+                width={700}
+                className="object-cover w-full h-64 md:h-72 lg:h-80"
+                alt={`Image for ${projectUpdate.attributes.projectUpdateTitle}`}
               />
-            </a>
-            <div className="py-5">
-              <p className="mb-2 text-xs font-semibold text-gray-600 uppercase">
-                13 Jul 2020
-              </p>
-              <a
-                href="/"
-                aria-label="Article"
-                className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
-              >
-                <p className="text-2xl font-bold leading-5 hover:text-green-600">
-                  Vuyanzi Gardens Project Update
+              <div className="p-5 border border-t-0">
+                <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
+                  <span className="text-gray-800">
+                    {format(
+                      new Date(projectUpdate.attributes.publishedAt),
+                      "MMMM dd, yyyy"
+                    )}
+                  </span>
                 </p>
-              </a>
-              <p className="mb-2 text-gray-700">
-                Sed ut perspiciatis unde omnis iste natus error sit sed quia
-                consequuntur magni voluptatem doloremque.
-              </p>
-              <div className="flex items-center">
-                <Link href="#" className="flex un hover:text-green-700">
+                <Link
+                  href={`projectUpdates/${projectUpdate.id}`}
+                  className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
+                >
+                  {projectUpdate.attributes.projectUpdateTitle}
+                </Link>
+                <p className="mb-2 text-gray-700">
+                  {projectUpdate.attributes.projectUpdateIntro}
+                </p>
+                <Link
+                  href={`projectUpdates/${projectUpdate.id}`}
+                  className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                >
                   Read More
-                  <ChevronRight size={20} />
+                  <ChevronRight size={16} />
                 </Link>
               </div>
             </div>
-          </div>
-          <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
-            <a href="/" aria-label="Article">
-              <img
-                src="https://images.unsplash.com/photo-1433567212640-211efabc03e1?q=80&w=1773&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                className="object-cover w-full h-64 rounded"
-                alt=""
-              />
-            </a>
-            <div className="py-5">
-              <p className="mb-2 text-xs font-semibold text-gray-600 uppercase">
-                4 Nov 2020
-              </p>
-              <a
-                href="/"
-                aria-label="Article"
-                className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
-              >
-                <p className="text-2xl font-bold leading-5 hover:text-green-600">
-                  Malindi Phase 7 Project Update
-                </p>
-              </a>
-              <p className="mb-2 text-gray-700">
-                Sed ut perspiciatis unde omnis iste natus error sit sed quia
-                consequuntur magni voluptatem doloremque.
-              </p>
-              <div className="flex items-center">
-                <Link href="#" className="flex un hover:text-green-700">
-                  Read More
-                  <ChevronRight size={20} />
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="overflow-hidden transition-shadow duration-300 bg-white rounded">
-            <a href="/" aria-label="Article">
-              <img
-                src="https://images.unsplash.com/photo-1503453363464-743ee9ce1584?q=80&w=1772&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                className="object-cover w-full h-64 rounded"
-                alt=""
-              />
-            </a>
-            <div className="py-5">
-              <p className="mb-2 text-xs font-semibold text-gray-600 uppercase">
-                28 Dec 2020
-              </p>
-              <a
-                href="/"
-                aria-label="Article"
-                className="inline-block mb-3 text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
-              >
-                <p className="text-2xl font-bold leading-5 hover:text-green-600">
-                  Achiever's Paradise Project Update
-                </p>
-              </a>
-              <p className="mb-2 text-gray-700">
-                Sed ut perspiciatis unde omnis iste natus error sit sed quia
-                consequuntur magni voluptatem doloremque.
-              </p>
-              <div className="flex items-center">
-                <Link href="#" className="flex un hover:text-green-700">
-                  Read More
-                  <ChevronRight size={20} />
-                </Link>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </Stairs>
   );
 };
+
+type ProjectUpdate = {
+  id: number;
+  attributes: {
+    projectUpdateTitle: string;
+    projectUpdateIntro: string;
+    projectUpdateBody: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    isFeatured: boolean;
+    projectUpdateMainImage: any;
+  };
+};
+
+export async function getStaticProps() {
+  try {
+    const projectUpdatesResponse = await fetcher<ProjectUpdate[]>(
+      "project-updates?populate=*"
+    );
+
+    return {
+      props: {
+        projectUpdates: projectUpdatesResponse,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching project updates:", error);
+    return {
+      props: {
+        projectUpdates: [],
+      },
+    };
+  }
+}
 
 export default index;
