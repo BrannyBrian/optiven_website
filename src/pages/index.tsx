@@ -286,7 +286,7 @@ export default function Home({ projects }: any) {
             </div>
             <div className="flex justify-center items-center mt-6">
               <Link
-                href="/blogs"
+                href="/articles"
                 className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
               >
                 View More Articles
