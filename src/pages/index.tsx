@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { format } from "date-fns";
 
-export default function Home({ projects, articles }: any) {
+export default function Home({ projects, articles, projectUpdate }: any) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const container = useRef(null);
 
@@ -242,55 +242,65 @@ export default function Home({ projects, articles }: any) {
           </div>
           {/* Project Update */}
           <div className="px-4 py-8 mx-2 bg-black rounded-lg text-white sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-            <div className="px-4 pb-16 flex flex-col-reverse border-b lg:flex-row xl:flex-row">
-              <div>
-                <p className="my-2 text-xs font-semibold tracking-wide text-gray-800 uppercase">
-                  Project Update
-                </p>
-                <div className="my-3">
-                  <Link
-                    href="#"
-                    aria-label="Article"
-                    className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
-                  >
-                    <p className="font-sans text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl">
-                      Ocean View Ridge - Vipingo Project Update
-                    </p>
-                  </Link>
+            {projectUpdate.data
+              .filter(
+                (projectUpdate: ProjectUpdate) =>
+                  projectUpdate.attributes.isFeatured === true
+              )
+              .map((projectUpdate: ProjectUpdate) => (
+                <div>
+                  <div className="px-4 pb-16 flex flex-col-reverse border-b lg:flex-row xl:flex-row">
+                    <div>
+                      <p className="my-2 text-xs font-semibold tracking-wide text-gray-300 uppercase">
+                        Project Update
+                      </p>
+                      <div className="my-3">
+                        <Link
+                          href="#"
+                          aria-label="Article"
+                          className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
+                        >
+                          <p className="font-sans text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl text-gray-400">
+                            {projectUpdate.attributes.projectUpdateTitle}
+                          </p>
+                        </Link>
+                      </div>
+                      <p className="my-2 text-xs font-semibold tracking-wide text-gray-300 uppercase">
+                        {format(
+                          new Date(projectUpdate.attributes.publishedAt),
+                          "MMMM dd, yyyy"
+                        )}
+                      </p>
+                      <p className="mb-4 text-base w-full md:w-2/3 lg:w-2/3 text-gray-400 md:text-lg">
+                        {projectUpdate.attributes.projectUpdateIntro}
+                      </p>
+                      <Link
+                        href={`projects-updates/${projectUpdate.id}`}
+                        className="flex text-sm mt-4 w-24 un hover:text-green-600 font-bold tracking-wide"
+                      >
+                        Read More
+                        <ChevronRight size={16} />
+                      </Link>
+                    </div>
+                    <Image
+                      src={`${projectUpdate.attributes.projectUpdateMainImage.data.attributes.formats.small.url}`}
+                      height={400}
+                      width={700}
+                      className="w-full h-64 md:h-auto"
+                      alt={`Image for ${projectUpdate.attributes.projectUpdateTitle}`}
+                    />
+                  </div>
+                  <div className="flex justify-center items-center mt-6">
+                    <Link
+                      href="/projects-updates"
+                      className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
+                    >
+                      View More Updates
+                      <ChevronRight size={32} />
+                    </Link>
+                  </div>
                 </div>
-                <p className="my-2 text-xs font-semibold tracking-wide text-gray-800 uppercase">
-                  20 Nov 2020
-                </p>
-                <p className="mb-4 text-base w-full md:w-2/3 lg:w-2/3 text-gray-700 md:text-lg">
-                  Call it magical realism, call it realistic fantasy—call it
-                  whatever you want, but Arimah's playfully subversive style is
-                  wholly her own.
-                </p>
-                <Link
-                  href={`#`}
-                  className="flex text-sm mt-4 w-20 un hover:text-green-600"
-                >
-                  Read More
-                  <ChevronRight size={16} />
-                </Link>
-              </div>
-              <Image
-                src={`https://images.unsplash.com/photo-1429704658776-3d38c9990511?q=80&w=1979&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
-                height={400}
-                width={700}
-                alt={`Project update image`}
-                className="rounded-md mb-4"
-              />
-            </div>
-            <div className="flex justify-center items-center mt-6">
-              <Link
-                href="/projects-updates"
-                className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
-              >
-                View More Updates
-                <ChevronRight size={32} />
-              </Link>
-            </div>
+              ))}
           </div>
           {/* Contact */}
         </main>
@@ -334,14 +344,33 @@ type Project = {
   };
 };
 
+type ProjectUpdate = {
+  id: number;
+  attributes: {
+    projectUpdateTitle: string;
+    projectUpdateIntro: string;
+    projectUpdateBody: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    isFeatured: boolean;
+    projectUpdateMainImage: any;
+  };
+};
+
 export async function getStaticProps() {
   try {
     const articlesResponse = await fetcher<Article[]>("articles?populate=*");
     const projectsResponse = await fetcher<Project[]>("projects?populate=*");
+    const projectUpdateResponse = await fetcher<Project[]>(
+      "project-updates?populate=*"
+    );
+
     return {
       props: {
         projects: projectsResponse,
         articles: articlesResponse,
+        projectUpdate: projectUpdateResponse,
       },
     };
   } catch (error) {
