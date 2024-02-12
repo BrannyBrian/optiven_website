@@ -47,8 +47,6 @@ export async function getServerSideProps({ params }: Params) {
 
     const articleDetails = await response.json();
 
-    console.log(articleDetails);
-
     return {
       props: {
         article: articleDetails,

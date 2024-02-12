@@ -46,8 +46,6 @@ export async function getServerSideProps({ params }: Params) {
 
     const projectUpdateDetails = await response.json();
 
-    console.log(projectUpdateDetails);
-
     return {
       props: {
         projectUpdate: projectUpdateDetails,
