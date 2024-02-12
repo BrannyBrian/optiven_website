@@ -29,7 +29,7 @@ const index = ({ projectUpdates }: any) => {
                   </span>
                 </p>
                 <Link
-                  href={`projectUpdates/${projectUpdate.id}`}
+                  href={`projects-updates/${projectUpdate.id}`}
                   className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                 >
                   {projectUpdate.attributes.projectUpdateTitle}
@@ -38,7 +38,7 @@ const index = ({ projectUpdates }: any) => {
                   {projectUpdate.attributes.projectUpdateIntro}
                 </p>
                 <Link
-                  href={`projectUpdates/${projectUpdate.id}`}
+                  href={`projects-updates/${projectUpdate.id}`}
                   className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
                 >
                   Read More
