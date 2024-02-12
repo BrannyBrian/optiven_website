@@ -74,7 +74,7 @@ export default function Home({ projects, articles }: any) {
           {/* Projects */}
           <div className="py-16 w-screen mx-auto lg:max-w-screen-xl">
             <h1 className="text-4xl border-b m-2">Featured Projects</h1>
-            {projects.data.map((project: any) => (
+            {projects.data.map((project: Project) => (
               <div
                 className="py-8 px-4 flex flex-col-reverse border-b lg:flex-row xl:flex-row"
                 key={project.id}
@@ -99,26 +99,19 @@ export default function Home({ projects, articles }: any) {
                       {project.attributes.projectSummary}
                     </p>
                     <div className="w-full -ml-2 grid grid-cols-3 gap-1 my-2 lg:w-2/3">
-                      <div className="flex items-center border p-2 text-gray-700 rounded-xl">
-                        <CheckCircle color="black" size={12} />
-                        <h1 className="ml-1 text-xs">Mesh Fence</h1>
-                      </div>
-                      <div className="flex items-center border p-2 text-gray-700 rounded-xl">
-                        <CheckCircle color="black" size={12} />
-                        <h1 className="ml-1 text-xs">Electricity</h1>
-                      </div>
-                      <div className="flex items-center border p-2 text-gray-700 rounded-xl">
-                        <CheckCircle color="black" size={12} />
-                        <h1 className="ml-1 text-xs">Water on Site</h1>
-                      </div>
-                      <div className="flex items-center border p-2 text-gray-700 rounded-xl">
-                        <CheckCircle color="black" size={12} />
-                        <h1 className="ml-1 text-xs">Mesh Fence</h1>
-                      </div>
-                      <div className="flex items-center border p-2 text-gray-700 rounded-xl">
-                        <CheckCircle color="black" size={12} />
-                        <h1 className="ml-1 text-xs">Mesh Fence</h1>
-                      </div>
+                      {project.attributes.value_additions.data.map(
+                        (valueAddition: any) => (
+                          <div
+                            className="flex items-center border p-2 text-gray-700 rounded-xl"
+                            key={valueAddition.id}
+                          >
+                            <CheckCircle color="black" size={12} />
+                            <h1 className="ml-1 text-xs">
+                              {valueAddition.attributes.valueAdditionTitle}
+                            </h1>
+                          </div>
+                        )
+                      )}
                     </div>
                   </div>
                   <Link
@@ -140,6 +133,7 @@ export default function Home({ projects, articles }: any) {
                 </motion.div>
               </div>
             ))}
+
             <div className="flex justify-center items-center mt-6">
               <div className="flex justify-center items-center mt-6">
                 <Link
@@ -188,49 +182,53 @@ export default function Home({ projects, articles }: any) {
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
             <h1 className="text-4xl border-b mb-2">Optiven in the News</h1>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
-              {articles.data.map((article: any) => (
-                <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
-                  <Image
-                    src={`${article.attributes.mainArticleImage.data.attributes.formats.small.url}`}
-                    height={400}
-                    width={700}
-                    className="object-cover w-full h-64 md:h-72 lg:h-80"
-                    alt={`Image for ${article.attributes.articleName}`}
-                  />
-                  <div className="p-5 border border-t-0">
-                    <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
-                      {
-                        article.attributes.article_categories.data[0].attributes
-                          .articleCategoryName
-                      }
-                      <span className="text-gray-800">
-                        {" "}
-                        —{" "}
-                        {format(
-                          new Date(article.attributes.publishedAt),
-                          "MMMM dd, yyyy"
-                        )}
-                      </span>
-                    </p>
-                    <Link
-                      href={`articles/${article.id}`}
-                      className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
-                    >
-                      {article.attributes.articleTitle}
-                    </Link>
-                    <p className="mb-2 text-gray-700">
-                      {article.attributes.articleIntro}
-                    </p>
-                    <Link
-                      href={`articles/${article.id}`}
-                      className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
-                    >
-                      Read More
-                      <ChevronRight size={16} />
-                    </Link>
+              {articles.data
+                .filter(
+                  (article: Article) => article.attributes.isFeatured === true
+                )
+                .map((article: Article) => (
+                  <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
+                    <Image
+                      src={`${article.attributes.mainArticleImage.data.attributes.formats.small.url}`}
+                      height={400}
+                      width={700}
+                      className="object-cover w-full h-64 md:h-72 lg:h-80"
+                      alt={`Image for ${article.attributes.articleTitle}`}
+                    />
+                    <div className="p-5 border border-t-0">
+                      <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
+                        {
+                          article.attributes.article_categories.data[0]
+                            .attributes.articleCategoryName
+                        }
+                        <span className="text-gray-800">
+                          {" "}
+                          —{" "}
+                          {format(
+                            new Date(article.attributes.publishedAt),
+                            "MMMM dd, yyyy"
+                          )}
+                        </span>
+                      </p>
+                      <Link
+                        href={`articles/${article.id}`}
+                        className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
+                      >
+                        {article.attributes.articleTitle}
+                      </Link>
+                      <p className="mb-2 text-gray-700">
+                        {article.attributes.articleIntro}
+                      </p>
+                      <Link
+                        href={`articles/${article.id}`}
+                        className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                      >
+                        Read More
+                        <ChevronRight size={16} />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
             <div className="flex justify-center items-center mt-6">
               <Link
@@ -311,6 +309,9 @@ type Article = {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    isFeatured: boolean;
+    mainArticleImage: any;
+    article_categories: any;
   };
 };
 
@@ -320,7 +321,7 @@ type Project = {
     projectName: string;
     projectRating: number;
     projectSummary: string;
-    projectFeatures: string;
+    projectMainBanner: any;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
@@ -329,6 +330,7 @@ type Project = {
     halfAcrePrice: number;
     acrePrice: number;
     eighthAcrePrice: number;
+    value_additions: any;
   };
 };
 
