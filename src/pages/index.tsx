@@ -74,65 +74,69 @@ export default function Home({ projects, articles, projectUpdate }: any) {
           {/* Projects */}
           <div className="py-16 w-screen mx-auto lg:max-w-screen-xl">
             <h1 className="text-4xl border-b m-2">Featured Projects</h1>
-            {projects.data.map((project: Project) => (
-              <div
-                className="py-8 px-4 flex flex-col-reverse border-b lg:flex-row xl:flex-row"
-                key={project.id}
-              >
-                <div className="flex flex-col justify-between w-full md:w-:-1/2">
-                  <div>
-                    <div className="mt-3">
-                      <Link
-                        href={`/projects/${project.id}`}
-                        aria-label="Article"
-                        className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
-                      >
-                        <h1 className="secondary-text text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl hover:text-green-700">
-                          {project.attributes.projectName}
-                        </h1>
-                      </Link>
-                    </div>
+            {projects.data
+              .filter(
+                (project: Project) => project.attributes.isFeatured === true
+              )
+              .map((project: Project) => (
+                <div
+                  className="py-8 px-4 flex flex-col-reverse border-b lg:flex-row xl:flex-row"
+                  key={project.id}
+                >
+                  <div className="flex flex-col justify-between w-full md:w-:-1/2">
                     <div>
-                      <StarRating rating={project.attributes.projectRating} />
+                      <div className="mt-3">
+                        <Link
+                          href={`/projects/${project.id}`}
+                          aria-label="Article"
+                          className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
+                        >
+                          <h1 className="secondary-text text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl hover:text-green-700">
+                            {project.attributes.projectName}
+                          </h1>
+                        </Link>
+                      </div>
+                      <div>
+                        <StarRating rating={project.attributes.projectRating} />
+                      </div>
+                      <p className="mb-4 text-sm w-full md:w-2/3 lg:w-2/3 text-gray-700 md:text-lg">
+                        {project.attributes.projectSummary}
+                      </p>
+                      <div className="w-full -ml-2 grid grid-cols-3 gap-1 my-2 lg:w-2/3">
+                        {project.attributes.value_additions.data.map(
+                          (valueAddition: any) => (
+                            <div
+                              className="flex items-center border p-2 text-gray-700 rounded-xl"
+                              key={valueAddition.id}
+                            >
+                              <CheckCircle color="black" size={12} />
+                              <h1 className="ml-1 text-xs">
+                                {valueAddition.attributes.valueAdditionTitle}
+                              </h1>
+                            </div>
+                          )
+                        )}
+                      </div>
                     </div>
-                    <p className="mb-4 text-sm w-full md:w-2/3 lg:w-2/3 text-gray-700 md:text-lg">
-                      {project.attributes.projectSummary}
-                    </p>
-                    <div className="w-full -ml-2 grid grid-cols-3 gap-1 my-2 lg:w-2/3">
-                      {project.attributes.value_additions.data.map(
-                        (valueAddition: any) => (
-                          <div
-                            className="flex items-center border p-2 text-gray-700 rounded-xl"
-                            key={valueAddition.id}
-                          >
-                            <CheckCircle color="black" size={12} />
-                            <h1 className="ml-1 text-xs">
-                              {valueAddition.attributes.valueAdditionTitle}
-                            </h1>
-                          </div>
-                        )
-                      )}
-                    </div>
+                    <Link
+                      href={`/projects/${project.id}`}
+                      className="flex mt-4 un hover:text-green-600 w-24"
+                    >
+                      View Project
+                      <ChevronRight size={18} />
+                    </Link>
                   </div>
-                  <Link
-                    href={`/projects/${project.id}`}
-                    className="flex mt-4 un hover:text-green-600 w-24"
-                  >
-                    View Project
-                    <ChevronRight size={18} />
-                  </Link>
+                  <motion.div style={{ y: sm }} className="w-full">
+                    <Image
+                      src={`${project.attributes.projectMainBanner.data.attributes.formats.medium.url}`}
+                      height={400}
+                      width={700}
+                      alt={`Image for ${project.attributes.projectName}`}
+                      className="rounded-md w-full h-auto mb-4"
+                    />
+                  </motion.div>
                 </div>
-                <motion.div style={{ y: sm }} className="w-full">
-                  <Image
-                    src={`${project.attributes.projectMainBanner.data.attributes.formats.medium.url}`}
-                    height={400}
-                    width={700}
-                    alt={`Image for ${project.attributes.projectName}`}
-                    className="rounded-md w-full h-auto mb-4"
-                  />
-                </motion.div>
-              </div>
-            ))}
+              ))}
 
             <div className="flex justify-center items-center mt-6">
               <div className="flex justify-center items-center mt-6">
