@@ -1,5 +1,4 @@
 import React from "react";
-import { Accordion } from "flowbite-react";
 import Stairs from "@/components/stairs";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -21,7 +20,7 @@ const Project = ({ project }: any) => {
           <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
             {project.data.attributes.projectSummary}
           </p>
-          <Markdown className="text-start">
+          <Markdown className="text-start" remarkPlugins={[remarkGfm]}>
             {project.data.attributes.projectContent}
           </Markdown>
         </div>
