@@ -9,7 +9,7 @@ type Params = {
   };
 };
 
-const Project = ({ project }: any) => {
+const index = ({ project }: any) => {
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900">
@@ -28,8 +28,6 @@ const Project = ({ project }: any) => {
     </Stairs>
   );
 };
-
-export default Project;
 
 export async function getServerSideProps({ params }: Params) {
   const { slug } = params;
@@ -63,3 +61,5 @@ export async function getServerSideProps({ params }: Params) {
     };
   }
 }
+
+export default index;
