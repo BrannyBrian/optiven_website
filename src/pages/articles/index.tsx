@@ -8,7 +8,7 @@ import Image from "next/image";
 const index = ({ articles }: any) => {
   return (
     <Stairs>
-      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {articles.data.map((article: any) => (
             <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
@@ -16,7 +16,7 @@ const index = ({ articles }: any) => {
                 src={`${article.attributes.mainArticleImage.data.attributes.formats.small.url}`}
                 height={400}
                 width={700}
-                className="object-cover w-full h-64"
+                className="object-cover w-full h-64 md:h-72 lg:h-80"
                 alt={`Image for ${article.attributes.articleName}`}
               />
               <div className="p-5 border border-t-0">
@@ -45,7 +45,7 @@ const index = ({ articles }: any) => {
                 </p>
                 <Link
                   href={`articles/${article.id}`}
-                  className="text-sm mt-4 flex un w-20 hover:text-green-600"
+                  className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
                 >
                   Read More
                   <ChevronRight size={16} />
