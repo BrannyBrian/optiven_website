@@ -55,47 +55,6 @@ const index = ({ projects }: any) => {
               </div>
             </div>
           ))}
-          {/* <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
-            <Image
-              src={`${article.attributes.mainArticleImage.data.attributes.formats.small.url}`}
-              height={400}
-              width={700}
-              className="object-cover w-full h-64 md:h-72 lg:h-80"
-              alt={`Image for ${article.attributes.articleName}`}
-            />
-            <div className="p-5 border border-t-0">
-              <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
-                {
-                  article.attributes.articleCategory.data[0].attributes
-                    .articleCategoryName
-                }
-                <span className="text-gray-800">
-                  {" "}
-                  —{" "}
-                  {format(
-                    new Date(article.attributes.publishedAt),
-                    "MMMM dd, yyyy"
-                  )}
-                </span>
-              </p>
-              <Link
-                href={`articles/${article.id}`}
-                className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
-              >
-                {article.attributes.articleTitle}
-              </Link>
-              <p className="mb-2 text-gray-700">
-                {article.attributes.articleIntro}
-              </p>
-              <Link
-                href={`articles/${article.id}`}
-                className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
-              >
-                Read More
-                <ChevronRight size={16} />
-              </Link>
-            </div>
-          </div> */}
         </div>
       </div>
     </Stairs>

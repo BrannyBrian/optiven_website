@@ -1,51 +1,17 @@
 // Import necessary dependencies
 import { useState } from "react";
 
-// Dummy data for simulating jobs
-const jobs = [
-  { title: "Software Engineer", location: "Kampala" },
-  { title: "Web Developer", location: "Nairobi" },
-  { title: "Data Scientist", location: "Dar-es-Salaam" },
-  { title: "UX Designer", location: "Kigali" },
-  { title: "Frontend Developer", location: "Malindi" },
-  { title: "Mobile App Developer", location: "Nairobi" },
-  { title: "Sales Representative", location: "Nairobi" },
-  { title: "Marketing Specialist", location: "Nairobi" },
-  { title: "Customer Support Representative", location: "Nairobi" },
-  { title: "Project Manager", location: "Nairobi" },
-  { title: "HR Consultant", location: "Nairobi" },
-  { title: "Finance Analyst", location: "Dodoma" },
-  { title: "Architect", location: "Nairobi" },
-  { title: "Civil Engineer", location: "Nairobi" },
-  { title: "Graphic Designer", location: "Nairobi" },
-  { title: "Event Planner", location: "Nairobi" },
-  { title: "Tourism Coordinator", location: "Nairobi" },
-  { title: "Education Consultant", location: "Nairobi" },
-  { title: "Healthcare Administrator", location: "Kisumu" },
-  { title: "Restaurant Manager", location: "Nairobi" },
-];
-
 // Your existing code
 import Stairs from "@/components/stairs";
 import Head from "next/head";
-import { Button, Card, Select, TextInput } from "flowbite-react";
+import { Card, Select, TextInput } from "flowbite-react";
 import Link from "next/link";
 import { Briefcase, ChevronRight, MapPin } from "react-feather";
+import { fetcher } from "../../../lib/api";
 
-export default function Careers() {
-  // State for search inputs
+export default function Careers({ careers, locations }: any) {
   const [jobTitle, setJobTitle] = useState("");
   const [jobLocation, setJobLocation] = useState("");
-
-  // Unique city names from the jobs array
-  const uniqueLocations = [...new Set(jobs.map((job) => job.location))];
-
-  // Filtered jobs based on search inputs
-  const filteredJobs = jobs.filter(
-    (job) =>
-      job.title.toLowerCase().includes(jobTitle.toLowerCase()) &&
-      (jobLocation === "" || job.location === jobLocation)
-  );
 
   return (
     <>
@@ -96,28 +62,32 @@ export default function Careers() {
               title="job-select"
             >
               <option value="">All Locations</option>
-              {uniqueLocations?.map((location: string, index: number) => (
-                <option key={index} value={location}>
-                  {location}
+              {locations.data.map((location: any, index: number) => (
+                <option key={index} value={location.attributes.jobLocation}>
+                  {location.attributes.jobLocation}
                 </option>
               ))}
             </Select>
           </div>
           {/* List of jobs */}
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {filteredJobs.map((job, index) => (
-              <Card className="py-4">
+            {careers.data.map((job: Career, index: number) => (
+              <Card className="py-4" key={index}>
                 <div className="flex space-x-2">
                   <Briefcase />
-                  <h5 className="text-2xl font-bold">{job.title}</h5>
+                  <h5 className="text-2xl font-bold">
+                    {job.attributes.jobTitle}
+                  </h5>
                 </div>
                 <div className="flex space-x-2">
                   <MapPin size={16} />
-                  <p className="flex items-center text-sm">{job.location}</p>
+                  <p className="flex items-center text-sm">
+                    {job.attributes.jobLocations.data[0].attributes.jobLocation}
+                  </p>
                 </div>
                 <div className="flex justify-end hover:text-green-600 hover:underline">
                   <Link
-                    href="#"
+                    href={`careers/${job.id}`}
                     className="flex items-center text-xs justify-end"
                   >
                     View More
@@ -131,4 +101,51 @@ export default function Careers() {
       </Stairs>
     </>
   );
+}
+
+type Career = {
+  id: number;
+  attributes: {
+    jobTitle: string;
+    isOpen: boolean;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    jobLocations: any;
+    jobDescription: any;
+  };
+};
+
+type JobLocation = {
+  id: number;
+  attributes: {
+    jobTitle: string;
+    careers: any;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  };
+};
+
+export async function getStaticProps() {
+  try {
+    const careersResponse = await fetcher<Career[]>("careers?populate=*");
+    const locationsResponse = await fetcher<JobLocation[]>(
+      "job-locations?populate=*"
+    );
+
+    return {
+      props: {
+        careers: careersResponse,
+        locations: locationsResponse,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching careers:", error);
+    return {
+      props: {
+        careers: [],
+      },
+    };
+  }
 }
