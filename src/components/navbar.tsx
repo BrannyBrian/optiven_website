@@ -1,10 +1,10 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-import { ChevronDown, Info, Menu, Users, X } from "react-feather";
+import { AlignRight, ChevronDown, Info, Users, X } from "react-feather";
 import Image from "next/image";
 import Link from "next/link";
 
-const products = [
+const aboutMenuItems = [
   {
     name: "Who We Are",
     description: "Get a better understanding of what we're about",
@@ -52,6 +52,7 @@ export default function Navbar() {
 
   return (
     <header className="bg-white">
+      {/* Top banner */}
       <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
         <div
           className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
@@ -108,6 +109,7 @@ export default function Navbar() {
         className="mx-auto flex items-center justify-between p-4"
         aria-label="Global"
       >
+        {/* Logo */}
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Optiven Limited</span>
@@ -119,6 +121,7 @@ export default function Navbar() {
             />
           </Link>
         </div>
+        {/* Mobile Hamburger */}
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -126,9 +129,10 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open Main Menu</span>
-            <Menu className="h-6 w-6" aria-hidden="true" />
+            <AlignRight className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
+        {/* Menu Links */}
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Link
             href="/"
@@ -156,7 +160,7 @@ export default function Navbar() {
             >
               <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                 <div className="p-4">
-                  {products.map((item) => (
+                  {aboutMenuItems.map((item) => (
                     <div
                       key={item.name}
                       className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
@@ -255,14 +259,14 @@ export default function Navbar() {
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...products].map((item) => (
+                        {[...aboutMenuItems].map((aboutMenuItem) => (
                           <Disclosure.Button
-                            key={item.name}
+                            key={aboutMenuItem.name}
                             as="a"
-                            href={item.href}
+                            href={aboutMenuItem.href}
                             className="block rounded-lg py-2 pl-6 pr-3 text-gray-900 hover:bg-gray-50"
                           >
-                            - {item.name}
+                            - {aboutMenuItem.name}
                           </Disclosure.Button>
                         ))}
                       </Disclosure.Panel>
