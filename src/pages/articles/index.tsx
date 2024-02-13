@@ -21,13 +21,10 @@ const index = ({ articles }: any) => {
               />
               <div className="p-5 border border-t-0">
                 <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
-                  {
-                    article.attributes.article_categories.data[0].attributes
-                      .articleCategoryName
-                  }
+                  {article.attributes.articleCategory.data.map(
+                    (category: any) => `${category.attributes.articleCategoryName} — `
+                  )}
                   <span className="text-gray-800">
-                    {" "}
-                    —{" "}
                     {format(
                       new Date(article.attributes.publishedAt),
                       "MMMM dd, yyyy"

@@ -66,7 +66,7 @@ const index = ({ projects }: any) => {
             <div className="p-5 border border-t-0">
               <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
                 {
-                  article.attributes.article_categories.data[0].attributes
+                  article.attributes.articleCategory.data[0].attributes
                     .articleCategoryName
                 }
                 <span className="text-gray-800">

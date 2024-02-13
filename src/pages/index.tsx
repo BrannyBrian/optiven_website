@@ -103,7 +103,7 @@ export default function Home({ projects, articles, projectUpdate }: any) {
                         {project.attributes.projectSummary}
                       </p>
                       <div className="w-full -ml-2 grid grid-cols-3 gap-1 my-2 lg:w-2/3">
-                        {project.attributes.value_additions.data.map(
+                        {project.attributes.valueAdditions.data.map(
                           (valueAddition: any) => (
                             <div
                               className="flex items-center border p-2 text-gray-700 rounded-xl"
@@ -201,13 +201,11 @@ export default function Home({ projects, articles, projectUpdate }: any) {
                     />
                     <div className="p-5 border border-t-0">
                       <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
-                        {
-                          article.attributes.article_categories.data[0]
-                            .attributes.articleCategoryName
-                        }
+                        {article.attributes.articleCategory.data.map(
+                          (category: any) =>
+                            `${category.attributes.articleCategoryName} — `
+                        )}
                         <span className="text-gray-800">
-                          {" "}
-                          —{" "}
                           {format(
                             new Date(article.attributes.publishedAt),
                             "MMMM dd, yyyy"
@@ -325,7 +323,7 @@ type Article = {
     publishedAt: string;
     isFeatured: boolean;
     mainArticleImage: any;
-    article_categories: any;
+    articleCategory: any;
   };
 };
 
@@ -344,7 +342,7 @@ type Project = {
     halfAcrePrice: number;
     acrePrice: number;
     eighthAcrePrice: number;
-    value_additions: any;
+    valueAdditions: any;
   };
 };
 

@@ -58,7 +58,6 @@ const aboutMenuItems = [
   },
 ];
 
-
 const infoCenterMenuItems = [
   {
     name: "Projects Updates",
@@ -81,7 +80,7 @@ const infoCenterMenuItems = [
   {
     name: "Blogs & Company News",
     description: "Connect with third-party tools",
-    href: "/news-and-blogs",
+    href: "/articles",
     icon: Rss,
   },
   {
