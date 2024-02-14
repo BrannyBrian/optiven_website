@@ -283,7 +283,7 @@ export default function About() {
                     To provide affordable prime properties to professionals and
                     business people.
                   </p>
-                  <hr className="w-96 my-6 border-gray-300" />
+                  <hr className="w-96 my-4 border-gray-300" />
                 </div>
               </div>
               <div className="flex">
@@ -291,7 +291,7 @@ export default function About() {
                   <p className="text-lg text-white">
                     To link up homeowners and developers with the market
                   </p>
-                  <hr className="w-96 my-6 border-gray-300" />
+                  <hr className="w-96 my-4 border-gray-300" />
                 </div>
               </div>
               <div className="flex">
@@ -300,7 +300,7 @@ export default function About() {
                     To give back to the community through our soft arm, Optiven
                     Foundation
                   </p>
-                  <hr className="w-96 my-6 border-gray-300" />
+                  <hr className="w-96 my-4 border-gray-300" />
                 </div>
               </div>
               <div className="flex">
@@ -308,7 +308,7 @@ export default function About() {
                   <p className="text-lg text-white">
                     To create 30,000 jobs by the year 2030
                   </p>
-                  <hr className="w-96 my-6 border-gray-300" />
+                  <hr className="w-96 my-4 border-gray-300" />
                 </div>
               </div>
               <div className="flex">
@@ -365,14 +365,7 @@ export default function About() {
             </div>
           </div>
         </div>
-        <span className="relative flex justify-center">
-          <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-transparent bg-gradient-to-r from-transparent via-gray-500 to-transparent opacity-75"></div>
-
-          <span className="relative z-10 bg-white px-6">
-            Inspiring Possibilities
-          </span>
-        </span>
-        <div className="py-10 px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+        <div className="py-10 px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20  bg-green-600 text-gray-200">
           <div className="flex flex-col items-center justify-between lg:flex-row-reverse">
             <div className="mb-10 lg:max-w-xl">
               <div className="mb-6">
