@@ -10,7 +10,12 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { format } from "date-fns";
 
-export default function Home({ projects, articles, projectUpdate }: any) {
+export default function Home({
+  projects,
+  articles,
+  projectUpdate,
+  carouselImages,
+}: any) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const container = useRef(null);
 
@@ -190,7 +195,7 @@ export default function Home({ projects, articles, projectUpdate }: any) {
           </div>
           {/* Articles */}
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
-            <h1 className="text-4xl border-b mb-2">Optiven in the News</h1>
+            <h1 className="text-4xl border-b mb-4">Optiven in the News</h1>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
               {articles.data
                 .filter(
@@ -333,6 +338,18 @@ type Article = {
   };
 };
 
+type CarouselImage = {
+  id: number;
+  attributes: {
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    locale: string;
+    images: any;
+    localizations: any;
+  };
+};
+
 type Project = {
   id: number;
   attributes: {
@@ -369,15 +386,19 @@ type ProjectUpdate = {
 export async function getStaticProps() {
   try {
     const articlesResponse = await fetcher<Article[]>("articles?populate=*");
+    const carouselsResponse = await fetcher<CarouselImage[]>("carousels?populate=*");
     const projectsResponse = await fetcher<Project[]>("projects?populate=*");
     const projectUpdateResponse = await fetcher<ProjectUpdate[]>(
       "project-updates?populate=*"
     );
 
+    console.log(carouselsResponse.data[0].attributes.images.data);
+
     return {
       props: {
-        projects: projectsResponse,
         articles: articlesResponse,
+        carouselImages: carouselsResponse,
+        projects: projectsResponse,
         projectUpdate: projectUpdateResponse,
       },
     };
@@ -385,8 +406,10 @@ export async function getStaticProps() {
     console.error("An error occurred while fetching:", error);
     return {
       props: {
-        projects: [],
         articles: [],
+        carousels: [],
+        projects: [],
+        projectUpdate: [],
       },
     };
   }
