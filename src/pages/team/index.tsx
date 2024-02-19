@@ -1,8 +1,9 @@
 import Stairs from "@/components/stairs";
 import Head from "next/head";
 import Image from "next/image";
+import { fetcher } from "../../../lib/api";
 
-export default function Team() {
+export default function Team({ teams }: any) {
   return (
     <>
       <Head>
@@ -12,26 +13,28 @@ export default function Team() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
-        <div className="p-8 grid gap-10 grid-cols-1 lg:grid-cols-2">
-          {teamMembers.map((member, index) => (
+        <div className="p-8 grid gap-10 grid-cols-1 lg:grid-cols-2 lg:p-16">
+          {teams.data.map((member: Team, index: number) => (
             <div
               key={index}
-              className="bg-base-100 shadow-xl flex flex-col md:flex-row"
+              className="bg-base-100 shadow-md rounded-b-xl md:rounded-r-xl flex flex-col md:flex-row lg:rounded-r-xl"
             >
               <div className="md:w-1/2">
                 <Image
-                  src={member.image}
-                  alt={member.name}
+                  src={`${member.attributes.teamMemberImage.data.attributes.formats.small.url}`}
+                  alt={`Image for ${member.attributes.teamMember}`}
                   width={400}
                   height={300}
-                  className="object-cover w-full"
+                  className="object-cover w-full sm:rounded-t-xl md:rounded-l-xl lg:rounded-l-xl"
                 />
               </div>
               <div className="md:w-1/2 p-8">
                 <h2 className="font-semibold text-lg uppercase">
-                  {member.name}
+                  {member.attributes.teamMember}
                 </h2>
-                <p className="text-sm">{member.description}</p>
+                <p className="text-sm">
+                  {member.attributes.teamMemberDescription}
+                </p>
               </div>
             </div>
           ))}
@@ -41,35 +44,34 @@ export default function Team() {
   );
 }
 
-// Define your team members data
-const teamMembers = [
-  {
-    name: "George Wachiuri",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description:
-      "George is the CEO of Optiven Limited. He is currently a PhD candidate at the Jomo Kenyatta University of Agriculture and Technology. He holds a Masters’s degree in Business Administration (University of Nairobi), and a Bachelor of Commerce (Marketing option) Degree from University of Nairobi. He is a Certified Public Accountant – CPA (K) and is a former Lecturer at Daystar University. His entrepreneurial spirit developed early, and was awarded the Entreprenuer of the year 1997 by the University of Nairobi. He has over 21 years working experience.",
-  },
-  {
-    name: "George Wachiuri",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description:
-      "George is the CEO of Optiven Limited. He is currently a PhD candidate at the Jomo Kenyatta University of Agriculture and Technology. He holds a Masters’s degree in Business Administration (University of Nairobi), and a Bachelor of Commerce (Marketing option) Degree from University of Nairobi. He is a Certified Public Accountant – CPA (K) and is a former Lecturer at Daystar University. His entrepreneurial spirit developed early, and was awarded the Entreprenuer of the year 1997 by the University of Nairobi. He has over 21 years working experience.",
-  },
-  {
-    name: "George Wachiuri",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description:
-      "George is the CEO of Optiven Limited. He is currently a PhD candidate at the Jomo Kenyatta University of Agriculture and Technology. He holds a Masters’s degree in Business Administration (University of Nairobi), and a Bachelor of Commerce (Marketing option) Degree from University of Nairobi. He is a Certified Public Accountant – CPA (K) and is a former Lecturer at Daystar University. His entrepreneurial spirit developed early, and was awarded the Entreprenuer of the year 1997 by the University of Nairobi. He has over 21 years working experience.",
-  },
-  {
-    name: "George Wachiuri",
-    image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    description:
-      "George is the CEO of Optiven Limited. He is currently a PhD candidate at the Jomo Kenyatta University of Agriculture and Technology. He holds a Masters’s degree in Business Administration (University of Nairobi), and a Bachelor of Commerce (Marketing option) Degree from University of Nairobi. He is a Certified Public Accountant – CPA (K) and is a former Lecturer at Daystar University. His entrepreneurial spirit developed early, and was awarded the Entreprenuer of the year 1997 by the University of Nairobi. He has over 21 years working experience.",
-  },
-  // Add more team members as needed
-];
+type Team = {
+  id: number;
+  attributes: {
+    teamMember: string;
+    teamMemberRole: string;
+    teamMemberDescription: string;
+    teamMemberImage: any;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  };
+};
+
+export async function getStaticProps() {
+  try {
+    const teamsResponse = await fetcher<Team[]>("teams?populate=*");
+
+    return {
+      props: {
+        teams: teamsResponse,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching teams:", error);
+    return {
+      props: {
+        teams: [],
+      },
+    };
+  }
+}

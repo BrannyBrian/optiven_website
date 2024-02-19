@@ -30,10 +30,10 @@ export async function getServerSideProps({ params }: Params) {
   const { slug } = params;
   try {
     const response = await fetch(
-      `${process.env.STRAPI_URL}project-updates/${slug}?populate=*/`,
+      `${process.env.STRAPI_URL_PROD}project-updates/${slug}?populate=*/`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN_PROD}`,
         },
       }
     );

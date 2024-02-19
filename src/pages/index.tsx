@@ -151,34 +151,40 @@ export default function Home({ projects, articles, projectUpdate }: any) {
             </div>
           </div>
           {/* Stats */}
-          <h1 className="text-4xl mb-2 ml-6">The Numbers Don't Lie</h1>
-          <div className="w-full pt-4 border-t border-b mx-auto lg:py-10">
-            <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
-              <div className="text-center md:border-r">
-                <h6 className="text-4xl lg:text-7xl xl:text-8xl">24</h6>
-                <p className="text-sm my-4 uppercase">
-                  Years of Transformation
-                </p>
-              </div>
-              <div className="text-center md:border-r">
-                <h6 className="text-4xl lg:text-7xl xl:text-8xl">60+</h6>
-                <p className="text-sm my-4 uppercase">Completed Projects</p>
-              </div>
-              <div className="text-center md:border-r">
-                <h6 className="text-4xl lg:text-7xl xl:text-8xl">7000+</h6>
-                <p className="text-sm my-4 uppercase">Disbursed Title Deeds</p>
-              </div>
-              <div className="text-center md:border-r">
-                <h6 className="text-4xl lg:text-7xl xl:text-8xl">20+</h6>
-                <p className="text-sm my-4 uppercase">Awards</p>
-              </div>
-              <div className="text-center md:border-r">
-                <h6 className="text-4xl lg:text-7xl xl:text-8xl">10000+</h6>
-                <p className="text-sm my-4 uppercase">Happy Clients</p>
-              </div>
-              <div className="text-center">
-                <h6 className="text-4xl lg:text-7xl xl:text-8xl">500+</h6>
-                <p className="text-sm my-4 uppercase">Workforce</p>
+          <div className="bg-green-600 py-8">
+            <h1 className="text-4xl mb-2 mx-6 text-gray-200 border-b">
+              The Numbers Don't Lie
+            </h1>
+            <div className="w-full pt-4 mx-auto lg:py-10 text-gray-300">
+              <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
+                <div className="text-center md:border-r">
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">24</h6>
+                  <p className="text-sm my-4 uppercase">
+                    Years of Transformation
+                  </p>
+                </div>
+                <div className="text-center md:border-r">
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">60+</h6>
+                  <p className="text-sm my-4 uppercase">Completed Projects</p>
+                </div>
+                <div className="text-center md:border-r">
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">7000+</h6>
+                  <p className="text-sm my-4 uppercase">
+                    Disbursed Title Deeds
+                  </p>
+                </div>
+                <div className="text-center md:border-r">
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">20+</h6>
+                  <p className="text-sm my-4 uppercase">Awards</p>
+                </div>
+                <div className="text-center md:border-r">
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">10000+</h6>
+                  <p className="text-sm my-4 uppercase">Happy Clients</p>
+                </div>
+                <div className="text-center">
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">500+</h6>
+                  <p className="text-sm my-4 uppercase">Workforce</p>
+                </div>
               </div>
             </div>
           </div>

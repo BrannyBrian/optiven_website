@@ -17,10 +17,7 @@ const index = ({ article }: any) => {
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             {article.data.attributes.articleTitle}
           </h1>
-          <Markdown
-            className="text-start"
-            remarkPlugins={[remarkGfm]}
-          >
+          <Markdown className="text-start" remarkPlugins={[remarkGfm]}>
             {article.data.attributes.articleBody}
           </Markdown>
         </div>
@@ -33,10 +30,10 @@ export async function getServerSideProps({ params }: Params) {
   const { slug } = params;
   try {
     const response = await fetch(
-      `${process.env.STRAPI_URL}articles/${slug}?populate=*/`,
+      `${process.env.STRAPI_URL_PROD}articles/${slug}?populate=*/`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN_PROD}`,
         },
       }
     );

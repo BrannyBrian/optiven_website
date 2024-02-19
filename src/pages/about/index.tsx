@@ -188,7 +188,7 @@ export default function About() {
             </div>
             <div className="flex justify-center items-center mt-6">
               <Link
-                href="/awards"
+                href="/awards-and-milestones"
                 className="text-2xl md:text-3xl lg:text-4xl mt-4 flex un hover:text-green-700"
               >
                 View More Awards
