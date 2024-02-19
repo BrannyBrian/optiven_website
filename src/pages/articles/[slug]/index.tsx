@@ -1,7 +1,6 @@
 import React from "react";
 import Stairs from "@/components/stairs";
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 type Params = {
   params: {
@@ -10,6 +9,7 @@ type Params = {
 };
 
 const index = ({ article }: any) => {
+  const { articleBody } = article.data.attributes;
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900">
@@ -17,9 +17,9 @@ const index = ({ article }: any) => {
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             {article.data.attributes.articleTitle}
           </h1>
-          <Markdown className="text-start" remarkPlugins={[remarkGfm]}>
-            {article.data.attributes.articleBody}
-          </Markdown>
+          <div className="my-4 text-lg text-gray-700 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
+            <BlocksRenderer content={articleBody} />
+          </div>
         </div>
       </section>
     </Stairs>
@@ -43,6 +43,7 @@ export async function getServerSideProps({ params }: Params) {
     }
 
     const articleDetails = await response.json();
+    console.log(articleDetails.data);
 
     return {
       props: {
