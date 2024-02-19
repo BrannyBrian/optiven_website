@@ -92,7 +92,7 @@ const infoCenterMenuItems = [
   {
     name: "Video Gallery",
     description: "Build strategic funnels that will convert",
-    href: "/video-gallery",
+    href: "https://www.youtube.com/@OptivenKenyaLimited/videos",
     icon: Video,
   },
   {
