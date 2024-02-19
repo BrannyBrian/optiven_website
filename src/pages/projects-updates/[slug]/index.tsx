@@ -13,8 +13,8 @@ const index = ({ projectUpdate }: any) => {
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900">
-        <div className="py-8 px-4 mx-auto max-w-screen-lg text-center lg:py-16">
-          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
+          <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl sm:px-16 lg:px-48 dark:text-gray-400">
             {projectUpdate.data.attributes.projectUpdateTitle}
           </h1>
           <div className="my-4 text-lg text-gray-700 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
