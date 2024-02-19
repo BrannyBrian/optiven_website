@@ -48,6 +48,19 @@ const index = ({ projectUpdates }: any) => {
             </div>
           ))}
         </div>
+        {projectUpdates.data.length === 0 && (
+          <div className="flex flex-col justify-center items-center">
+            <Image
+              width={400}
+              height={250}
+              alt="not-found"
+              src="/pngs/404 Error-pana.png"
+            />
+            <p className="text-center text-gray-700 text-3xl">
+              No project updates available
+            </p>
+          </div>
+        )}
       </div>
     </Stairs>
   );
