@@ -14,7 +14,7 @@ export default function Team({ teams }: any) {
       </Head>
       <Stairs>
         <div className="p-8 grid gap-10 grid-cols-1 lg:grid-cols-2 lg:p-16">
-          {teams.data.map((member: Team, index: number) => (
+          {teams.data.map((member: TeamMember, index: number) => (
             <div
               key={index}
               className="bg-base-100 shadow-md rounded-b-xl md:rounded-r-xl flex flex-col md:flex-row lg:rounded-r-xl"
@@ -44,7 +44,7 @@ export default function Team({ teams }: any) {
   );
 }
 
-type Team = {
+type TeamMember = {
   id: number;
   attributes: {
     teamMember: string;
@@ -59,7 +59,7 @@ type Team = {
 
 export async function getStaticProps() {
   try {
-    const teamsResponse = await fetcher<Team[]>("teams?populate=*");
+    const teamsResponse = await fetcher<TeamMember[]>("teams?populate=*");
 
     return {
       props: {
