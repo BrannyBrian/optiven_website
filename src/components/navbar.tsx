@@ -61,53 +61,54 @@ const aboutMenuItems = [
 const infoCenterMenuItems = [
   {
     name: "Projects Updates",
-    description: "Get a better understanding of what we're about",
+    description: "Get the latest updates on our projects",
     href: "/projects-updates",
     icon: Info,
   },
   {
     name: "Customer Information",
-    description: "Meet our core leadership team",
+    description: "Get information about our customers",
     href: "/customer-information",
     icon: Users,
   },
   {
     name: "FAQs",
-    description: "Get to know why we're trusted by thousands of Kenyans",
+    description: "Frequently Asked Questions about our services",
     href: "/faqs",
     icon: Plus,
   },
   {
     name: "Blogs & Company News",
-    description: "Connect with third-party tools",
+    description: "Read our latest blogs and company news",
     href: "/articles",
     icon: Rss,
   },
   {
     name: "Photo Gallery",
-    description: "Build strategic funnels that will convert",
+    description: "Explore our photo gallery",
     href: "/photo-gallery",
     icon: Camera,
   },
   {
     name: "Video Gallery",
-    description: "Build strategic funnels that will convert",
+    description: "Watch videos from our gallery",
     href: "https://www.youtube.com/@OptivenKenyaLimited/videos",
     icon: Video,
   },
   {
     name: "Newsletters & Downloads",
-    description: "Build strategic funnels that will convert",
+    description: "Download our newsletters and resources",
     href: "/newsletters-and-downloads",
     icon: Download,
   },
   {
     name: "Optiven in the Media",
-    description: "Build strategic funnels that will convert",
+    description: "Explore Optiven's presence in the media",
     href: "/optiven-in-the-media",
     icon: Film,
   },
 ];
+
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
