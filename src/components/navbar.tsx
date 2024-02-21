@@ -255,6 +255,12 @@ export default function Navbar() {
             </Transition>
           </Popover>
           <Link
+            href="/projects"
+            className=" leading-6 text-gray-900 text-lg un hover:text-green-600"
+          >
+            Projects
+          </Link>
+          <Link
             href="/testimonials"
             className=" leading-6 text-gray-900 text-lg un hover:text-green-600"
           >
@@ -393,6 +399,13 @@ export default function Navbar() {
                     </div>
                   )}
                 </Disclosure>
+                <Link
+                  onClick={() => setMobileMenuOpen(false)}
+                  href="/projects"
+                  className="-mx-3 font-semibold block rounded-lg px-3 py-2 text-base leading-7 text-gray-700 hover:bg-gray-50"
+                >
+                  Projects
+                </Link>
                 <Link
                   onClick={() => setMobileMenuOpen(false)}
                   href="/testimonials"
