@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Link from "next/link";
 import { Carousel } from "flowbite-react";
 import { CheckCircle, ChevronRight } from "react-feather";
@@ -56,12 +55,6 @@ export default function Home({
 
   return (
     <>
-      <Head>
-        <title>Optiven Limited</title>
-        <meta name="description" content="Inspiring Possibilities" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Stairs>
         <main ref={container}>
           {/* carousel */}
@@ -392,7 +385,7 @@ export async function getStaticProps() {
       "project-updates?populate=*"
     );
 
-    console.log(carouselsResponse.data[0].attributes.images.data);
+    // console.log(carouselsResponse.data[0].attributes.images.data);
 
     return {
       props: {
