@@ -2,7 +2,7 @@ import React from 'react'
 
 const index = () => {
   return (
-    <div>why us</div>
+    <div>optiven in the media</div>
   )
 }
 
