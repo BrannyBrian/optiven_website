@@ -156,9 +156,9 @@ export default function Footer() {
             <p className="mt-4 text-sm text-gray-500">
               We use cookies to ensure that we give you the best experience on
               our website. View our{" "}
-              <span className="text-green-600 un hover:cursor-pointer">
+              <Link href="/cookie-policy" className="text-green-600 un hover:cursor-pointer">
                 cookie policy.
-              </span>
+              </Link>
             </p>
           </div>
         </div>
@@ -275,7 +275,7 @@ export default function Footer() {
           </li>
           <li>
             <Link
-              href="/"
+              href="/privacy-policy"
               className="text-sm text-gray-600 transition-colors duration-300 un hover:text-green-600"
             >
               Privacy Policy
@@ -283,7 +283,7 @@ export default function Footer() {
           </li>
           <li>
             <Link
-              href="/"
+              href="/terms-and-conditions"
               className="text-sm text-gray-600 transition-colors duration-300 un hover:text-green-600"
             >
               Terms & Conditions

@@ -26,10 +26,11 @@ export default function App({ Component, pageProps, router }: AppProps) {
     <main className={founderGrotesk.className}>
       <Navbar />
       <AnimatePresence mode="wait">
-        <Component key={router.route} {...pageProps} />
+        <div className="mt-32">
+          <Component key={router.route} {...pageProps} />
+        </div>
       </AnimatePresence>
       <Footer />
     </main>
   );
 }
-

@@ -59,7 +59,7 @@ const index = ({ projects }: any) => {
             ))}
         </div>
         {projects.data.filter(
-          (project: any) => project.attributes.isActive === false
+          (project: any) => project.attributes.isActive === true
         ).length === 0 && (
           <div className="flex flex-col justify-center items-center">
             <Image
