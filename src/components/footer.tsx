@@ -16,7 +16,7 @@ export default function Footer() {
     return new Date().getFullYear();
   };
   return (
-    <div className="px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+    <div className="px-4 pt-16 bg-gray-200 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="grid gap-8 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-2">
           <Link
@@ -156,7 +156,10 @@ export default function Footer() {
             <p className="mt-4 text-sm text-gray-500">
               We use cookies to ensure that we give you the best experience on
               our website. View our{" "}
-              <Link href="/cookie-policy" className="text-green-600 un hover:cursor-pointer">
+              <Link
+                href="/cookie-policy"
+                className="text-green-600 un hover:cursor-pointer"
+              >
                 cookie policy.
               </Link>
             </p>
