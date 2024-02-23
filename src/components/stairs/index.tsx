@@ -1,4 +1,5 @@
-import { motion, Variants } from "framer-motion";
+import { motion, AnimationProps, Variants } from "framer-motion";
+
 import { opacity, expand, OpacityVariants, ExpandVariants } from "./animation";
 
 interface LayoutProps {
@@ -10,13 +11,15 @@ export default function Layout({ children, backgroundColor }: LayoutProps) {
   const animate = (
     variants: OpacityVariants | ExpandVariants,
     custom: any | null = null
-  ): motion.AnimationProps => {
+  ): AnimationProps & { custom?: any } => {
+    const animationVariants: Variants = variants as unknown as Variants;
+
     return {
       initial: "initial",
       animate: "enter",
       exit: "exit",
       custom,
-      variants,
+      variants: animationVariants,
     };
   };
 

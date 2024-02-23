@@ -60,8 +60,6 @@ export async function getStaticProps() {
   try {
     const photosResponse = await fetcher<Photo[]>("photo-galleries?populate=*");
 
-    console.log(photosResponse.data);
-
     return {
       props: {
         photos: photosResponse,
