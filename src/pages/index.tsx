@@ -18,8 +18,6 @@ export default function Home({
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const container = useRef(null);
 
-  console.log(carouselImages);
-
   useEffect(() => {
     // Simulate fetching image URLs
     const fetchImageUrls = async () => {
@@ -56,14 +54,16 @@ export default function Home({
       <Stairs>
         <main ref={container}>
           {/* carousel */}
-          <div className="lg:h-screen">
+          <div className="-mt-16 lg:-mt-8 lg:h-screen">
             <div className="h-3/4">
               <div className="mx-2 h-72 md:h-96 lg:h-full">
                 <Carousel slideInterval={3000}>
                   {imageUrls.map((imageUrl, index) => (
-                    <img
+                    <Image
                       key={index}
                       src={imageUrl}
+                      height={250}
+                      width={400}
                       alt={`home-carousel-banner-image-${index}`}
                     />
                   ))}
@@ -72,7 +72,7 @@ export default function Home({
             </div>
           </div>
           {/* Projects */}
-          <div className="py-16 w-screen mx-auto lg:max-w-screen-xl lg:-mt-56">
+          <div className="py-16 -mt-20 w-screen mx-auto lg:max-w-screen-xl lg:-mt-56">
             <h1 className="text-4xl border-b m-2">Featured Projects</h1>
             {projects.data
               .filter(
