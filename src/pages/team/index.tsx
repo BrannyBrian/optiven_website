@@ -4,6 +4,10 @@ import Image from "next/image";
 import { fetcher } from "../../../lib/api";
 
 export default function Team({ teams }: any) {
+  const sortedTeamMembers = teams.data.sort(
+    (a: TeamMember, b: TeamMember) => a.id - b.id
+  );
+
   return (
     <>
       <Head>
@@ -14,14 +18,14 @@ export default function Team({ teams }: any) {
       </Head>
       <Stairs>
         <div className="p-8 grid gap-10 grid-cols-1 lg:grid-cols-2 lg:p-16">
-          {teams.data.map((member: TeamMember, index: number) => (
+          {sortedTeamMembers.map((member: TeamMember, index: number) => (
             <div
               key={index}
               className="bg-base-100 shadow-md rounded-b-xl md:rounded-r-xl flex flex-col md:flex-row lg:rounded-r-xl"
             >
               <div className="md:w-1/2">
                 <Image
-                  src={`${member.attributes.teamMemberImage.data.attributes.formats.small.url}`}
+                  src={`${member.attributes.teamMemberImage.data.attributes.formats.thumbnail.url}`}
                   alt={`Image for ${member.attributes.teamMember}`}
                   width={400}
                   height={300}
@@ -32,7 +36,10 @@ export default function Team({ teams }: any) {
                 <h2 className="font-semibold text-lg uppercase">
                   {member.attributes.teamMember}
                 </h2>
-                <p className="text-sm">
+                <h3 className="font-semibold text-md text-gray-400">
+                  {member.attributes.teamMemberRole}
+                </h3>
+                <p className="text-xs">
                   {member.attributes.teamMemberDescription}
                 </p>
               </div>
