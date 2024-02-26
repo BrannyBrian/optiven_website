@@ -1,7 +1,4 @@
-// Import necessary dependencies
 import { useState } from "react";
-
-// Your existing code
 import Stairs from "@/components/stairs";
 import Head from "next/head";
 import { Card, Select, TextInput } from "flowbite-react";
@@ -12,6 +9,25 @@ import { fetcher } from "../../../lib/api";
 export default function Careers({ careers, locations }: any) {
   const [jobTitle, setJobTitle] = useState("");
   const [jobLocation, setJobLocation] = useState("");
+
+  const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setJobLocation(e.target.value);
+  };
+
+  const filteredCareers = careers.data.filter((job: Career) => {
+    const titleMatch = job.attributes.jobTitle
+      .toLowerCase()
+      .includes(jobTitle.toLowerCase());
+    const locationMatch =
+      jobLocation === "" ||
+      job.attributes.jobLocations.data.some(
+        (location: any) =>
+          location.attributes.jobLocation.toLowerCase() ===
+          jobLocation.toLowerCase()
+      );
+
+    return titleMatch && locationMatch;
+  });
 
   return (
     <>
@@ -48,7 +64,6 @@ export default function Careers({ careers, locations }: any) {
           </div>
         </div>
         <div className="container mx-auto mt-8 p-4">
-          {/* Search inputs */}
           <div className="flex items-center justify-center mb-4 space-x-2">
             <TextInput
               value={jobTitle}
@@ -58,7 +73,7 @@ export default function Careers({ careers, locations }: any) {
             />
             <Select
               value={jobLocation}
-              onChange={(e) => setJobLocation(e.target.value)}
+              onChange={handleLocationChange}
               title="job-select"
             >
               <option value="">All Locations</option>
@@ -71,7 +86,7 @@ export default function Careers({ careers, locations }: any) {
           </div>
           {/* List of jobs */}
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {careers.data.map((job: Career, index: number) => (
+            {filteredCareers.map((job: Career, index: number) => (
               <Card className="py-4" key={index}>
                 <div className="flex space-x-2">
                   <Briefcase />
@@ -82,7 +97,9 @@ export default function Careers({ careers, locations }: any) {
                 <div className="flex space-x-2">
                   <MapPin size={16} />
                   <p className="flex items-center text-sm">
-                    {job.attributes.jobLocations.data[0].attributes.jobLocation}
+                    {job.attributes.jobLocations.data.map(
+                      (item: any) => item.attributes.jobLocation
+                    )}
                   </p>
                 </div>
                 <div className="flex justify-end hover:text-green-600 hover:underline">
@@ -133,6 +150,16 @@ export async function getStaticProps() {
     const locationsResponse = await fetcher<JobLocation[]>(
       "job-locations?populate=*"
     );
+
+    // console.log(
+    //   careersResponse.data.map((item: any) =>
+    //     item.attributes.jobLocations.data.map(
+    //       (item: any) => item.attributes.jobLocation
+    //     )
+    //   )
+    // );
+
+    // console.log(locationsResponse.data.map((item: any) => item.attributes.jobLocation))
 
     return {
       props: {
