@@ -18,20 +18,18 @@ export default function Home({
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const container = useRef(null);
 
+  console.log(carouselImages);
+
   useEffect(() => {
     // Simulate fetching image URLs
     const fetchImageUrls = async () => {
-      const urls = [
-        "https://images.unsplash.com/photo-1590733839006-d7b9006c2e98?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1629016943072-0bf0ce4e2608?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1629016429417-0a01981c3cb1?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      ];
+      const urls = carouselImages.data[0].attributes.images.data.map(
+        (item: any) => item.attributes.formats.large.url
+      );
 
       // Simulate asynchronous fetching of images
       const fetchedImages = await Promise.all(
-        urls.map(async (url) => {
+        urls.map(async (url: string) => {
           const response = await fetch(url);
           const blob = await response.blob();
           return URL.createObjectURL(blob);
@@ -379,13 +377,29 @@ type ProjectUpdate = {
 export async function getStaticProps() {
   try {
     const articlesResponse = await fetcher<Article[]>("articles?populate=*");
-    const carouselsResponse = await fetcher<CarouselImage[]>("carousels?populate=*");
+    const carouselsResponse = await fetcher<CarouselImage[]>(
+      "carousels?populate=*"
+    );
     const projectsResponse = await fetcher<Project[]>("projects?populate=*");
     const projectUpdateResponse = await fetcher<ProjectUpdate[]>(
       "project-updates?populate=*"
     );
 
-    // console.log(carouselsResponse.data[0].attributes.images.data);
+    // fetch the carousel images
+    // console.log(
+    // carouselsResponse.data.map((item: any) =>
+    //   item.attributes.images.data.map(
+    //     (item: any) => item.attributes.formats.large.url
+    //   )
+    // )
+    // );
+
+    // fetch the second batch of carousel images
+    // console.log(
+    // carouselsResponse.data[0].attributes.images.data.map(
+    //   (item: any) => item.attributes.formats.large.url
+    // )
+    // );
 
     return {
       props: {
@@ -400,7 +414,7 @@ export async function getStaticProps() {
     return {
       props: {
         articles: [],
-        carousels: [],
+        carouselImages: [],
         projects: [],
         projectUpdate: [],
       },
