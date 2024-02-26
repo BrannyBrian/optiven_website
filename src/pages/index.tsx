@@ -56,19 +56,23 @@ export default function Home({
       <Stairs>
         <main ref={container}>
           {/* carousel */}
-          <div className="mx-2 h-64 md:h-96 lg:h-screen">
-            <Carousel slideInterval={3000}>
-              {imageUrls.map((imageUrl, index) => (
-                <img
-                  key={index}
-                  src={imageUrl}
-                  alt={`home-carousel-banner-image-${index}`}
-                />
-              ))}
-            </Carousel>
+          <div className="lg:h-screen">
+            <div className="h-3/4">
+              <div className="mx-2 h-72 md:h-96 lg:h-full">
+                <Carousel slideInterval={3000}>
+                  {imageUrls.map((imageUrl, index) => (
+                    <img
+                      key={index}
+                      src={imageUrl}
+                      alt={`home-carousel-banner-image-${index}`}
+                    />
+                  ))}
+                </Carousel>
+              </div>
+            </div>
           </div>
           {/* Projects */}
-          <div className="py-16 w-screen mx-auto lg:max-w-screen-xl">
+          <div className="py-16 w-screen mx-auto lg:max-w-screen-xl lg:-mt-56">
             <h1 className="text-4xl border-b m-2">Featured Projects</h1>
             {projects.data
               .filter(
