@@ -38,7 +38,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <div className="mt-32">
           <Component key={router.route} {...pageProps} />
           <div className="fixed end-6 bottom-6 group">
-            <Link href="https://wa.me/+25490300300">
+            <Link href="https://wa.me/+254790300300">
               <Image
                 src={`/amani.png`}
                 width={100}
