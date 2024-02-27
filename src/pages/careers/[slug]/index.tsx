@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Stairs from "@/components/stairs";
 
 const index = () => {
   return (
-    <div>job description</div>
-  )
-}
+    <Stairs>
+      <div>careers</div>
+    </Stairs>
+  );
+};
 
-export default index
+export default index;

@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Stairs from "@/components/stairs";
 
 const index = () => {
   return (
-    <div>optiven in the media</div>
-  )
-}
+    <Stairs>
+      <div>optiven in the media</div>
+    </Stairs>
+  );
+};
 
-export default index
+export default index;

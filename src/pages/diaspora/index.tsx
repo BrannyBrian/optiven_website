@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Stairs from "@/components/stairs";
 
 const index = () => {
   return (
-    <div>diaspora</div>
-  )
-}
+    <Stairs>
+      <div>diaspora</div>
+    </Stairs>
+  );
+};
 
-export default index
+export default index;

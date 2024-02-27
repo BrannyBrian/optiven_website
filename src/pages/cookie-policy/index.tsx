@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import Stairs from "@/components/stairs";
 
 const index = () => {
   return (
-    <div>cookie policy</div>
-  )
-}
+    <Stairs>
+      <div>cookie policy</div>
+    </Stairs>
+  );
+};
 
-export default index
+export default index;
