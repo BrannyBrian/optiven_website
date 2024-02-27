@@ -1,12 +1,14 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence } from "framer-motion";
 import FoundersGrotesk from "@next/font/local";
-import "@/styles/globals.css";
-import "@/styles/styles.scss";
 
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import "@/styles/globals.css";
+import "@/styles/styles.scss";
 
 const founderGrotesk = FoundersGrotesk({
   src: [
@@ -35,6 +37,17 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <AnimatePresence mode="wait">
         <div className="mt-32">
           <Component key={router.route} {...pageProps} />
+          <div className="fixed end-6 bottom-6 group">
+            <Link href="https://wa.me/+25490300300">
+              <Image
+                src={`/amani.png`}
+                width={100}
+                height={100}
+                className="w-auto h-24"
+                alt="amani-chatbot"
+              />
+            </Link>
+          </div>
         </div>
       </AnimatePresence>
       <Footer />
