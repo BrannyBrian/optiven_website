@@ -28,13 +28,12 @@ const index = ({ article }: any) => {
 
 export async function getServerSideProps({ params }: Params) {
   const { slug } = params;
-
   try {
     const response = await fetch(
-      `https://diligent-action-b51f63e5a1.strapiapp.com/api/articles/${slug}?populate=*/`,
+      `${process.env.STRAPI_URL_PROD}articles/${slug}?populate=*/`,
       {
         headers: {
-          Authorization: `Bearer f3a2942ed67a172aec3c7e7ee90d78e58d26e13e0cfa0c56a300a38c52dd11fb69b7943129d34bb53d7bfebf1672a9f7fa44c1b5a67b0e541a39acf5f80ad461cfa77777ba3dd8dea50e4cfa82367592547c24b2385d7af98df22699e13d8ad1318d948137f160a663fe3f71963d2868f8432c83b21a6d179ddd1ec4d4143261`,
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN_PROD}`,
         },
       }
     );
