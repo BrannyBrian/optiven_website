@@ -11,7 +11,7 @@ const index = ({ projectUpdates }: any) => {
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {projectUpdates.data.map((projectUpdate: ProjectUpdate) => (
-            <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
+            <div className="overflow-hidden transition-shadow duration-300 bg-white">
               <Image
                 src={`${projectUpdate.attributes.projectUpdateMainImage.data.attributes.formats.small.url}`}
                 height={400}

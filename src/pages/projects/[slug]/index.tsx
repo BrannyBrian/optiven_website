@@ -60,9 +60,11 @@ const Index = ({ project }: any) => {
           <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl sm:px-16 lg:px-48 dark:text-gray-400">
             {project.data.attributes.projectName}
           </h1>
-          <div className="my-4 text-lg text-gray-700 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
-            <BlocksRenderer content={projectContent} />
-            <div className="flex flex-col">
+          <div className="my-4 text-lg text-gray-700 lg:text-xl sm:px-16 lg:px-auto dark:text-gray-400">
+            <div className="format">
+              <BlocksRenderer content={projectContent} />
+            </div>
+            {/* <div className="flex flex-col">
               <Popover.Group className="flex my-4">
                 <Popover className="absolute">
                   <Popover.Button className="group inline-flex items-center rounded-md bg-green-400 px-3 py-2 text-base font-medium hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
@@ -509,7 +511,7 @@ const Index = ({ project }: any) => {
                   </Transition>
                 </Popover>
               </Popover.Group>
-            </div>
+            </div> */}
             <div className="flex flex-col md:flex-row lg:flex-row justify-between items-start mt-6">
               <div className="flex justify-center items-center mt-6">
                 <Link
