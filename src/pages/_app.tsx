@@ -41,9 +41,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
             <Link href="https://wa.me/+254790300300">
               <Image
                 src={`/amani.png`}
-                width={100}
-                height={100}
-                className="w-auto h-24"
+                width={400}
+                height={400}
+                className="w-auto h-32"
                 alt="amani-chatbot"
               />
             </Link>

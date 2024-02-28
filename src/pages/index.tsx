@@ -62,8 +62,8 @@ export default function Home({
                     <Image
                       key={index}
                       src={imageUrl}
-                      height={250}
-                      width={400}
+                      height={500}
+                      width={2000}
                       alt={`home-carousel-banner-image-${index}`}
                     />
                   ))}
