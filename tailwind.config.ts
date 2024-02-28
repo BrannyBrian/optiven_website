@@ -8,7 +8,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  plugins: [require("flowbite/plugin")],
+  plugins: [require("flowbite/plugin"), require("flowbite-typography")],
   theme: {
     screens: {
       sm: "480px",
