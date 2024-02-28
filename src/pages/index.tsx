@@ -159,31 +159,31 @@ export default function Home({
               <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
                 <div className="text-center md:border-r">
                   <h6 className="text-4xl lg:text-7xl xl:text-8xl">24</h6>
-                  <p className="text-sm my-4 uppercase">
+                  <p className="text-sm mb-4 uppercase">
                     Years of Transformation
                   </p>
                 </div>
                 <div className="text-center md:border-r">
                   <h6 className="text-4xl lg:text-7xl xl:text-8xl">60+</h6>
-                  <p className="text-sm my-4 uppercase">Completed Projects</p>
+                  <p className="text-sm mb-4 uppercase">Completed Projects</p>
                 </div>
                 <div className="text-center md:border-r">
                   <h6 className="text-4xl lg:text-7xl xl:text-8xl">7000+</h6>
-                  <p className="text-sm my-4 uppercase">
+                  <p className="text-sm mb-4 uppercase">
                     Disbursed Title Deeds
                   </p>
                 </div>
                 <div className="text-center md:border-r">
                   <h6 className="text-4xl lg:text-7xl xl:text-8xl">20+</h6>
-                  <p className="text-sm my-4 uppercase">Awards</p>
+                  <p className="text-sm mb-4 uppercase">Awards</p>
                 </div>
                 <div className="text-center md:border-r">
                   <h6 className="text-4xl lg:text-7xl xl:text-8xl">10000+</h6>
-                  <p className="text-sm my-4 uppercase">Happy Clients</p>
+                  <p className="text-sm mb-4 uppercase">Happy Clients</p>
                 </div>
                 <div className="text-center">
                   <h6 className="text-4xl lg:text-7xl xl:text-8xl">500+</h6>
-                  <p className="text-sm my-4 uppercase">Workforce</p>
+                  <p className="text-sm mb-4 uppercase">Workforce</p>
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@ export default function Home({
                   (article: Article) => article.attributes.isFeatured === true
                 )
                 .map((article: Article) => (
-                  <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm">
+                  <div className="overflow-hidden transition-shadow duration-300 bg-white h-max">
                     <Image
                       src={`${article.attributes.mainArticleImage.data.attributes.formats.small.url}`}
                       height={400}
