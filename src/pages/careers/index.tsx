@@ -63,7 +63,7 @@ export default function Careers({ careers, locations }: any) {
             </p>
           </div>
         </div>
-        <div className="container mx-auto mt-8 p-4">
+        <div className="container mx-auto mt-2 md:mt-8 p-4">
           <div className="flex items-center justify-center mb-4 space-x-2">
             <TextInput
               value={jobTitle}
