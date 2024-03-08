@@ -1,4 +1,3 @@
-import React, { Fragment } from "react";
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
@@ -9,45 +8,6 @@ type Params = {
     slug: string;
   };
 };
-
-const paymentOptions = [
-  {
-    id: 1,
-    cash: 1000000,
-    threeMonths: 1200000,
-    sixMonths: 1500000,
-    twelveMonths: 1800000,
-    deposit: 300000,
-    size: "1/8",
-  },
-  {
-    id: 2,
-    cash: 2000000,
-    threeMonths: 2400000,
-    sixMonths: 3000000,
-    twelveMonths: 3600000,
-    deposit: 600000,
-    size: "1/4",
-  },
-  {
-    id: 3,
-    cash: 4000000,
-    threeMonths: 4800000,
-    sixMonths: 6000000,
-    twelveMonths: 7200000,
-    deposit: 900000,
-    size: "1/2",
-  },
-  {
-    id: 4,
-    cash: 8000000,
-    threeMonths: 9600000,
-    sixMonths: 12000000,
-    twelveMonths: 14400000,
-    deposit: 1800000,
-    size: "1",
-  },
-];
 
 const Index = ({ project }: any) => {
   const { projectName } = project.data.attributes;

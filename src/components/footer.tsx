@@ -16,7 +16,7 @@ export default function Footer() {
     return new Date().getFullYear();
   };
   return (
-    <div className="px-4 pt-16 bg-gray-200 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+    <div className="px-4 pt-16 bg-gray-200 sm:min-w-xl md:min-w-full lg:min-w-screen-xl md:px-24 lg:px-8">
       <div className="grid gap-8 row-gap-6 mb-8 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-2">
           <Link
