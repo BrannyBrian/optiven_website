@@ -30,7 +30,7 @@ const Index = ({ project }: any) => {
             <div className="flex flex-col mt-8 md:flex-row lg:flex-row justify-between items-start">
               <div className="flex justify-center items-center">
                 <Link
-                  href={subDivisionMapLink}
+                  href={subDivisionMapLink ? subDivisionMapLink : "#"}
                   target="_blank"
                   className="text-xl flex un hover:text-green-600"
                 >
@@ -40,7 +40,7 @@ const Index = ({ project }: any) => {
               </div>
               <div className="flex justify-center items-center">
                 <Link
-                  href={onlineOfferLetterLink}
+                  href={onlineOfferLetterLink ? onlineOfferLetterLink : "#"}
                   target="_blank"
                   className="text-xl flex un hover:text-green-600"
                 >
@@ -50,7 +50,9 @@ const Index = ({ project }: any) => {
               </div>
               <div className="flex justify-center items-center">
                 <Link
-                  href={waterApplicationFormLink}
+                  href={
+                    waterApplicationFormLink ? waterApplicationFormLink : "#"
+                  }
                   target="_blank"
                   className="text-xl flex un hover:text-green-600"
                 >
