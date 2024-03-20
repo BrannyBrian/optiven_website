@@ -45,6 +45,26 @@ const Index = ({ project }: any) => {
           <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
             {projectName}
           </h1>
+          {imageUrls.length > 0 && (
+            <div className="my-8">
+              <Carousel slideInterval={3000}>
+                {imageUrls.map((imageUrl, index) => (
+                  <div
+                    key={index}
+                    className="relative"
+                    style={{ paddingBottom: "56.25%" }}
+                  >
+                    <Image
+                      src={imageUrl}
+                      layout="fill"
+                      objectFit="cover"
+                      alt={`project-carousel-banner-image-${index}`}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
           <div>
             <div className="format">
               <BlocksRenderer content={projectContent} />
@@ -83,26 +103,6 @@ const Index = ({ project }: any) => {
                 </Link>
               </div>
             </div>
-            {imageUrls.length > 0 && (
-              <div className="my-8">
-                <Carousel slideInterval={3000}>
-                  {imageUrls.map((imageUrl, index) => (
-                    <div
-                      key={index}
-                      className="relative"
-                      style={{ paddingBottom: "56.25%" }}
-                    >
-                      <Image
-                        src={imageUrl}
-                        layout="fill"
-                        objectFit="cover"
-                        alt={`project-carousel-banner-image-${index}`}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
-              </div>
-            )}
           </div>
         </div>
       </section>
@@ -144,5 +144,6 @@ export async function getServerSideProps({ params }: Params) {
     };
   }
 }
+
 
 export default Index;

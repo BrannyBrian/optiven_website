@@ -1,5 +1,4 @@
 import Stairs from "@/components/stairs";
-import Head from "next/head";
 import { fetcher } from "../../../lib/api";
 
 export default function Testimonials({ testimonials }: any) {
