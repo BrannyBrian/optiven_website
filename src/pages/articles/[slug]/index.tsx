@@ -18,7 +18,7 @@ const index = ({ article }: any) => {
             {article.data.attributes.articleTitle}
           </h1>
           <div className="my-4 text-lg text-gray-700 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">
-            <div className="format lg:text-2xl">
+            <div className="format md:text-xl lg:text-2xl">
               <BlocksRenderer content={articleBody} />
             </div>
           </div>

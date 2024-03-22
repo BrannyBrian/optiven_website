@@ -53,7 +53,7 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
             alt={`project-carousel-banner-image-${index}`}
             className="w-full mb-4 lg:mb-8"
           />
-          <div className="format lg:text-2xl">
+          <div className="format md:text-xl lg:text-2xl">
             <BlocksRenderer content={projectContent} />
           </div>
           {imageUrls.length > 0 && (

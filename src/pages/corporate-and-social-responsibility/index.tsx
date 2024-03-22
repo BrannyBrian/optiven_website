@@ -12,7 +12,7 @@ const index = ({ csr }: any) => {
           <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
             Corporate and Social Responsibility
           </h1>
-          <div className="format lg:text-2xl">
+          <div className="format md:text-xl lg:text-2xl">
             <BlocksRenderer content={csrContent} />
           </div>
         </div>

@@ -10,7 +10,7 @@ const index = ({ cookiePolicy }: any) => {
     <Stairs>
       <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full">
         <div className="max-w-xl w-full px-4 py-8">
-          <div className="format lg:text-2xl">
+          <div className="format md:text-xl lg:text-2xl">
             <BlocksRenderer content={cookiePolicyContent} />
           </div>
         </div>
