@@ -12,7 +12,7 @@ const index = ({ whyUs }: any) => {
           <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
             So Why Us?
           </h1>
-          <div className="format">
+          <div className="format lg:text-2xl">
             <BlocksRenderer content={content} />
           </div>
         </div>

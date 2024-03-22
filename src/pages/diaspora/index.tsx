@@ -12,7 +12,7 @@ const index = ({ diaspora }: any) => {
           <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
             Diaspora
           </h1>
-          <div className="format">
+          <div className="format lg:text-2xl">
             <BlocksRenderer content={diasporaContent} />
           </div>
         </div>
