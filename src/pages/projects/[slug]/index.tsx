@@ -7,6 +7,7 @@ import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
+import EigthAcreCard from "@/components/eigthAcreCard";
 
 type PageProps = {
   project: any;
@@ -22,7 +23,80 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
     onlineOfferLetterLink,
     waterApplicationFormLink,
   } = project.data.attributes;
+
+  // Set initial display prices with proper formatting
+  const initialPrices = {
+    eighthAcreCashPrice: Number(
+      project.data.attributes.eighthAcreCashPrice
+    ).toLocaleString(),
+    eigthAcre3MonthsPrice: project.data.attributes.eigthAcre3MonthsPrice
+      ? Number(project.data.attributes.eigthAcre3MonthsPrice).toLocaleString()
+      : "-",
+    eigthAcre6MonthsPrice: project.data.attributes.eighthAcre6MonthsPrice
+      ? Number(project.data.attributes.eighthAcre6MonthsPrice).toLocaleString()
+      : "-",
+    eigthAcre12MonthsPrice: project.data.attributes.eighthAcre12MonthsPrice
+      ? Number(project.data.attributes.eighthAcre12MonthsPrice).toLocaleString()
+      : "-",
+  };
+
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [displayPrices, setDisplayPrices] = useState(initialPrices);
+
+  const updatePricesForCurrency = (conversionRate: number) => {
+    const rate = Number(conversionRate);
+    if (isNaN(rate)) {
+      console.error("Invalid conversion rate:", conversionRate);
+      return;
+    }
+
+    setDisplayPrices({
+      eighthAcreCashPrice: Math.round(
+        Number(project.data.attributes.eighthAcreCashPrice) / rate
+      ).toLocaleString(),
+      eigthAcre3MonthsPrice: Math.round(
+        Number(project.data.attributes.eigthAcre3MonthsPrice) / rate
+      ).toLocaleString(),
+      eigthAcre6MonthsPrice: Math.round(
+        Number(project.data.attributes.eighthAcre6MonthsPrice) / rate
+      ).toLocaleString(),
+      eigthAcre12MonthsPrice: project.data.attributes.eighthAcre12MonthsPrice
+        ? Math.round(
+            Number(project.data.attributes.eighthAcre12MonthsPrice) / rate
+          ).toLocaleString()
+        : "-",
+    });
+  };
+
+  const resetToKESPrices = () => {
+    setDisplayPrices({
+      eighthAcreCashPrice: Math.round(
+        Number(project.data.attributes.eighthAcreCashPrice)
+      ).toLocaleString(),
+      eigthAcre3MonthsPrice: project.data.attributes.eigthAcre3MonthsPrice
+        ? Math.round(
+            Number(project.data.attributes.eigthAcre3MonthsPrice)
+          ).toLocaleString()
+        : "-",
+      eigthAcre6MonthsPrice: project.data.attributes.eighthAcre6MonthsPrice
+        ? Math.round(
+            Number(project.data.attributes.eighthAcre6MonthsPrice)
+          ).toLocaleString()
+        : "-",
+      eigthAcre12MonthsPrice: project.data.attributes.eighthAcre12MonthsPrice
+        ? Math.round(
+            Number(project.data.attributes.eighthAcre12MonthsPrice)
+          ).toLocaleString()
+        : "-",
+    });
+  };
+
+  const handleUSDConversion = () =>
+    updatePricesForCurrency(currencies.attributes.usdToKES);
+  const handleEURConversion = () =>
+    updatePricesForCurrency(currencies.attributes.euroToKES);
+  const handleGBPConversion = () =>
+    updatePricesForCurrency(currencies.attributes.gbpToKES);
 
   useEffect(() => {
     const images = project.data.attributes.projectCarousel?.data.reduce(
@@ -42,7 +116,7 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full">
-        <div className="max-w-4xl px-4 py-8">
+        <div className="max-w-4xl px-4 py-8 md:py-10 lg:py-20">
           <h1 className="text-4xl font-bold text-gray-700 lg:text-7xl dark:text-gray-400">
             {projectName}
           </h1>
@@ -63,7 +137,7 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
                   <div
                     key={index}
                     className="relative"
-                    style={{ paddingBottom: "56.25%" }}
+                    // style={{ paddingBottom: "56.25%" }}
                   >
                     <Image
                       src={imageUrl}
@@ -76,6 +150,25 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
               </Carousel>
             </div>
           )}
+          <div>
+            <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
+              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+                Investment
+              </h2>
+              <p className="text-base text-gray-700 md:text-lg">
+                *Prices in 6 and 12 Months are inclusive of deposit placed.
+              </p>
+            </div>
+            <div className="grid max-w-md gap-10 row-gap-5 lg:max-w-screen-lg sm:row-gap-10 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto">
+              <EigthAcreCard
+                displayPrices={displayPrices}
+                handleUSDConversion={handleUSDConversion}
+                handleEURConversion={handleEURConversion}
+                handleGBPConversion={handleGBPConversion}
+                resetToKESPrices={resetToKESPrices}
+              />
+            </div>
+          </div>
           <div className="flex flex-col mt-12 md:flex-row lg:flex-row justify-between items-start">
             <div className="flex justify-center items-center">
               <Link
@@ -146,7 +239,8 @@ export async function getServerSideProps({ params }: Params) {
         .large.url
     );
 
-    console.log(currenciesResponse.data[0]);
+    // console.log(currenciesResponse.data[0]);
+    console.log(projectDetails.data);
 
     return {
       props: {
