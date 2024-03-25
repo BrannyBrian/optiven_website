@@ -10,7 +10,7 @@ const index = ({ projects }: any) => {
     <Stairs>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
-          {projects.data
+          {(projects.data || [])
             .filter((project: any) => project.attributes.isActive === true)
             .map((project: any) => (
               <div

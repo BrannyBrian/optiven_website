@@ -74,7 +74,7 @@ export default function Home({
           {/* Projects */}
           <div className="py-16 -mt-20 w-screen mx-auto lg:max-w-screen-xl lg:-mt-56">
             <h1 className="text-4xl border-b m-2">Featured Projects</h1>
-            {projects.data
+            {(projects.data || [])
               .filter(
                 (project: Project) => project.attributes.isFeatured === true
               )
