@@ -2,12 +2,12 @@ import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
 import { ChevronRight } from "react-feather";
-import { Carousel, Modal } from "flowbite-react";
+import { Carousel } from "flowbite-react";
 import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import EigthAcreCard from "@/components/eigthAcreCard";
+import PlotPriceCard from "@/components/PlotPriceCard";
 
 type PageProps = {
   project: any;
@@ -24,71 +24,156 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
     waterApplicationFormLink,
   } = project.data.attributes;
 
-  // Set initial display prices with proper formatting
-  const initialPrices = {
-    eighthAcreCashPrice: Number(
-      project.data.attributes.eighthAcreCashPrice
-    ).toLocaleString(),
-    eigthAcre3MonthsPrice: project.data.attributes.eigthAcre3MonthsPrice
-      ? Number(project.data.attributes.eigthAcre3MonthsPrice).toLocaleString()
-      : "-",
-    eigthAcre6MonthsPrice: project.data.attributes.eighthAcre6MonthsPrice
-      ? Number(project.data.attributes.eighthAcre6MonthsPrice).toLocaleString()
-      : "-",
-    eigthAcre12MonthsPrice: project.data.attributes.eighthAcre12MonthsPrice
-      ? Number(project.data.attributes.eighthAcre12MonthsPrice).toLocaleString()
-      : "-",
-  };
+  const prepareInitialPrices = (attributes: any) => ({
+    "1/8 Acre": {
+      cashPrice: attributes.eighthAcreCashPrice
+        ? Number(attributes.eighthAcreCashPrice).toLocaleString()
+        : "-",
+      threeMonthsPrice: attributes.eigthAcre3MonthsPrice
+        ? Number(attributes.eigthAcre3MonthsPrice).toLocaleString()
+        : "-",
+      sixMonthsPrice: attributes.eighthAcre6MonthsPrice
+        ? Number(attributes.eighthAcre6MonthsPrice).toLocaleString()
+        : "-",
+      twelveMonthsPrice: attributes.eighthAcre12MonthsPrice
+        ? Number(attributes.eighthAcre12MonthsPrice).toLocaleString()
+        : "-",
+      deposit: attributes.eighthAcreDeposit
+        ? Number(attributes.eighthAcreDeposit).toLocaleString()
+        : "-",
+    },
+    "1/4 Acre": {
+      cashPrice: attributes.quarterAcreCashPrice
+        ? Number(attributes.quarterAcreCashPrice).toLocaleString()
+        : "-",
+      threeMonthsPrice: attributes.quarterAcre3MonthsPrice
+        ? Number(attributes.quarterAcre3MonthsPrice).toLocaleString()
+        : "-",
+      sixMonthsPrice: attributes.quarterAcre6MonthsPrice
+        ? Number(attributes.quarterAcre6MonthsPrice).toLocaleString()
+        : "-",
+      twelveMonthsPrice: attributes.quarterAcre12MonthsPrice
+        ? Number(attributes.quarterAcre12MonthsPrice).toLocaleString()
+        : "-",
+      deposit: attributes.quarterAcreDeposit
+        ? Number(attributes.quarterAcreDeposit).toLocaleString()
+        : "-",
+    },
+    "1/2 Acre": {
+      cashPrice: attributes.halfAcreCashPrice
+        ? Number(attributes.halfAcreCashPrice).toLocaleString()
+        : "-",
+      threeMonthsPrice: attributes.halfAcre3MonthsPrice
+        ? Number(attributes.halfAcre3MonthsPrice).toLocaleString()
+        : "-",
+      sixMonthsPrice: attributes.halfAcre6MonthsPrice
+        ? Number(attributes.halfAcre6MonthsPrice).toLocaleString()
+        : "-",
+      twelveMonthsPrice: attributes.halfAcre12MonthsPrice
+        ? Number(attributes.halfAcre12MonthsPrice).toLocaleString()
+        : "-",
+      deposit: attributes.halfAcreDeposit
+        ? Number(attributes.halfAcreDeposit).toLocaleString()
+        : "-",
+    },
+    Acre: {
+      cashPrice: attributes.acreCashPrice
+        ? Number(attributes.acreCashPrice).toLocaleString()
+        : "-",
+      threeMonthsPrice: attributes.acre3MonthsPrice
+        ? Number(attributes.acre3MonthsPrice).toLocaleString()
+        : "-",
+      sixMonthsPrice: attributes.acre6MonthsPrice
+        ? Number(attributes.acre6MonthsPrice).toLocaleString()
+        : "-",
+      twelveMonthsPrice: attributes.acre12MonthsPrice
+        ? Number(attributes.acre12MonthsPrice).toLocaleString()
+        : "-",
+      deposit: attributes.acreDeposit
+        ? Number(attributes.acreDeposit).toLocaleString()
+        : "-",
+    },
+  });
+
+  const initialPrices: any = prepareInitialPrices(project.data.attributes);
 
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-  const [displayPrices, setDisplayPrices] = useState(initialPrices);
+  const [displayPrices, setDisplayPrices] = useState<any>(initialPrices);
+  const [currency, setCurrency] = useState("KES");
+
+  useEffect(() => {
+    switch (currency) {
+      case "USD":
+        handleUSDConversion();
+        break;
+      case "EUR":
+        handleEURConversion();
+        break;
+      case "GBP":
+        handleGBPConversion();
+        break;
+      default:
+        resetToKESPrices();
+        break;
+    }
+  }, [currency]);
 
   const updatePricesForCurrency = (conversionRate: number) => {
     const rate = Number(conversionRate);
-    if (isNaN(rate)) {
+    if (isNaN(rate) || rate <= 0) {
       console.error("Invalid conversion rate:", conversionRate);
       return;
     }
+    const sanitizePrice = (price: any): any => {
+      const numericPrice = Number(price.replace(/,/g, ""));
+      return !isNaN(numericPrice) && numericPrice > 0 ? numericPrice : null;
+    };
 
-    setDisplayPrices({
-      eighthAcreCashPrice: Math.round(
-        Number(project.data.attributes.eighthAcreCashPrice) / rate
-      ).toLocaleString(),
-      eigthAcre3MonthsPrice: Math.round(
-        Number(project.data.attributes.eigthAcre3MonthsPrice) / rate
-      ).toLocaleString(),
-      eigthAcre6MonthsPrice: Math.round(
-        Number(project.data.attributes.eighthAcre6MonthsPrice) / rate
-      ).toLocaleString(),
-      eigthAcre12MonthsPrice: project.data.attributes.eighthAcre12MonthsPrice
-        ? Math.round(
-            Number(project.data.attributes.eighthAcre12MonthsPrice) / rate
-          ).toLocaleString()
-        : "-",
-    });
+    const updatedPrices = Object.keys(initialPrices).reduce(
+      (acc: { [key: string]: any }, plotSize) => {
+        const plotPrices = initialPrices[plotSize];
+        acc[plotSize] = {
+          cashPrice:
+            sanitizePrice(plotPrices.cashPrice) !== null
+              ? Math.round(
+                  sanitizePrice(plotPrices.cashPrice) / rate
+                ).toLocaleString()
+              : "-",
+          threeMonthsPrice:
+            sanitizePrice(plotPrices.threeMonthsPrice) !== null
+              ? Math.round(
+                  sanitizePrice(plotPrices.threeMonthsPrice) / rate
+                ).toLocaleString()
+              : "-",
+          sixMonthsPrice:
+            sanitizePrice(plotPrices.sixMonthsPrice) !== null
+              ? Math.round(
+                  sanitizePrice(plotPrices.sixMonthsPrice) / rate
+                ).toLocaleString()
+              : "-",
+          twelveMonthsPrice:
+            sanitizePrice(plotPrices.twelveMonthsPrice) !== null
+              ? Math.round(
+                  sanitizePrice(plotPrices.twelveMonthsPrice) / rate
+                ).toLocaleString()
+              : "-",
+          deposit:
+            sanitizePrice(plotPrices.deposit) !== null
+              ? Math.round(
+                  sanitizePrice(plotPrices.deposit) / rate
+                ).toLocaleString()
+              : "-",
+        };
+        return acc;
+      },
+      {}
+    );
+
+    setDisplayPrices(updatedPrices);
   };
 
   const resetToKESPrices = () => {
-    setDisplayPrices({
-      eighthAcreCashPrice: Math.round(
-        Number(project.data.attributes.eighthAcreCashPrice)
-      ).toLocaleString(),
-      eigthAcre3MonthsPrice: project.data.attributes.eigthAcre3MonthsPrice
-        ? Math.round(
-            Number(project.data.attributes.eigthAcre3MonthsPrice)
-          ).toLocaleString()
-        : "-",
-      eigthAcre6MonthsPrice: project.data.attributes.eighthAcre6MonthsPrice
-        ? Math.round(
-            Number(project.data.attributes.eighthAcre6MonthsPrice)
-          ).toLocaleString()
-        : "-",
-      eigthAcre12MonthsPrice: project.data.attributes.eighthAcre12MonthsPrice
-        ? Math.round(
-            Number(project.data.attributes.eighthAcre12MonthsPrice)
-          ).toLocaleString()
-        : "-",
-    });
+    setDisplayPrices(initialPrices);
   };
 
   const handleUSDConversion = () =>
@@ -115,7 +200,10 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
 
   return (
     <Stairs>
-      <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full">
+      <section
+        className="bg-white dark:bg-gray-900 flex
+      flex-col justify-center items-center h-full w-full"
+      >
         <div className="max-w-4xl px-4 py-8 md:py-10 lg:py-20">
           <h1 className="text-4xl font-bold text-gray-700 lg:text-7xl dark:text-gray-400">
             {projectName}
@@ -150,25 +238,6 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
               </Carousel>
             </div>
           )}
-          <div>
-            <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-              <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-                Investment
-              </h2>
-              <p className="text-base text-gray-700 md:text-lg">
-                *Prices in 6 and 12 Months are inclusive of deposit placed.
-              </p>
-            </div>
-            <div className="grid max-w-md gap-10 row-gap-5 lg:max-w-screen-lg sm:row-gap-10 lg:grid-cols-3 xl:max-w-screen-lg sm:mx-auto">
-              <EigthAcreCard
-                displayPrices={displayPrices}
-                handleUSDConversion={handleUSDConversion}
-                handleEURConversion={handleEURConversion}
-                handleGBPConversion={handleGBPConversion}
-                resetToKESPrices={resetToKESPrices}
-              />
-            </div>
-          </div>
           <div className="flex flex-col mt-12 md:flex-row lg:flex-row justify-between items-start">
             <div className="flex justify-center items-center">
               <Link
@@ -200,6 +269,42 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
                 <ChevronRight size={24} />
               </Link>
             </div>
+          </div>
+        </div>
+        <div className="w-screen py-4 px-4 md:py-6 md:px-6 lg:py-10 lg:px-10">
+          <div className="text-center">
+            <h2 className="mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+              Investment
+            </h2>
+            <p className="text-base text-gray-700 md:text-lg">
+              *Prices in 6 and 12 Months are inclusive of deposit placed.
+            </p>
+            <div className="my-4">
+              <select
+                title="currency-select"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+                className="p-2 border rounded"
+              >
+                <option value="KES">KES</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+          </div>
+          <div className="grid gap-4 row-gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            {Object.keys(displayPrices).map((plotSize) => (
+              <PlotPriceCard
+                key={plotSize}
+                plotSize={plotSize}
+                cashPrice={displayPrices[plotSize].cashPrice}
+                threeMonthsPrice={displayPrices[plotSize].threeMonthsPrice}
+                sixMonthsPrice={displayPrices[plotSize].sixMonthsPrice}
+                twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
+                deposit={displayPrices[plotSize].deposit}
+              />
+            ))}
           </div>
         </div>
       </section>

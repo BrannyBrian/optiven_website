@@ -79,6 +79,17 @@ export default function Contact() {
                 />
               </div>
               <div className="relative mb-4">
+                <label htmlFor="phone" className="label font-bold">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <div className="relative mb-4">
                 <label htmlFor="message" className="label font-bold">
                   Message
                 </label>
@@ -88,7 +99,18 @@ export default function Contact() {
                   className="textarea textarea-bordered w-full h-24"
                 />
               </div>
-              <button className="text-white btn btn-primary uppercase">
+              <div className="relative mb-4">
+                <label htmlFor="source" className="label font-bold">
+                  How did you hear about us?
+                </label>
+                <input
+                  type="text"
+                  id="source"
+                  name="source"
+                  className="input input-bordered w-full"
+                />
+              </div>
+              <button className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
                 Send
               </button>
             </div>
