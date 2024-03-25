@@ -273,15 +273,14 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
           </div>
         </div>
         <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
-          <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
+          <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 flex items-end justify-start relative">
             <iframe
               width="100%"
               height="100%"
-              className="absolute inset-0"
+              className="w-full h-full inset-0"
               loading="lazy"
               title="map"
               src={projectMapLocationLink}
-              style={{ filter: "grayscale(0.15) contrast(1.2) opacity(0.4)" }}
             />
           </div>
           <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
