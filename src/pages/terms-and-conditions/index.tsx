@@ -4,7 +4,8 @@ import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 
 const index = ({ tsAndQs }: any) => {
-  const { termsAndConditionsContent } = tsAndQs.data[0].attributes;
+  const termsAndConditionsContent =
+    tsAndQs?.data?.[0]?.attributes?.termsAndConditionsContent ?? [];
 
   return (
     <Stairs>
@@ -25,18 +26,17 @@ export async function getStaticProps() {
       "terms-and-conditions?populate=*"
     );
 
-    // console.log(tsAndQsResponse.data);
-
     return {
       props: {
-        tsAndQs: tsAndQsResponse,
+        tsAndQs: tsAndQsResponse ?? { data: [] },
       },
     };
   } catch (error) {
-    console.error("Error fetching cookie policy:", error);
+    console.error("Error fetching terms and conditions:", error);
+
     return {
       props: {
-        tsAndQs: [],
+        tsAndQs: { data: [] },
       },
     };
   }
