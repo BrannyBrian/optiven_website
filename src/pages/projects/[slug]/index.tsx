@@ -225,7 +225,7 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
                   <div
                     key={index}
                     className="relative"
-                    // style={{ paddingBottom: "56.25%" }}
+                    style={{ paddingBottom: "56.25%" }}
                   >
                     <Image
                       src={imageUrl}
