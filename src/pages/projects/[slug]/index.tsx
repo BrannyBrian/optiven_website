@@ -22,6 +22,7 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
     subDivisionMapLink,
     onlineOfferLetterLink,
     waterApplicationFormLink,
+    projectMapLocationLink,
   } = project.data.attributes;
 
   const prepareInitialPrices = (attributes: any) => ({
@@ -269,6 +270,81 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
                 <ChevronRight size={24} />
               </Link>
             </div>
+          </div>
+        </div>
+        <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
+          <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
+            <iframe
+              width="100%"
+              height="100%"
+              className="absolute inset-0"
+              loading="lazy"
+              title="map"
+              src={projectMapLocationLink}
+              style={{ filter: "grayscale(0.15) contrast(1.2) opacity(0.4)" }}
+            />
+          </div>
+          <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
+            <h2 className="text-lg mb-1 font-bold uppercase">
+              Secure your piece of {projectName} today
+            </h2>
+            <div className="relative mb-4">
+              <label htmlFor="name" className="label font-bold">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="relative mb-4">
+              <label htmlFor="email" className="label font-bold">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="relative mb-4">
+              <label htmlFor="phone" className="label font-bold">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <div className="relative mb-4">
+              <label htmlFor="message" className="label font-bold">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                className="textarea textarea-bordered w-full h-24"
+              />
+            </div>
+            <div className="relative mb-4">
+              <label htmlFor="source" className="label font-bold">
+                How did you hear about us?
+              </label>
+              <input
+                type="text"
+                id="source"
+                name="source"
+                className="input input-bordered w-full"
+              />
+            </div>
+            <button className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
+              Send
+            </button>
           </div>
         </div>
         <div className="w-screen py-4 px-4 md:py-6 md:px-6 lg:py-10 lg:px-10">
