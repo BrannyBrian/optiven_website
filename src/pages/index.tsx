@@ -46,12 +46,14 @@ export default function Home({
   useGSAP(() => {
     const projectNames = document.querySelectorAll(".project-name");
     const projectSummaries = document.querySelectorAll(".project-summary");
+    const stars = document.querySelectorAll(".stars");
+    const projectImg = document.querySelectorAll(".project-img");
 
     projectNames.forEach((name) => {
       gsap.from(name, {
         duration: 1,
         autoAlpha: 0,
-        y: 50,
+        y: 25,
         ease: "none",
         scrollTrigger: {
           trigger: name,
@@ -65,10 +67,38 @@ export default function Home({
       gsap.from(summary, {
         duration: 1,
         autoAlpha: 0,
-        x: 50,
+        y: 75,
         ease: "none",
         scrollTrigger: {
           trigger: summary,
+          start: "top bottom",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    stars.forEach((star) => {
+      gsap.from(star, {
+        duration: 1,
+        autoAlpha: 0,
+        y: 50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: star,
+          start: "top bottom",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    projectImg.forEach((star) => {
+      gsap.from(star, {
+        duration: 1,
+        autoAlpha: 0,
+        x: 50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: star,
           start: "top bottom",
           toggleActions: "play none none reverse",
         },
@@ -127,20 +157,15 @@ export default function Home({
                           aria-label="Article"
                           className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
                         >
-                          <h1
-                            className="project-name secondary-text text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl hover:text-green-700"
-                            
-                          >
+                          <h1 className="project-name secondary-text text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl hover:text-green-700">
                             {project.attributes.projectName}
                           </h1>
                         </Link>
                       </div>
-                      <div>
+                      <div className="stars">
                         <StarRating rating={project.attributes.projectRating} />
                       </div>
-                      <p
-                        className="project-summary my-4 text-lg w-full md:w-full lg:w-2/3 text-gray-700 md:text-xl"
-                      >
+                      <p className="project-summary my-4 text-lg w-full md:w-full lg:w-2/3 text-gray-700 md:text-xl">
                         {project.attributes.projectSummary}
                       </p>
                       <div className="w-full -ml-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 my-2 lg:w-full">
@@ -167,7 +192,7 @@ export default function Home({
                       <ChevronRight size={18} />
                     </Link>
                   </div>
-                  <motion.div style={{ y: sm }} className="w-full">
+                  <div className="project-img w-full">
                     <Link href={`/projects/${project.id}`}>
                       <Image
                         src={`${project.attributes.projectMainBanner.data.attributes.formats.medium.url}`}
@@ -177,7 +202,7 @@ export default function Home({
                         className="rounded-md w-full h-auto mb-4"
                       />
                     </Link>
-                  </motion.div>
+                  </div>
                 </div>
               ))}
 
@@ -196,7 +221,7 @@ export default function Home({
           {/* Stats */}
           <div className="bg-green-600 py-8">
             <h1 className="text-4xl mb-2 mx-6 text-gray-200 border-b">
-              The Numbers Don't Lie
+              Numbers Don't Lie
             </h1>
             <div className="w-full pt-4 mx-auto lg:py-10 text-gray-300">
               <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
