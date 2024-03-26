@@ -8,6 +8,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { format } from "date-fns";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home({
   projects,
@@ -25,7 +29,6 @@ export default function Home({
         (item: any) => item.attributes.formats.large.url
       );
 
-      // Simulate asynchronous fetching of images
       const fetchedImages = await Promise.all(
         urls.map(async (url: string) => {
           const response = await fetch(url);
@@ -39,6 +42,39 @@ export default function Home({
 
     fetchImageUrls();
   }, []);
+
+  useGSAP(() => {
+    const projectNames = document.querySelectorAll(".project-name");
+    const projectSummaries = document.querySelectorAll(".project-summary");
+
+    projectNames.forEach((name) => {
+      gsap.from(name, {
+        duration: 1,
+        autoAlpha: 0,
+        y: 50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: name,
+          start: "top bottom",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    projectSummaries.forEach((summary) => {
+      gsap.from(summary, {
+        duration: 1,
+        autoAlpha: 0,
+        x: 50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: summary,
+          start: "top bottom",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+  });
 
   const { scrollYProgress } = useScroll({
     target: container,
@@ -91,7 +127,10 @@ export default function Home({
                           aria-label="Article"
                           className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
                         >
-                          <h1 className="secondary-text text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl hover:text-green-700">
+                          <h1
+                            className="project-name secondary-text text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl hover:text-green-700"
+                            
+                          >
                             {project.attributes.projectName}
                           </h1>
                         </Link>
@@ -99,7 +138,9 @@ export default function Home({
                       <div>
                         <StarRating rating={project.attributes.projectRating} />
                       </div>
-                      <p className="my-4 text-lg w-full md:w-full lg:w-2/3 text-gray-700 md:text-xl">
+                      <p
+                        className="project-summary my-4 text-lg w-full md:w-full lg:w-2/3 text-gray-700 md:text-xl"
+                      >
                         {project.attributes.projectSummary}
                       </p>
                       <div className="w-full -ml-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 my-2 lg:w-full">
