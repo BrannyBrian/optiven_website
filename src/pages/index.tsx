@@ -99,18 +99,18 @@ export default function Home({
                       <div>
                         <StarRating rating={project.attributes.projectRating} />
                       </div>
-                      <p className="mb-4 text-sm w-full md:w-2/3 lg:w-2/3 text-gray-700 md:text-lg">
+                      <p className="my-4 text-lg w-full md:w-full lg:w-2/3 text-gray-700 md:text-xl">
                         {project.attributes.projectSummary}
                       </p>
-                      <div className="w-full -ml-2 grid grid-cols-3 gap-1 my-2 lg:w-2/3">
+                      <div className="w-full -ml-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 my-2 lg:w-full">
                         {project.attributes.valueAdditions.data.map(
                           (valueAddition: any) => (
                             <div
                               className="flex items-center border p-2 text-gray-700 rounded-xl"
                               key={valueAddition.id}
                             >
-                              <CheckCircle color="black" size={12} />
-                              <h1 className="ml-1 text-xs">
+                              <CheckCircle color="black" size={16} />
+                              <h1 className="ml-1 font-semibold">
                                 {valueAddition.attributes.valueAdditionTitle}
                               </h1>
                             </div>
@@ -120,20 +120,22 @@ export default function Home({
                     </div>
                     <Link
                       href={`/projects/${project.id}`}
-                      className="flex mt-4 un hover:text-green-600 w-24"
+                      className="flex mt-4 un text-green-600 md:text-black hover:text-green-600 w-24"
                     >
                       View Project
                       <ChevronRight size={18} />
                     </Link>
                   </div>
                   <motion.div style={{ y: sm }} className="w-full">
-                    <Image
-                      src={`${project.attributes.projectMainBanner.data.attributes.formats.medium.url}`}
-                      height={400}
-                      width={700}
-                      alt={`Image for ${project.attributes.projectName}`}
-                      className="rounded-md w-full h-auto mb-4"
-                    />
+                    <Link href={`/projects/${project.id}`}>
+                      <Image
+                        src={`${project.attributes.projectMainBanner.data.attributes.formats.medium.url}`}
+                        height={400}
+                        width={700}
+                        alt={`Image for ${project.attributes.projectName}`}
+                        className="rounded-md w-full h-auto mb-4"
+                      />
+                    </Link>
                   </motion.div>
                 </div>
               ))}
@@ -229,10 +231,10 @@ export default function Home({
                       </p>
                       <Link
                         href={`articles/${article.id}`}
-                        className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                        className="flex text-xl mt-4 w-28 un hover:text-green-600 tracking-wide"
                       >
                         Read More
-                        <ChevronRight size={16} />
+                        <ChevronRight size={20} className="pt-1" />
                       </Link>
                     </div>
                   </div>
@@ -264,9 +266,9 @@ export default function Home({
                       </p>
                       <div className="my-3">
                         <Link
-                          href="#"
+                          href={`projects-updates/${projectUpdate.id}`}
                           aria-label="Article"
-                          className="inline-block w-full md:w-2/3 lg:w-2/3 transition-colors duration-200 hover:text-green-600"
+                          className="inline-block w-full md:w-2/3 lg:w-full transition-colors duration-200 hover:text-green-600"
                         >
                           <p className="font-sans text-4xl font-semibold leading-none tracking-tight lg:text-7xl xl:text-8xl text-gray-400">
                             {projectUpdate.attributes.projectUpdateTitle}
@@ -279,15 +281,15 @@ export default function Home({
                           "MMMM dd, yyyy"
                         )}
                       </p>
-                      <p className="mb-4 text-base w-full md:w-2/3 lg:w-2/3 text-gray-400 md:text-lg">
+                      <p className="mb-4 text-base w-full md:w-full lg:w-2/3 text-gray-400 md:text-xl">
                         {projectUpdate.attributes.projectUpdateIntro}
                       </p>
                       <Link
                         href={`projects-updates/${projectUpdate.id}`}
-                        className="flex text-sm mt-4 w-24 un hover:text-green-600 font-bold tracking-wide"
+                        className="flex text-xl mt-4 w-28 un hover:text-green-600 tracking-wide"
                       >
                         Read More
-                        <ChevronRight size={16} />
+                        <ChevronRight size={20} className="pt-1" />
                       </Link>
                     </div>
                     <Image
@@ -388,22 +390,6 @@ export async function getStaticProps() {
     const projectUpdateResponse = await fetcher<ProjectUpdate[]>(
       "project-updates?populate=*"
     );
-
-    // fetch the carousel images
-    // console.log(
-    // carouselsResponse.data.map((item: any) =>
-    //   item.attributes.images.data.map(
-    //     (item: any) => item.attributes.formats.large.url
-    //   )
-    // )
-    // );
-
-    // fetch the second batch of carousel images
-    // console.log(
-    // carouselsResponse.data[0].attributes.images.data.map(
-    //   (item: any) => item.attributes.formats.large.url
-    // )
-    // );
 
     return {
       props: {
