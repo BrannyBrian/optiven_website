@@ -6,12 +6,36 @@ import StarRating from "@/components/starRating";
 import { fetcher } from "../../lib/api";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useScroll, useTransform } from "framer-motion";
 import { format } from "date-fns";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Partners from "@/components/partners";
 gsap.registerPlugin(ScrollTrigger);
+
+const partners = [
+  {
+    id: 1,
+    partnerName: "Optiven Foundation",
+    partnerLogo: "/optiven-foundation-logo.png",
+  },
+  {
+    id: 2,
+    partnerName: "Optiven Homes",
+    partnerLogo: "/optiven-homes-logo.png",
+  },
+  {
+    id: 3,
+    partnerName: "GMC Place",
+    partnerLogo: "/gmc-logo.png",
+  },
+  {
+    id: 4,
+    partnerName: "Equity Bank",
+    partnerLogo: "/equity-bank-logo.png",
+  },
+];
 
 export default function Home({
   projects,
@@ -316,6 +340,7 @@ export default function Home({
               </Link>
             </div>
           </div>
+          <Partners partners={partners} />
           {/* Project Update */}
           <div className="px-4 py-8 mx-auto bg-black text-white lg:px-8 lg:py-20">
             {projectUpdate.data
