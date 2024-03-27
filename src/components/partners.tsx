@@ -28,7 +28,7 @@ const Partners: React.FC<PartnersProps> = ({ partners }) => {
   };
 
   return (
-    <div className="bg-gray-100 py-32">
+    <div className="bg-gray-100 py-32 mb-8">
       <h2 className="text-3xl text-center mb-24 -mt-24">Our Partners</h2>
       <Swiper
         slidesPerView={1}
