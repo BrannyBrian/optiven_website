@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  font-family: "Founders Grotesk", Arial, Helvetica, sans-serif;
   margin: 0;
   background: linear-gradient(
       to bottom,
@@ -13,4 +14,3 @@ body {
   color: rgb(var(--foreground-rgb));
   overflow-x: hidden;
 }
-
