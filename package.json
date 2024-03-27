@@ -32,6 +32,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/swiper": "^6.0.0",
     "autoprefixer": "^10.0.1",
     "daisyui": "^4.5.0",
     "flowbite-typography": "^1.0.3",
