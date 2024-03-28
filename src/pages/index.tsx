@@ -47,24 +47,10 @@ export default function Home({
   const container = useRef(null);
 
   useEffect(() => {
-    // Simulate fetching image URLs
-    const fetchImageUrls = async () => {
-      const urls = carouselImages.data[0].attributes.images.data.map(
-        (item: any) => item.attributes.formats.large.url
-      );
-
-      const fetchedImages = await Promise.all(
-        urls.map(async (url: string) => {
-          const response = await fetch(url);
-          const blob = await response.blob();
-          return URL.createObjectURL(blob);
-        })
-      );
-
-      setImageUrls(fetchedImages);
-    };
-
-    fetchImageUrls();
+    const urls = carouselImages.data[0].attributes.images.data.map(
+      (item: any) => item.attributes.formats.medium.url
+    );
+    setImageUrls(urls);
   }, []);
 
   useGSAP(() => {
@@ -489,6 +475,7 @@ export async function getStaticProps() {
         projects: projectsResponse,
         projectUpdate: projectUpdateResponse,
       },
+      revalidate: 3600,
     };
   } catch (error) {
     console.error("An error occurred while fetching:", error);
