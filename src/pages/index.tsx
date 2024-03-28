@@ -54,65 +54,40 @@ export default function Home({
   }, []);
 
   useGSAP(() => {
-    const projectNames = document.querySelectorAll(".project-name");
-    const projectSummaries = document.querySelectorAll(".project-summary");
-    const stars = document.querySelectorAll(".stars");
-    const projectImg = document.querySelectorAll(".project-img");
+    projects.data.forEach((project: Project) => {
+      const selector = `.project-${project.id}`; // Unique project selector
 
-    projectNames.forEach((name) => {
-      gsap.from(name, {
-        duration: 1,
-        autoAlpha: 0,
-        y: 25,
-        ease: "none",
+      // Initialize GSAP timeline with ScrollTrigger for each project
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: name,
-          start: "top bottom",
+          trigger: selector,
+          start: "top 80%", // Adjust as needed to start animations earlier
+          end: "bottom top",
           toggleActions: "play none none reverse",
         },
       });
-    });
 
-    projectSummaries.forEach((summary) => {
-      gsap.from(summary, {
+      // 1) Animate Project Name
+      tl.from(`${selector} .project-name`, {
         duration: 1,
         autoAlpha: 0,
-        y: 75,
-        ease: "none",
-        scrollTrigger: {
-          trigger: summary,
-          start: "top bottom",
-          toggleActions: "play none none reverse",
-        },
+        y: -30,
+        ease: "power1.out",
       });
-    });
 
-    stars.forEach((star) => {
-      gsap.from(star, {
-        duration: 1,
-        autoAlpha: 0,
-        y: 50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: star,
-          start: "top bottom",
-          toggleActions: "play none none reverse",
-        },
-      });
-    });
+      // 2) Animate Project Rating
+      tl.from(
+        `${selector} .stars`,
+        { duration: 1, autoAlpha: 0, scale: 0.5, ease: "power1.out" },
+        "<50%"
+      );
 
-    projectImg.forEach((star) => {
-      gsap.from(star, {
-        duration: 1,
-        autoAlpha: 0,
-        x: 50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: star,
-          start: "top bottom",
-          toggleActions: "play none none reverse",
-        },
-      });
+      // 3 & 4) Animate Project Summary and Image simultaneously
+      tl.from(
+        `${selector} .project-summary, ${selector} .project-img`,
+        { duration: 1, autoAlpha: 0, x: 30, ease: "power1.out" },
+        "<"
+      );
     });
 
     projects.data.forEach((project: Project) => {
@@ -120,14 +95,14 @@ export default function Home({
         `.value-addition-${project.id}`
       );
       gsap.from(valueAdditions, {
-        duration: 0.5, // Duration for each animation
-        autoAlpha: 0, // Fade in from invisible to visible
-        y: 20, // Start 20 pixels down from original position
+        duration: 0.5,
+        autoAlpha: 0,
+        y: 20,
         ease: "none",
-        stagger: 0.2, // Delay between each value addition animation
+        stagger: 0.2,
         scrollTrigger: {
-          trigger: `.project-${project.id}`, // Use project-specific class as trigger
-          start: "top center", // Animation starts when the top of the trigger hits the center of the viewport
+          trigger: `.project-${project.id}`,
+          start: "top center",
           toggleActions: "play none none reverse",
         },
       });
