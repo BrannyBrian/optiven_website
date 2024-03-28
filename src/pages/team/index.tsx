@@ -8,6 +8,18 @@ export default function Team({ teams }: any) {
     (a: TeamMember, b: TeamMember) => a.id - b.id
   );
 
+  const getBestAvailableImage = (formats: any) => {
+    if (formats.large) {
+      return formats.large.url;
+    } else if (formats.medium) {
+      return formats.medium.url;
+    } else if (formats.small) {
+      return formats.small.url;
+    } else {
+      return formats.thumbnail.url;
+    }
+  };
+
   return (
     <>
       <Head>
@@ -25,7 +37,9 @@ export default function Team({ teams }: any) {
             >
               <div className="md:w-1/2">
                 <Image
-                  src={`${member.attributes.teamMemberImage.data.attributes.formats.thumbnail.url}`}
+                  src={getBestAvailableImage(
+                    member.attributes.teamMemberImage.data.attributes.formats
+                  )}
                   alt={`Image for ${member.attributes.teamMember}`}
                   width={400}
                   height={300}
