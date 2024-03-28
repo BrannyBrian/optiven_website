@@ -67,7 +67,7 @@ export default function Home({
         },
       });
 
-      // 1) Animate Project Name
+      // Animate Project Name
       tl.from(`${selector} .project-name`, {
         duration: 1,
         autoAlpha: 0,
@@ -75,18 +75,25 @@ export default function Home({
         ease: "power1.out",
       });
 
-      // 2) Animate Project Rating
+      // Animate Project Rating
       tl.from(
         `${selector} .stars`,
         { duration: 1, autoAlpha: 0, scale: 0.5, ease: "power1.out" },
         "<50%"
       );
 
-      // 3 & 4) Animate Project Summary and Image simultaneously
+      // Animate Project Summary and Image simultaneously
       tl.from(
         `${selector} .project-summary, ${selector} .project-img`,
         { duration: 1, autoAlpha: 0, x: 30, ease: "power1.out" },
         "<"
+      );
+
+      // Animate project link
+      tl.from(
+        `${selector} .view-project-link`,
+        { duration: 1, autoAlpha: 0, x: -50, opacity: 5, ease: "power1.out" },
+        "<50%"
       );
     });
 
@@ -189,7 +196,7 @@ export default function Home({
                     </div>
                     <Link
                       href={`/projects/${project.id}`}
-                      className="flex mt-4 un text-green-600 md:text-black hover:text-green-600 w-24"
+                      className="view-project-link flex mt-4 un text-green-600 md:text-black hover:text-green-600 w-24"
                     >
                       View Project
                       <ChevronRight size={18} />
