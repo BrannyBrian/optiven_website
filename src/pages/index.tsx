@@ -114,6 +114,24 @@ export default function Home({
         },
       });
     });
+
+    projects.data.forEach((project: Project) => {
+      const valueAdditions = document.querySelectorAll(
+        `.value-addition-${project.id}`
+      );
+      gsap.from(valueAdditions, {
+        duration: 0.5, // Duration for each animation
+        autoAlpha: 0, // Fade in from invisible to visible
+        y: 20, // Start 20 pixels down from original position
+        ease: "none",
+        stagger: 0.2, // Delay between each value addition animation
+        scrollTrigger: {
+          trigger: `.project-${project.id}`, // Use project-specific class as trigger
+          start: "top center", // Animation starts when the top of the trigger hits the center of the viewport
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
   });
 
   const { scrollYProgress } = useScroll({
@@ -156,7 +174,7 @@ export default function Home({
               )
               .map((project: Project) => (
                 <div
-                  className="py-8 px-4 flex flex-col-reverse border-b lg:flex-row xl:flex-row"
+                  className={`py-8 px-4 flex flex-col-reverse border-b lg:flex-row xl:flex-row project-${project.id}`}
                   key={project.id}
                 >
                   <div className="flex flex-col justify-between w-full md:w-:-1/2">
@@ -182,7 +200,7 @@ export default function Home({
                         {project.attributes.valueAdditions.data.map(
                           (valueAddition: any) => (
                             <div
-                              className="flex items-center border p-2 text-gray-700 rounded-xl"
+                              className={`flex items-center border p-2 text-gray-700 rounded-xl value-addition-${project.id}`}
                               key={valueAddition.id}
                             >
                               <CheckCircle color="black" size={16} />
