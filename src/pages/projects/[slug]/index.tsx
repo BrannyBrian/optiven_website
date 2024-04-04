@@ -200,9 +200,15 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
   }, [project]);
 
   const getBestAvailableImageUrl = (formats: any) => {
-    return (
-      formats.large?.url || formats.medium?.url || formats.small?.url || ""
-    );
+    if (formats.large) {
+      return formats.large.url;
+    } else if (formats.medium) {
+      return formats.medium.url;
+    } else if (formats.small) {
+      return formats.small.url;
+    } else {
+      return formats.thumbnail.url;
+    }
   };
 
   return (

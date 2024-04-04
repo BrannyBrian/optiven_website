@@ -6,6 +6,17 @@ import { ChevronRight } from "react-feather";
 import Image from "next/image";
 
 const index = ({ articles }: any) => {
+  const getBestAvailableImageUrl = (formats: any) => {
+    if (formats.large) {
+      return formats.large.url;
+    } else if (formats.medium) {
+      return formats.medium.url;
+    } else if (formats.small) {
+      return formats.small.url;
+    } else {
+      return formats.thumbnail.url;
+    }
+  };
   return (
     <Stairs>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
@@ -13,7 +24,9 @@ const index = ({ articles }: any) => {
           {articles.data.map((article: any) => (
             <div className="overflow-hidden transition-shadow duration-300 bg-white">
               <Image
-                src={`${article.attributes.mainArticleImage.data.attributes.formats.small.url}`}
+                src={getBestAvailableImageUrl(
+                  article.attributes.mainArticleImage.data.attributes.formats
+                )}
                 height={400}
                 width={700}
                 className="object-cover w-full h-64 md:h-72 lg:h-80"
@@ -22,7 +35,8 @@ const index = ({ articles }: any) => {
               <div className="p-5 border border-t-0">
                 <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
                   {article.attributes.articleCategory.data.map(
-                    (category: any) => `${category.attributes.articleCategoryName} — `
+                    (category: any) =>
+                      `${category.attributes.articleCategoryName} — `
                   )}
                   <span className="text-gray-800">
                     {format(

@@ -4,6 +4,17 @@ import Image from "next/image";
 import Stairs from "@/components/stairs";
 
 const index = ({ photos }: any) => {
+  const getBestAvailableImageUrl = (formats: any) => {
+    if (formats.large) {
+      return formats.large.url;
+    } else if (formats.medium) {
+      return formats.medium.url;
+    } else if (formats.small) {
+      return formats.small.url;
+    } else {
+      return formats.thumbnail.url;
+    }
+  };
   return (
     <Stairs>
       <div className="text-gray-600 body-font">
@@ -23,7 +34,9 @@ const index = ({ photos }: any) => {
               <div key={photo.id} className="w-full md:w-1/2 lg:w-1/3 p-4">
                 <div className="flex relative">
                   <Image
-                    src={`${photo.attributes.photo.data.attributes.formats.medium.url}`}
+                    src={getBestAvailableImageUrl(
+                      photo.attributes.photo.data.attributes.formats
+                    )}
                     height={400}
                     width={700}
                     className="absolute inset-0 w-full h-full object-cover object-center"
