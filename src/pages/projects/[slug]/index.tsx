@@ -199,6 +199,12 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
     setImageUrls(images || []);
   }, [project]);
 
+  const getBestAvailableImageUrl = (formats: any) => {
+    return (
+      formats.large?.url || formats.medium?.url || formats.small?.url || ""
+    );
+  };
+
   return (
     <Stairs>
       <section
@@ -210,7 +216,9 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
             {projectName}
           </h1>
           <Image
-            src={projectMainBanner.data.attributes.formats.large.url}
+            src={getBestAvailableImageUrl(
+              projectMainBanner.data.attributes.formats
+            )}
             width={1000}
             height={600}
             alt={`project-carousel-banner-image-${index}`}
@@ -414,13 +422,13 @@ export async function getServerSideProps({ params }: Params) {
 
     const currenciesResponse = await fetcher<any>("currencies?populate=*");
 
-    console.log(
-      projectDetails.data.attributes.projectMainBanner.data.attributes.formats
-        .large.url
-    );
+    // console.log(
+    //   projectDetails.data.attributes.projectMainBanner.data.attributes.formats
+    //     .large.url
+    // );
 
     // console.log(currenciesResponse.data[0]);
-    console.log(projectDetails.data);
+    console.log(projectDetails);
 
     return {
       props: {
