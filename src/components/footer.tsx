@@ -46,8 +46,8 @@ export default function Footer() {
             </p>
             <p className="mt-4 text-sm text-gray-800">
               We have prime plots on sale in Malindi, Thika (Gatanga Road) ,
-              Machakos, Kitengela, Kithimani, Nyeri, Nanyuki, Kisumu, Vipingo,
-              Naro Moru, Nakuru, Kangundo Road, Konza and Kajiado.
+              Machakos, Kithimani, Nyeri, Nanyuki, Vipingo,
+              Naro Moru, Nakuru, Kangundo Road and Kajiado.
             </p>
           </div>
         </div>

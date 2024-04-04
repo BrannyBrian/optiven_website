@@ -246,17 +246,17 @@ export default function Home({
                   <p className="text-sm mb-4 uppercase">Completed Projects</p>
                 </div>
                 <div className="text-center md:border-r">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">7000+</h6>
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">10,000+</h6>
                   <p className="text-sm mb-4 uppercase">
                     Disbursed Title Deeds
                   </p>
                 </div>
                 <div className="text-center md:border-r">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">20+</h6>
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">50+</h6>
                   <p className="text-sm mb-4 uppercase">Awards</p>
                 </div>
                 <div className="text-center md:border-r">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">10000+</h6>
+                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">10,000+</h6>
                   <p className="text-sm mb-4 uppercase">Happy Clients</p>
                 </div>
                 <div className="text-center">
