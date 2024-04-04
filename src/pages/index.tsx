@@ -47,16 +47,23 @@ export default function Home({
   const container = useRef(null);
 
   useEffect(() => {
-    const urls = carouselImages.data[0].attributes.images.data.map(
-      (item: any) => item.attributes.formats.medium.url
+    const images = carouselImages.data[0].attributes.images.data.reduce(
+      (acc: string[], carousel: any) => {
+        const formats = carousel.attributes.formats;
+        const imageUrl =
+          formats.large?.url || formats.medium?.url || formats.small?.url;
+        if (imageUrl) acc.push(imageUrl);
+        return acc;
+      },
+      []
     );
-    setImageUrls(urls);
+
+    setImageUrls(images || []);
   }, []);
 
   useGSAP(() => {
     projects.data.forEach((project: Project) => {
       const selector = `.project-${project.id}`; // Unique project selector
-
       // Initialize GSAP timeline with ScrollTrigger for each project
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -66,7 +73,6 @@ export default function Home({
           toggleActions: "play none none reverse",
         },
       });
-
       // Animate Project Name
       tl.from(`${selector} .project-name`, {
         duration: 1,
@@ -74,21 +80,18 @@ export default function Home({
         y: -30,
         ease: "power1.out",
       });
-
       // Animate Project Rating
       tl.from(
         `${selector} .stars`,
         { duration: 1, autoAlpha: 0, scale: 0.5, ease: "power1.out" },
         "<50%"
       );
-
       // Animate Project Summary and Image simultaneously
       tl.from(
         `${selector} .project-summary, ${selector} .project-img`,
         { duration: 1, autoAlpha: 0, x: 30, ease: "power1.out" },
         "<"
       );
-
       // Animate project link
       tl.from(
         `${selector} .view-project-link`,
@@ -116,14 +119,14 @@ export default function Home({
     });
   });
 
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start end", "end start"],
-  });
-
-  const sm = useTransform(scrollYProgress, [0, 1], [0, -25]);
-  const md = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const lg = useTransform(scrollYProgress, [0, 1], [0, -75]);
+  const getBestAvailableImageUrl = (formats: any) => {
+    return (
+      formats?.large?.url ||
+      formats?.medium?.url ||
+      formats?.small?.url ||
+      formats?.thumbnail?.url
+    );
+  };
 
   return (
     <>
@@ -205,7 +208,10 @@ export default function Home({
                   <div className="project-img w-full">
                     <Link href={`/projects/${project.id}`}>
                       <Image
-                        src={`${project.attributes.projectMainBanner.data.attributes.formats.medium.url}`}
+                        src={getBestAvailableImageUrl(
+                          project.attributes.projectMainBanner.data.attributes
+                            .formats
+                        )}
                         height={400}
                         width={700}
                         alt={`Image for ${project.attributes.projectName}`}
@@ -277,7 +283,10 @@ export default function Home({
                 .map((article: Article) => (
                   <div className="overflow-hidden transition-shadow duration-300 bg-white h-max">
                     <Image
-                      src={`${article.attributes.mainArticleImage.data.attributes.formats.small.url}`}
+                      src={getBestAvailableImageUrl(
+                        article.attributes.mainArticleImage.data.attributes
+                          .formats
+                      )}
                       height={400}
                       width={700}
                       className="object-cover w-full h-64 md:h-72 lg:h-80"
@@ -370,7 +379,10 @@ export default function Home({
                       </Link>
                     </div>
                     <Image
-                      src={`${projectUpdate.attributes.projectUpdateMainImage.data.attributes.formats.small.url}`}
+                      src={getBestAvailableImageUrl(
+                        projectUpdate.attributes.projectUpdateMainImage.data
+                          .attributes.formats
+                      )}
                       height={400}
                       width={700}
                       className="w-full h-64 md:h-auto"
