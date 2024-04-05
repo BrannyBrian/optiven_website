@@ -32,7 +32,7 @@ export default function Testimonials({ testimonials }: any) {
                       {testimonial.attributes.clientComment.length > 150 && (
                         <div
                           onClick={() => setOpenModal(index)}
-                          className="text-blue-600 italic hover:underline"
+                          className="text-blue-600 italic cursor-pointer hover:underline"
                         >
                           read more
                         </div>
