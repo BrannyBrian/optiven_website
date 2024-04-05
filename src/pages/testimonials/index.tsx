@@ -1,36 +1,66 @@
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
+import { useState } from "react";
+import { Button, Modal } from "flowbite-react";
 
 export default function Testimonials({ testimonials }: any) {
+  const [openModal, setOpenModal] = useState<number | null>(null);
   return (
     <Stairs>
       <div>
         <div className="container px-5 py-24 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {testimonials.data.map((testimonial: Testimonial) => (
-              <div
-                className="lg:m-2 mb-6 p-4 border-2 rounded"
-                key={testimonial.id}
-              >
-                <div className="h-full text-center">
-                  <img
-                    alt="testimonial"
-                    className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
-                    src="/avatar.png"
-                  />
-                  <p className="leading-relaxed">
-                    {testimonial.attributes.clientComment}
-                  </p>
-                  <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
-                  <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
-                    {testimonial.attributes.clientName}
-                  </h2>
-                  <p className="text-gray-500">
-                    {testimonial.attributes.clientTitle}
-                  </p>
+            {testimonials.data.map(
+              (testimonial: Testimonial, index: number) => (
+                <div
+                  className="lg:m-2 mb-6 p-4 border-2 rounded"
+                  key={testimonial.id}
+                >
+                  <div className="h-full text-center">
+                    <img
+                      alt="testimonial"
+                      className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
+                      src="/avatar.png"
+                    />
+                    <p className="leading-relaxed">
+                      {testimonial.attributes.clientComment.length > 150
+                        ? testimonial.attributes.clientComment.substring(
+                            0,
+                            100
+                          ) + "..."
+                        : testimonial.attributes.clientComment}
+                      {testimonial.attributes.clientComment.length > 150 && (
+                        <div
+                          onClick={() => setOpenModal(index)}
+                          className="text-blue-600 italic hover:underline"
+                        >
+                          read more
+                        </div>
+                      )}
+                    </p>
+                    {openModal === index && (
+                      <Modal show={true} onClose={() => setOpenModal(null)}>
+                        <Modal.Header>
+                          {testimonial.attributes.clientName}
+                        </Modal.Header>
+                        <Modal.Body>
+                          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                            {testimonial.attributes.clientComment}
+                          </p>
+                        </Modal.Body>
+                      </Modal>
+                    )}
+                    <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
+                    <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
+                      {testimonial.attributes.clientName}
+                    </h2>
+                    <p className="text-gray-500">
+                      {testimonial.attributes.clientTitle}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </div>
       </div>

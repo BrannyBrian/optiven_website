@@ -428,14 +428,6 @@ export async function getServerSideProps({ params }: Params) {
 
     const currenciesResponse = await fetcher<any>("currencies?populate=*");
 
-    // console.log(
-    //   projectDetails.data.attributes.projectMainBanner.data.attributes.formats
-    //     .large.url
-    // );
-
-    // console.log(currenciesResponse.data[0]);
-    console.log(projectDetails);
-
     return {
       props: {
         project: projectDetails,
