@@ -41,12 +41,6 @@ const index = ({ projects }: any) => {
                   />
                 </Link>
                 <div className="p-4 border border-t-0">
-                  <p className="text-xs font-semibold tracking-wide uppercase">
-                    {format(
-                      new Date(project.attributes.publishedAt),
-                      "MMMM dd, yyyy"
-                    )}
-                  </p>
                   <Link
                     href={`projects/${project.id}`}
                     aria-label="Project"
