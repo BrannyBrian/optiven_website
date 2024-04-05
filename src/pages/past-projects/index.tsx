@@ -50,8 +50,21 @@ const index = ({ projects }: any) => {
                       {project.attributes.projectName}
                     </p>
                   </Link>
-                  <p className="text-gray-700 text-sm">
-                    {project.attributes.projectSummary}
+                  <p className="text-gray-700">
+                    {project.attributes.projectSummary.length > 120
+                      ? `${project.attributes.projectSummary.substring(
+                          0,
+                          100
+                        )}...`
+                      : project.attributes.projectSummary}
+                    {project.attributes.projectSummary.length > 120 && (
+                      <Link
+                        href={`projects/${project.id}`}
+                        className="text-blue-600 italic hover:underline"
+                      >
+                        read more
+                      </Link>
+                    )}
                   </p>
                   <div className="flex items-center">
                     <Link
