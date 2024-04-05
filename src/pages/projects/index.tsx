@@ -60,7 +60,7 @@ const index = ({ projects }: any) => {
                     {project.attributes.projectSummary.length > 120 && (
                       <Link
                         href={`projects/${project.id}`}
-                        className="text-blue-600 italic hover:underline"
+                        className="text-green-600 italic hover:underline"
                       >
                         read more
                       </Link>

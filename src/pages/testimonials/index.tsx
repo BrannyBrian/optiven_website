@@ -23,16 +23,16 @@ export default function Testimonials({ testimonials }: any) {
                       src="/avatar.png"
                     />
                     <p className="leading-relaxed">
-                      {testimonial.attributes.clientComment.length > 150
+                      {testimonial.attributes.clientComment.length > 200
                         ? testimonial.attributes.clientComment.substring(
                             0,
                             100
                           ) + "..."
                         : testimonial.attributes.clientComment}
-                      {testimonial.attributes.clientComment.length > 150 && (
+                      {testimonial.attributes.clientComment.length > 200 && (
                         <div
                           onClick={() => setOpenModal(index)}
-                          className="text-blue-600 italic cursor-pointer hover:underline"
+                          className="text-green-600 italic cursor-pointer hover:underline"
                         >
                           read more
                         </div>
@@ -41,7 +41,9 @@ export default function Testimonials({ testimonials }: any) {
                     {openModal === index && (
                       <Modal show={true} onClose={() => setOpenModal(null)}>
                         <Modal.Header>
-                          {testimonial.attributes.clientName}
+                          <div className="text-xl">
+                            {testimonial.attributes.clientName}
+                          </div>
                         </Modal.Header>
                         <Modal.Body>
                           <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
@@ -50,7 +52,7 @@ export default function Testimonials({ testimonials }: any) {
                         </Modal.Body>
                       </Modal>
                     )}
-                    <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
+                    <span className="inline-block h-1 w-10 rounded bg-green-500 mt-6 mb-4" />
                     <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
                       {testimonial.attributes.clientName}
                     </h2>

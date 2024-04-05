@@ -53,15 +53,12 @@ const index = ({ articles }: any) => {
                 </Link>
                 <p className="text-gray-700">
                   {article.attributes.articleIntro.length > 120
-                    ? `${article.attributes.articleIntro.substring(
-                        0,
-                        100
-                      )}...`
+                    ? `${article.attributes.articleIntro.substring(0, 100)}...`
                     : article.attributes.articleIntro}
                   {article.attributes.articleIntro.length > 120 && (
                     <Link
                       href={`projects/${article.id}`}
-                      className="text-blue-600 italic hover:underline"
+                      className="text-green-600 italic hover:underline"
                     >
                       read more
                     </Link>
