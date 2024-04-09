@@ -8,6 +8,37 @@ import { useState } from "react";
 
 const Index = ({ projects }: { projects: { data: Project[] } }) => {
   const [selectedRating, setSelectedRating] = useState<number | "all">("all");
+  const [selectedLocation, setSelectedLocation] = useState<string | "all">(
+    "all"
+  );
+
+  // Extract projects with locations
+  const projectsWithLocationsArray = projects.data
+    .map((project: Project) => project.attributes.projectLocation.data)
+    .filter((project: any) => project !== null);
+
+  // Deduplicate and sort locations
+  const uniqueLocations = Array.from(
+    new Set(
+      projectsWithLocationsArray.map(
+        (location: any) => location.attributes.projectLocation
+      )
+    )
+  ).sort();
+
+  // Filter projects based on selected rating and location
+  const filteredProjects = projects.data.filter((project) => {
+    const matchesRating =
+      selectedRating === "all" ||
+      project.attributes.projectRating === selectedRating;
+    const matchesLocation =
+      selectedLocation === "all" ||
+      (project.attributes.projectLocation.data &&
+        project.attributes.projectLocation.data.attributes.projectLocation ===
+          selectedLocation);
+    return matchesRating && matchesLocation;
+  });
+
   const getBestAvailableImageUrl = (formats: any) => {
     if (formats.large) {
       return formats.large.url;
@@ -19,33 +50,46 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
       return formats.thumbnail.url;
     }
   };
-  const filteredProjects = projects.data.filter((project) => {
-    return (
-      selectedRating === "all" ||
-      project.attributes.projectRating === selectedRating
-    );
-  });
 
   return (
     <Stairs>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
-        <div className="mb-4">
-          <label></label>
-          <select
-            onChange={(e) =>
-              setSelectedRating(
-                e.target.value === "all" ? "all" : parseInt(e.target.value)
-              )
-            }
-          >
-            <option value="all">All Ratings</option>
-            <option value="5">Platinum</option>
-            <option value="4">Gold</option>
-            <option value="3">Silver</option>
-            <option value="2">Bronze</option>
-            <option value="1">Sapphire</option>
-          </select>
+        <div className="-mt-10 md:flex">
+          <div className="mb-4 flex flex-col md:mr-2 lg:mr-4">
+            <label className="font-bold text-sm">Project Rating</label>
+            <select
+              onChange={(e) =>
+                setSelectedRating(
+                  e.target.value === "all" ? "all" : parseInt(e.target.value)
+                )
+              }
+              className="w-72"
+            >
+              <option value="all">All Ratings</option>
+              <option value="5">Platinum</option>
+              <option value="4">Gold</option>
+              <option value="3">Silver</option>
+              <option value="2">Bronze</option>
+              <option value="1">Sapphire</option>
+            </select>
+          </div>
+          <div className="mb-4 flex flex-col">
+            <label className="font-bold text-sm">Project Location</label>
+            <select
+              onChange={(e) => setSelectedLocation(e.target.value)}
+              value={selectedLocation}
+              className="w-72"
+            >
+              <option value="all">All Locations</option>
+              {uniqueLocations.map((location) => (
+                <option key={location} value={location}>
+                  {location}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {(filteredProjects || [])
             .filter((project: any) => project.attributes.isActive === true)
