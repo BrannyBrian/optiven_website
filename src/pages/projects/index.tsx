@@ -4,8 +4,10 @@ import Link from "next/link";
 import Stairs from "@/components/stairs";
 import { ChevronRight } from "react-feather";
 import Image from "next/image";
+import { useState } from "react";
 
-const index = ({ projects }: any) => {
+const Index = ({ projects }: { projects: { data: Project[] } }) => {
+  const [selectedRating, setSelectedRating] = useState<number | "all">("all");
   const getBestAvailableImageUrl = (formats: any) => {
     if (formats.large) {
       return formats.large.url;
@@ -17,11 +19,35 @@ const index = ({ projects }: any) => {
       return formats.thumbnail.url;
     }
   };
+  const filteredProjects = projects.data.filter((project) => {
+    return (
+      selectedRating === "all" ||
+      project.attributes.projectRating === selectedRating
+    );
+  });
+
   return (
     <Stairs>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
+        <div className="mb-4">
+          <label></label>
+          <select
+            onChange={(e) =>
+              setSelectedRating(
+                e.target.value === "all" ? "all" : parseInt(e.target.value)
+              )
+            }
+          >
+            <option value="all">All Ratings</option>
+            <option value="5">Platinum</option>
+            <option value="4">Gold</option>
+            <option value="3">Silver</option>
+            <option value="2">Bronze</option>
+            <option value="1">Sapphire</option>
+          </select>
+        </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
-          {(projects.data || [])
+          {(filteredProjects || [])
             .filter((project: any) => project.attributes.isActive === true)
             .map((project: any) => (
               <div
@@ -143,4 +169,4 @@ export async function getStaticProps() {
   }
 }
 
-export default index;
+export default Index;
