@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { fetcher } from "../../../lib/api";
 import Link from "next/link";
 import Stairs from "@/components/stairs";
@@ -27,17 +26,21 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
   ).sort();
 
   // Filter projects based on selected rating and location
-  const filteredProjects = projects.data.filter((project) => {
-    const matchesRating =
-      selectedRating === "all" ||
-      project.attributes.projectRating === selectedRating;
-    const matchesLocation =
-      selectedLocation === "all" ||
-      (project.attributes.projectLocation.data &&
-        project.attributes.projectLocation.data.attributes.projectLocation ===
-          selectedLocation);
-    return matchesRating && matchesLocation;
-  });
+  const filteredProjects = projects.data
+    .filter((project) => {
+      const matchesRating =
+        selectedRating === "all" ||
+        project.attributes.projectRating === selectedRating;
+      const matchesLocation =
+        selectedLocation === "all" ||
+        (project.attributes.projectLocation.data &&
+          project.attributes.projectLocation.data.attributes.projectLocation ===
+            selectedLocation);
+      return matchesRating && matchesLocation;
+    })
+    .sort((a, b) =>
+      a.attributes.projectName.localeCompare(b.attributes.projectName)
+    );
 
   const getBestAvailableImageUrl = (formats: any) => {
     if (formats.large) {
@@ -89,7 +92,6 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </select>
           </div>
         </div>
-
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {(filteredProjects || [])
             .filter((project: any) => project.attributes.isActive === true)
