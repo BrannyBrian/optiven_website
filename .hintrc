@@ -17,6 +17,13 @@
       {
         "select-name": "off"
       }
+    ],
+    "button-type": "off",
+    "axe/parsing": [
+      "default",
+      {
+        "duplicate-id": "off"
+      }
     ]
   }
 }
