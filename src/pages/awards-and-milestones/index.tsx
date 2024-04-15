@@ -128,31 +128,38 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
             <div className="-mx-6 lg:col-span-2 lg:mx-0">
               <div id="keen-slider" className="keen-slider">
                 <div id="keen-slider" className="keen-slider">
-                  {awards.data.map((award: Award) => (
-                    <div key={award.id} className="keen-slider__slide">
-                      <blockquote className="flex h-full flex-col justify-between bg-white p-6 shadow-sm sm:p-8 lg:p-12">
-                        <div>
-                          <div className="mt-4">
-                            <Image
-                              width={100}
-                              height={100}
-                              alt={`trophy ${award.id}`}
-                              src={"/trophy.png"}
-                            />
-                            <p className="mt-4 uppercase text-2xl font-bold text-rose-600 sm:text-3xl">
-                              {award.attributes.awardTitle}
-                            </p>
-                            <p className="mt-1 leading-relaxed text-gray-700">
-                              {award.attributes.awardDescription}
-                            </p>
+                  {awards.data
+                    .sort((a, b) => {
+                      return (
+                        parseInt(b.attributes.awardYear) -
+                        parseInt(a.attributes.awardYear)
+                      );
+                    })
+                    .map((award: Award) => (
+                      <div key={award.id} className="keen-slider__slide">
+                        <blockquote className="flex h-full flex-col justify-between bg-white p-6 shadow-sm sm:p-8 lg:p-12">
+                          <div>
+                            <div className="mt-4">
+                              <Image
+                                width={100}
+                                height={100}
+                                alt={`trophy ${award.id}`}
+                                src={"/trophy.png"}
+                              />
+                              <p className="mt-4 uppercase text-2xl font-bold text-rose-600 sm:text-3xl">
+                                {award.attributes.awardTitle}
+                              </p>
+                              <p className="mt-1 leading-relaxed text-gray-700">
+                                {award.attributes.awardDescription}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                        <footer className="mt-4 text-sm font-medium text-gray-700 sm:mt-6">
-                          &mdash; {award.attributes.awardYear}
-                        </footer>
-                      </blockquote>
-                    </div>
-                  ))}
+                          <footer className="mt-4 text-sm font-medium text-gray-700 sm:mt-6">
+                            &mdash; {award.attributes.awardYear}
+                          </footer>
+                        </blockquote>
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>
