@@ -45,12 +45,6 @@ const aboutMenuItems = [
     icon: Gift,
   },
   {
-    name: "Our Partners",
-    description: "Discover our trusted network of partners",
-    href: "/partners",
-    icon: Users,
-  },
-  {
     name: "Corporate and Social Responsibility",
     description: "Learn about our commitment to society",
     href: "/corporate-and-social-responsibility",
