@@ -44,9 +44,16 @@ export default function Careers({ careers, locations }: any) {
               <h2 className="mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
                 We're looking for YOU!
               </h2>
+              <p className="font-bold md:text-lg">
+                Are you committed, trainable, with self-drive and with good
+                relationship skills with team members?
+              </p>
               <p className="text-base text-gray-700 md:text-lg">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque rem aperiam, eaque ipsa quae.
+                At Optiven Group, we are looking for you to join the family
+                through giving innovative solutions to our customers and
+                innovatively meet targets through self-driven targets. So, if
+                these challenges are surmountable for you, we welcome your
+                application to the open positions available at the moment.
               </p>
             </div>
             <div className="mb-4 transition-shadow duration-300 hover:shadow-xl lg:mb-6">
@@ -56,10 +63,38 @@ export default function Careers({ careers, locations }: any) {
                 alt=""
               />
             </div>
-            <p className="mb-4 text-base text-gray-700 sm:mx-auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud ullamco laboris aliquip ex ea.
+            <p className="font-bold md:text-lg">Caution Alert</p>
+            <p className="text-base text-gray-700 md:text-lg">
+              As part of our mandate to operate transparently, take note that
+              all our job openings are always posted on our website. There
+              should be NO Canvassing and Optiven does not charge for job
+              interviews. After consideration based on your qualifications, an
+              official email with our official contacts will be sent to you with
+              an email ending with{" "}
+              <span className="text-green-600">@optiven.co.ke</span>
+            </p>
+            <p className="font-bold mt-4 md:text-lg">Please Note</p>
+            <p className="text-base text-gray-700 md:text-lg">
+              We do not charge for interviews or placements. In case you
+              encounter please contact us:
+            </p>
+            <div>
+              <ul>
+                <li>
+                  <span className="font-bold">Call:</span> 0715 9280112
+                </li>
+                <li>
+                  <span className="font-bold">Email :</span>{" "}
+                  recruitment@optiven.co.ke
+                </li>
+                <li>
+                  <span className="font-bold">Offices:</span> Absa Towers Loita
+                  street 2nd floor
+                </li>
+              </ul>
+            </div>
+            <p className="font-bold mt-4 md:text-lg">
+              Optiven is an Equal opportunity employer.
             </p>
           </div>
         </div>
