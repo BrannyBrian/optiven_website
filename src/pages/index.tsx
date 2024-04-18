@@ -329,10 +329,10 @@ export default function Home({
                       </p>
                       <Link
                         href={`articles/${article.id}`}
-                        className="flex text-xl mt-4 w-28 un hover:text-green-600 tracking-wide"
+                        className="flex text-md mt-4 w-24 un hover:text-green-600"
                       >
                         Read More
-                        <ChevronRight size={20} className="pt-1" />
+                        <ChevronRight size={16} className="pt-1 ml-1" />
                       </Link>
                     </div>
                   </div>
