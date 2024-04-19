@@ -6,7 +6,6 @@ import StarRating from "@/components/starRating";
 import { fetcher } from "../../lib/api";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useTransform } from "framer-motion";
 import { format } from "date-fns";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -36,6 +35,10 @@ const partners = [
     partnerLogo: "/equity-bank-logo.png",
   },
 ];
+
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
 export default function Home({
   projects,
@@ -120,12 +123,17 @@ export default function Home({
   });
 
   const getBestAvailableImageUrl = (formats: any) => {
-    return (
-      formats?.large?.url ||
-      formats?.medium?.url ||
-      formats?.small?.url ||
-      formats?.thumbnail?.url
-    );
+    let imageUrl = formats.thumbnail?.url || ""; // Default to thumbnail if available
+    if (formats.large) {
+      imageUrl = formats.large.url;
+    } else if (formats.medium) {
+      imageUrl = formats.medium.url;
+    } else if (formats.small) {
+      imageUrl = formats.small.url;
+    }
+
+    // Assuming 'placeholderImage' is the base64 string for the blur effect
+    return { url: imageUrl, blurDataURL: placeholderImage };
   };
 
   return (
@@ -144,6 +152,8 @@ export default function Home({
                       height={500}
                       width={2000}
                       alt={`home-carousel-banner-image-${index}`}
+                      placeholder="blur"
+                      blurDataURL={placeholderImage}
                     />
                   ))}
                 </Carousel>
@@ -208,10 +218,19 @@ export default function Home({
                   <div className="project-img w-full">
                     <Link href={`/projects/${project.id}`}>
                       <Image
-                        src={getBestAvailableImageUrl(
-                          project.attributes.projectMainBanner.data.attributes
-                            .formats
-                        )}
+                        src={
+                          getBestAvailableImageUrl(
+                            project.attributes.projectMainBanner.data.attributes
+                              .formats
+                          ).url
+                        }
+                        placeholder="blur"
+                        blurDataURL={
+                          getBestAvailableImageUrl(
+                            project.attributes.projectMainBanner.data.attributes
+                              .formats
+                          ).blurDataURL
+                        }
                         height={400}
                         width={700}
                         alt={`Image for ${project.attributes.projectName}`}
@@ -283,10 +302,19 @@ export default function Home({
                 .map((article: Article) => (
                   <div className="overflow-hidden transition-shadow duration-300 bg-white h-max">
                     <Image
-                      src={getBestAvailableImageUrl(
-                        article.attributes.mainArticleImage.data.attributes
-                          .formats
-                      )}
+                      src={
+                        getBestAvailableImageUrl(
+                          article.attributes.mainArticleImage.data.attributes
+                            .formats
+                        ).url
+                      }
+                      placeholder="blur"
+                      blurDataURL={
+                        getBestAvailableImageUrl(
+                          article.attributes.mainArticleImage.data.attributes
+                            .formats
+                        ).blurDataURL
+                      }
                       height={400}
                       width={700}
                       className="object-cover w-full h-64 md:h-72 lg:h-80"
@@ -392,10 +420,19 @@ export default function Home({
                       </Link>
                     </div>
                     <Image
-                      src={getBestAvailableImageUrl(
-                        projectUpdate.attributes.projectUpdateMainImage.data
-                          .attributes.formats
-                      )}
+                      src={
+                        getBestAvailableImageUrl(
+                          projectUpdate.attributes.projectUpdateMainImage.data
+                            .attributes.formats
+                        ).url
+                      }
+                      placeholder="blur"
+                      blurDataURL={
+                        getBestAvailableImageUrl(
+                          projectUpdate.attributes.projectUpdateMainImage.data
+                            .attributes.formats
+                        ).blurDataURL
+                      }
                       height={400}
                       width={700}
                       className="w-full h-64 md:h-auto"

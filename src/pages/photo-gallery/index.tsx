@@ -3,18 +3,25 @@ import { fetcher } from "../../../lib/api";
 import Image from "next/image";
 import Stairs from "@/components/stairs";
 
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
+
 const index = ({ photos }: any) => {
   const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats.thumbnail?.url || ""; // Default to thumbnail if available
     if (formats.large) {
-      return formats.large.url;
+      imageUrl = formats.large.url;
     } else if (formats.medium) {
-      return formats.medium.url;
+      imageUrl = formats.medium.url;
     } else if (formats.small) {
-      return formats.small.url;
-    } else {
-      return formats.thumbnail.url;
+      imageUrl = formats.small.url;
     }
+
+    // Assuming 'placeholderImage' is the base64 string for the blur effect
+    return { url: imageUrl, blurDataURL: placeholderImage };
   };
+
   return (
     <Stairs>
       <div className="text-gray-600 body-font">
@@ -34,9 +41,17 @@ const index = ({ photos }: any) => {
               <div key={photo.id} className="w-full md:w-1/2 lg:w-1/3 p-4">
                 <div className="flex relative">
                   <Image
-                    src={getBestAvailableImageUrl(
-                      photo.attributes.photo.data.attributes.formats
-                    )}
+                    src={
+                      getBestAvailableImageUrl(
+                        photo.attributes.photo.data.attributes.formats
+                      ).url
+                    }
+                    placeholder="blur"
+                    blurDataURL={
+                      getBestAvailableImageUrl(
+                        photo.attributes.photo.data.attributes.formats
+                      ).blurDataURL
+                    }
                     height={400}
                     width={700}
                     className="absolute inset-0 w-full h-full object-cover object-center"

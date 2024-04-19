@@ -5,18 +5,25 @@ import Stairs from "@/components/stairs";
 import { ChevronRight } from "react-feather";
 import Image from "next/image";
 
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
+
 const index = ({ articles }: any) => {
   const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
     if (formats.large) {
-      return formats.large.url;
+      imageUrl = formats.large.url;
     } else if (formats.medium) {
-      return formats.medium.url;
+      imageUrl = formats.medium.url;
     } else if (formats.small) {
-      return formats.small.url;
-    } else {
-      return formats.thumbnail.url;
+      imageUrl = formats.small.url;
     }
+
+    // Return both the URL and the blurDataURL (the same static placeholder for now)
+    return { url: imageUrl, blurDataURL: placeholderImage };
   };
+
   return (
     <Stairs>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
@@ -24,9 +31,17 @@ const index = ({ articles }: any) => {
           {articles.data.map((article: any) => (
             <div className="overflow-hidden transition-shadow duration-300 bg-white">
               <Image
-                src={getBestAvailableImageUrl(
-                  article.attributes.mainArticleImage.data.attributes.formats
-                )}
+                src={
+                  getBestAvailableImageUrl(
+                    article.attributes.mainArticleImage.data.attributes.formats
+                  ).url
+                }
+                placeholder="blur"
+                blurDataURL={
+                  getBestAvailableImageUrl(
+                    article.attributes.mainArticleImage.data.attributes.formats
+                  ).blurDataURL
+                }
                 height={400}
                 width={700}
                 className="object-cover w-full h-64 md:h-72 lg:h-80"

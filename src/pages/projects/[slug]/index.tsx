@@ -9,6 +9,10 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import PlotPriceCard from "@/components/PlotPriceCard";
 
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
+
 type PageProps = {
   project: any;
   currencies: any;
@@ -200,15 +204,17 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
   }, [project]);
 
   const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
     if (formats.large) {
-      return formats.large.url;
+      imageUrl = formats.large.url;
     } else if (formats.medium) {
-      return formats.medium.url;
+      imageUrl = formats.medium.url;
     } else if (formats.small) {
-      return formats.small.url;
-    } else {
-      return formats.thumbnail.url;
+      imageUrl = formats.small.url;
     }
+
+    // Return both the URL and the blurDataURL (the same static placeholder for now)
+    return { url: imageUrl, blurDataURL: placeholderImage };
   };
 
   return (
@@ -222,12 +228,20 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
             {projectName}
           </h1>
           <Image
-            src={getBestAvailableImageUrl(
-              projectMainBanner.data.attributes.formats
-            )}
+            src={
+              getBestAvailableImageUrl(
+                projectMainBanner.data.attributes.formats
+              ).url
+            }
+            placeholder="blur"
+            blurDataURL={
+              getBestAvailableImageUrl(
+                projectMainBanner.data.attributes.formats
+              ).blurDataURL
+            }
             width={1000}
             height={600}
-            alt={`project-carousel-banner-image-${index}`}
+            alt={`Main banner image for ${projectName}`}
             className="w-full mb-4 lg:mb-8"
           />
           <div className="format md:text-xl lg:text-2xl">
@@ -246,7 +260,9 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
                       src={imageUrl}
                       layout="fill"
                       objectFit="cover"
-                      alt={`project-carousel-banner-image-${index}`}
+                      alt={`Carousel image ${index + 1} for ${projectName}`}
+                      placeholder="blur"
+                      blurDataURL={placeholderImage}
                     />
                   </div>
                 ))}

@@ -1,28 +1,12 @@
 import React from "react";
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-// import { useParams } from "next/navigation";
 
 type Params = {
   params: {
     slug: string;
   };
 };
-
-// const fetchData = async () => {
-//   const params = useParams();
-//   const { slug } = params;
-//   const req = await fetch(
-//     `${process.env.STRAPI_URL_PROD}project-updates/${slug}?populate=*/`,
-//     {
-//       headers: {
-//         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN_PROD}`,
-//       },
-//     }
-//   );
-//   const res = await req.json();
-//   return res.data;
-// };
 
 const index = ({ projectUpdate }: any) => {
   const { projectUpdateBody } = projectUpdate.data.attributes;

@@ -6,6 +6,10 @@ import { ChevronRight } from "react-feather";
 import Image from "next/image";
 import { useState } from "react";
 
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
+
 const Index = ({ projects }: { projects: { data: Project[] } }) => {
   const [selectedRating, setSelectedRating] = useState<number | "all">("all");
   const [selectedLocation, setSelectedLocation] = useState<string | "all">(
@@ -44,16 +48,19 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
     );
 
   const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
     if (formats.large) {
-      return formats.large.url;
+      imageUrl = formats.large.url;
     } else if (formats.medium) {
-      return formats.medium.url;
+      imageUrl = formats.medium.url;
     } else if (formats.small) {
-      return formats.small.url;
-    } else {
-      return formats.thumbnail.url;
+      imageUrl = formats.small.url;
     }
+
+    // Return both the URL and the blurDataURL (the same static placeholder for now)
+    return { url: imageUrl, blurDataURL: placeholderImage };
   };
+
   return (
     <Stairs>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
@@ -102,10 +109,19 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
               >
                 <Link href={`projects/${project.id}`} aria-label="Project">
                   <Image
-                    src={getBestAvailableImageUrl(
-                      project.attributes.projectMainBanner.data.attributes
-                        .formats
-                    )}
+                    src={
+                      getBestAvailableImageUrl(
+                        project.attributes.projectMainBanner.data.attributes
+                          .formats
+                      ).url
+                    }
+                    placeholder="blur"
+                    blurDataURL={
+                      getBestAvailableImageUrl(
+                        project.attributes.projectMainBanner.data.attributes
+                          .formats
+                      ).blurDataURL
+                    }
                     height={400}
                     width={700}
                     className="object-cover w-full h-64 md:h-72 lg:h-80"
