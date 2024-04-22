@@ -2,6 +2,33 @@ import Head from "next/head";
 import Stairs from "@/components/stairs";
 
 export default function Contact() {
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
+    const formData = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+      phone: event.target.phone.value,
+      message: event.target.message.value,
+      source: event.target.source.value,
+    };
+
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log("Form successfully submitted");
+    } else {
+      console.error("Error submitting form:", data.message);
+    }
+  };
   return (
     <>
       <Head>
@@ -50,7 +77,10 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-            <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
+            <form
+              onSubmit={handleSubmit}
+              className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0"
+            >
               <h2 className="text-lg mb-1 font-bold uppercase">Feedback</h2>
               <p className="leading-relaxed mb-5 text-gray-600">
                 Please fill in the form below and we will get back to you in the
@@ -110,10 +140,13 @@ export default function Contact() {
                   className="input input-bordered w-full"
                 />
               </div>
-              <button className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"
+              >
                 Send
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </Stairs>
