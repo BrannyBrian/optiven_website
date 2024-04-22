@@ -18,6 +18,8 @@ import {
 } from "react-feather";
 import Image from "next/image";
 import Link from "next/link";
+import SlideButton from "./slidebutton";
+import { useRouter } from "next/router";
 
 const aboutMenuItems = [
   {
@@ -109,6 +111,13 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/contact");
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="bg-white fixed top-0 left-0 right-0 z-50">
@@ -252,7 +261,7 @@ export default function Navbar() {
             href="/projects"
             className=" leading-6 text-gray-900 text-lg un hover:text-green-600"
           >
-            Projects
+            Properties
           </Link>
           <Link
             href="/testimonials"
@@ -315,12 +324,7 @@ export default function Navbar() {
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link
-            href="/contact"
-            className="btn flex items-center justify-center px-4 py-2 rounded-md bg-green-700 text-white hover:bg-green-500"
-          >
-            Contact
-          </Link>
+          <SlideButton onClick={() => router.push("/contact")} />
         </div>
       </nav>
       <Dialog
@@ -398,7 +402,7 @@ export default function Navbar() {
                   href="/projects"
                   className="-mx-3 font-semibold block rounded-lg px-3 py-2 text-base leading-7 text-gray-700 hover:bg-gray-50"
                 >
-                  Projects
+                  Properties
                 </Link>
                 <Link
                   onClick={() => setMobileMenuOpen(false)}
@@ -445,13 +449,7 @@ export default function Navbar() {
                 </Link>
               </div>
               <div className="py-6">
-                <Link
-                  onClick={() => setMobileMenuOpen(false)}
-                  href="/contact"
-                  className="btn flex items-center justify-center px-4 py-2 rounded-md bg-green-700 text-white hover:bg-green-500"
-                >
-                  Contact
-                </Link>
+                <SlideButton onClick={handleClick} />
               </div>
             </div>
           </div>

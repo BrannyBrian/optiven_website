@@ -162,7 +162,7 @@ export default function Home({
           </div>
           {/* Projects */}
           <div className="py-16 -mt-20 w-screen mx-auto lg:max-w-screen-xl lg:-mt-56">
-            <h1 className="text-4xl border-b m-2">Featured Projects</h1>
+            <h1 className="text-4xl border-b m-2">Featured Properties</h1>
             {(projects.data || [])
               .filter(
                 (project: Project) => project.attributes.isFeatured === true
@@ -209,9 +209,9 @@ export default function Home({
                     </div>
                     <Link
                       href={`/projects/${project.id}`}
-                      className="view-project-link flex mt-4 un text-green-600 md:text-black hover:text-green-600 w-24"
+                      className="view-project-link flex mt-4 un text-green-600 md:text-black hover:text-green-600 w-28"
                     >
-                      View Project
+                      View Property
                       <ChevronRight size={18} />
                     </Link>
                   </div>
@@ -247,7 +247,7 @@ export default function Home({
                   href="/projects"
                   className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
                 >
-                  View All Projects
+                  View All Properties
                   <ChevronRight size={32} />
                 </Link>
               </div>
