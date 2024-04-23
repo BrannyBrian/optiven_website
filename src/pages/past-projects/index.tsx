@@ -64,9 +64,9 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
   return (
     <Stairs>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
-        <div className="-mt-10 md:flex">
-          <div className="mb-4 flex flex-col md:mr-2 lg:mr-4">
-            <label className="font-bold text-sm">Project Rating</label>
+        <div className="flex justify-center -mt-10">
+          <div className="mb-4 flex flex-col mr-2">
+            <label className="font-bold text-sm">Property Rating</label>
             <select
               onChange={(e) =>
                 setSelectedRating(
@@ -84,7 +84,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </select>
           </div>
           <div className="mb-4 flex flex-col">
-            <label className="font-bold text-sm">Project Location</label>
+            <label className="font-bold text-sm">Property Location</label>
             <select
               onChange={(e) => setSelectedLocation(e.target.value)}
               value={selectedLocation}

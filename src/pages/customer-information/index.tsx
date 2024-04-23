@@ -56,16 +56,7 @@ const index = () => {
                   This level of a project comes with sophisticated value
                   additions such as paved cabro roads, CCTV, stone perimeter
                   fencing, and a spectacular entry gate, to mention a few.
-                </p>
-                <div className="flex items-center">
-                  <Link
-                    href="/platinum-properties"
-                    className="mt-2 flex un hover:text-green-700"
-                  >
-                    View Platinum Properties
-                    <ChevronRight size={20} />
-                  </Link>
-                </div>
+                </p>                
               </div>
             </div>
             <div className="flex">
@@ -104,15 +95,6 @@ const index = () => {
                   These properties come with mesh fencing using concrete posts,
                   gates, and solar street lights.
                 </p>
-                <div className="flex items-center">
-                  <Link
-                    href="/gold-properties"
-                    className="mt-2 flex un hover:text-green-700"
-                  >
-                    View Gold Properties
-                    <ChevronRight size={20} />
-                  </Link>
-                </div>
               </div>
             </div>
             <div className="flex">
@@ -151,15 +133,6 @@ const index = () => {
                   This level has properties with value additions including Mesh
                   fences, Trees, Gates and murram roads
                 </p>
-                <div className="flex items-center">
-                  <Link
-                    href="/silver-properties"
-                    className="mt-2 flex un hover:text-green-700"
-                  >
-                    View Silver Properties
-                    <ChevronRight size={20} />
-                  </Link>
-                </div>
               </div>
             </div>
             <div className="flex">
@@ -197,15 +170,6 @@ const index = () => {
                 <p className="text-gray-700">
                   These projects have a marking fence and graded roads.
                 </p>
-                <div className="flex items-center">
-                  <Link
-                    href="/bronze-properties"
-                    className="mt-2 flex un hover:text-green-700"
-                  >
-                    View Bronze Properties
-                    <ChevronRight size={20} />
-                  </Link>
-                </div>
               </div>
             </div>
             <div className="flex">
@@ -243,15 +207,6 @@ const index = () => {
                   These properties are bare and targeted at investors looking to
                   do Land Banking.
                 </p>
-                <div className="flex items-center">
-                  <Link
-                    href="/sapphire-properties"
-                    className="mt-2 flex un hover:text-green-700"
-                  >
-                    View Sapphire Properties
-                    <ChevronRight size={20} />
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
