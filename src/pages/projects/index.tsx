@@ -63,7 +63,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
   return (
     <Stairs>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
-        <div className="flex justify-center -mt-10">
+        <div className="md:flex md:justify-center -mt-10">
           <div className="mb-4 flex flex-col mr-2">
             <label className="font-bold text-sm">Property Rating</label>
             <select
