@@ -162,8 +162,9 @@ export default function About() {
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">04</h1>
                   <p className="leading-relaxed mb-6">
-                    Real Estate company Optiven has been awarded for its GoGreen
-                    Initiative 2022 by KEPSA
+                    Optiven also scooped the overall winner’s trophy in the Top
+                    100 Mid-Sized Companies Survey, 2014/2015 by KPMG and Nation
+                    Media Group
                   </p>
                 </div>
               </div>
@@ -171,8 +172,8 @@ export default function About() {
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">05</h1>
                   <p className="leading-relaxed mb-6">
-                    Real Estate company Optiven has been awarded for its GoGreen
-                    Initiative 2022 by KEPSA
+                    The firm also won the Best Company in Customer Orientation &
+                    Marketing in Kenya (COYA AWARDS) - in 2015
                   </p>
                 </div>
               </div>
@@ -180,8 +181,11 @@ export default function About() {
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">06</h1>
                   <p className="leading-relaxed mb-6">
-                    Real Estate company Optiven has been awarded for its GoGreen
-                    Initiative 2022 by KEPSA
+                    The firm has continued to mark its place as a leading brand
+                    in Kenya with its real estate arm taking home two winner’s
+                    trophies for the Land Agent of the Year and the Best Value
+                    Added Land Selling Company during the 2nd Annual Real Estate
+                    Excellence Awards, 2019.
                   </p>
                 </div>
               </div>
