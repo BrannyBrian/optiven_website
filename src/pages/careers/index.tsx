@@ -3,8 +3,9 @@ import Stairs from "@/components/stairs";
 import Head from "next/head";
 import { Card, Select, TextInput } from "flowbite-react";
 import Link from "next/link";
-import { Briefcase, ChevronRight, MapPin } from "react-feather";
+import { Briefcase, ChevronRight, MapPin, ChevronsRight } from "react-feather";
 import { fetcher } from "../../../lib/api";
+import { Popover } from "@headlessui/react";
 
 export default function Careers({ careers, locations }: any) {
   const [jobTitle, setJobTitle] = useState("");
@@ -38,6 +39,26 @@ export default function Careers({ careers, locations }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+        Careers
+      </li>
+    </Popover.Group>
+  </ol>
+</div>
         <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-8">
           <div className="mx-auto lg:max-w-2xl">
             <div className="max-w-xl mb-10 md:mx-auto lg:max-w-2xl md:mb-12">

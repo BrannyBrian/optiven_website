@@ -1,6 +1,9 @@
 import FaqItem from "@/components/faqItem";
 import Head from "next/head";
 import Stairs from "@/components/stairs";
+import { Popover } from "@headlessui/react";
+import Link from "next/link";
+import { ChevronsRight } from "react-feather";
 
 const Faq = () => {
   return (
@@ -12,6 +15,26 @@ const Faq = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+        FAQs
+      </li>
+    </Popover.Group>
+  </ol>
+</div>
         <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
           <div>
             <div className="space-y-4">

@@ -2,7 +2,9 @@ import React from "react";
 import { fetcher } from "../../../lib/api";
 import Image from "next/image";
 import Stairs from "@/components/stairs";
-
+import Link from "next/link";
+import { Home,  ChevronsRight } from "react-feather";
+import { Popover } from "@headlessui/react";
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
@@ -24,6 +26,31 @@ const index = ({ photos }: any) => {
 
   return (
     <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+        Photo-Gallery
+      </li>
+    </Popover.Group>
+  </ol>
+</div>
+
+
+
+
+
       <div className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-20">

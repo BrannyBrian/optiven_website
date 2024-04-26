@@ -4,6 +4,9 @@ import KeenSlider, { KeenSliderInstance } from "keen-slider";
 import "keen-slider/keen-slider.min.css";
 import { fetcher } from "../../../lib/api";
 import Image from "next/image";
+import Link from "next/link";
+import { Popover } from "@headlessui/react";
+import { ChevronsRight } from "react-feather";
 
 interface AwardsProps {
   awards: {
@@ -68,6 +71,27 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
 
   return (
     <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+        Awards and Milestones
+       
+      </li>
+    </Popover.Group>
+  </ol>
+</div>
       <section className="bg-gray-50">
         <div className="mx-auto max-w-[1340px] px-4 py-12 sm:px-6 lg:me-0 lg:py-16 lg:pe-0 lg:ps-8 xl:py-24">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-center lg:gap-16">

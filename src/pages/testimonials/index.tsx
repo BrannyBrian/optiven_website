@@ -2,11 +2,34 @@ import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import { useState } from "react";
 import { Button, Modal } from "flowbite-react";
+import Link from "next/link";
+import { ChevronsRight } from "react-feather";
+import { Popover } from "@headlessui/react";
 
 export default function Testimonials({ testimonials }: any) {
   const [openModal, setOpenModal] = useState<number | null>(null);
   return (
     <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+        Testimonials
+      </li>
+    </Popover.Group>
+  </ol>
+</div>
       <div>
         <div className="container px-5 py-24 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
