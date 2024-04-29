@@ -6,7 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import FoundersGrotesk from "@next/font/local";
 
 import Navbar from "@/components/navbar";
-import MagneticButton from "@/components/magneticbutton";
+// import MagneticButton from "@/components/magneticbutton";
 import Footer from "@/components/footer";
 import "@/styles/globals.css";
 import "@/styles/styles.scss";
@@ -38,9 +38,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <AnimatePresence mode="wait">
         <div className="mt-32">
           <Component key={router.route} {...pageProps} />
-          <div className="fixed bottom-6 left-6">
+          {/* <div className="fixed bottom-6 left-6">
             <MagneticButton />
-          </div>
+          </div> */}
           <div className="fixed end-6 bottom-6 group">
             <Link href="https://wa.me/+254790300300">
               <Image
