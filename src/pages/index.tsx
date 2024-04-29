@@ -295,71 +295,80 @@ export default function Home({
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
             <h1 className="text-4xl border-b mb-4">Optiven in the News</h1>
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
-  {articles.data
-    .filter((article: Article) => article.attributes.isFeatured === true)
-    .map((article: Article) => (
-      <div className="overflow-hidden transition-shadow duration-300 bg-white h-full flex flex-col">
-        <Image
-          src={
-            getBestAvailableImageUrl(
-              article.attributes.mainArticleImage.data.attributes.formats
-            ).url
-          }
-          placeholder="blur"
-          blurDataURL={
-            getBestAvailableImageUrl(
-              article.attributes.mainArticleImage.data.attributes.formats
-            ).blurDataURL
-          }
-          height={400}
-          width={700}
-          className="object-cover w-full h-64 md:h-72 lg:h-80"
-          alt={`Image for ${article.attributes.articleTitle}`}
-        />
-        <div className="flex flex-col flex-grow p-5 border border-t-0">
-        <p className="mb-3 text-xs font-semibold tracking-wide uppercase overflow-hidden">
-  {article.attributes.articleCategory.data.map(
-    (category: any, index: number, array: any[]) =>
-      `${category.attributes.articleCategoryName}${index < array.length - 1 ? ' — ' : ''}`
-  )}
-  <span className="text-gray-800">
-    {format(
-      new Date(article.attributes.publishedAt),
-      " - MMMM dd, yyyy"
-    )}
-  </span>
-</p>
+              {articles.data
+                .filter(
+                  (article: Article) => article.attributes.isFeatured === true
+                )
+                .map((article: Article) => (
+                  <div className="overflow-hidden transition-shadow duration-300 bg-white h-full flex flex-col">
+                    <Image
+                      src={
+                        getBestAvailableImageUrl(
+                          article.attributes.mainArticleImage.data.attributes
+                            .formats
+                        ).url
+                      }
+                      placeholder="blur"
+                      blurDataURL={
+                        getBestAvailableImageUrl(
+                          article.attributes.mainArticleImage.data.attributes
+                            .formats
+                        ).blurDataURL
+                      }
+                      height={400}
+                      width={700}
+                      className="object-cover w-full h-64 md:h-72 lg:h-80"
+                      alt={`Image for ${article.attributes.articleTitle}`}
+                    />
+                    <div className="flex flex-col flex-grow p-5 border border-t-0">
+                      <p className="mb-3 text-xs font-semibold tracking-wide uppercase overflow-hidden">
+                        {article.attributes.articleCategory.data.map(
+                          (category: any, index: number, array: any[]) =>
+                            `${category.attributes.articleCategoryName}${
+                              index < array.length - 1 ? " — " : ""
+                            }`
+                        )}
+                        <span className="text-gray-800">
+                          {format(
+                            new Date(article.attributes.publishedAt),
+                            " - MMMM dd, yyyy"
+                          )}
+                        </span>
+                      </p>
 
-          <Link
-            href={`articles/${article.id}`}
-            className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600 line-clamp-2"
-          >
-            {article.attributes.articleTitle}
-          </Link>
-          <p className="text-gray-700 flex-grow">
-            {article.attributes.articleIntro.length > 120
-              ? `${article.attributes.articleIntro.substring(0, 100)}...`
-              : article.attributes.articleIntro}
-            {article.attributes.articleIntro.length > 120 && (
-              <Link
-                href={`projects/${article.id}`}
-                className="text-green-600 italic hover:underline"
-              >
-                read more
-              </Link>
-            )}
-          </p>
-          <Link
-            href={`articles/${article.id}`}
-            className="text-sm mt-auto flex items-center w-24 tracking-wide hover:text-green-600 font-bold"
-          >
-            Read More
-            <ChevronRight size={16} />
-          </Link>
-        </div>
-      </div>
-    ))}
-</div>
+                      <Link
+                        href={`articles/${article.id}`}
+                        className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600 line-clamp-2"
+                      >
+                        {article.attributes.articleTitle}
+                      </Link>
+                      <p className="text-gray-700 flex-grow">
+                        {article.attributes.articleIntro.length > 120
+                          ? `${article.attributes.articleIntro.substring(
+                              0,
+                              100
+                            )}...`
+                          : article.attributes.articleIntro}
+                        {article.attributes.articleIntro.length > 120 && (
+                          <Link
+                            href={`projects/${article.id}`}
+                            className="text-green-600 italic hover:underline"
+                          >
+                            read more
+                          </Link>
+                        )}
+                      </p>
+                      <Link
+                        href={`articles/${article.id}`}
+                        className="text-sm mt-auto flex items-center w-24 tracking-wide hover:text-green-600 font-bold"
+                      >
+                        Read More
+                        <ChevronRight size={16} />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+            </div>
 
             <div className="flex justify-center items-center mt-6">
               <Link

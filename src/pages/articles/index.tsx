@@ -48,18 +48,20 @@ const index = ({ articles }: any) => {
                 alt={`Image for ${article.attributes.articleName}`}
               />
               <div className="flex flex-col flex-grow p-5 border border-t-0">
-              <p className="mb-3 text-xs font-semibold tracking-wide uppercase overflow-hidden">
-  {article.attributes.articleCategory.data.map(
-    (category: any, index: number, array: any[]) =>
-      `${category.attributes.articleCategoryName}${index < array.length - 1 ? ' — ' : ''}`
-  )}
-  <span className="text-gray-800">
-    {format(
-      new Date(article.attributes.publishedAt),
-      " - MMMM dd, yyyy"
-    )}
-  </span>
-</p>
+                <p className="mb-3 text-xs font-semibold tracking-wide uppercase overflow-hidden">
+                  {article.attributes.articleCategory.data.map(
+                    (category: any, index: number, array: any[]) =>
+                      `${category.attributes.articleCategoryName}${
+                        index < array.length - 1 ? " — " : ""
+                      }`
+                  )}
+                  <span className="text-gray-800">
+                    {format(
+                      new Date(article.attributes.publishedAt),
+                      " - MMMM dd, yyyy"
+                    )}
+                  </span>
+                </p>
                 <Link
                   href={`articles/${article.id}`}
                   className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600 line-clamp-2"
@@ -92,7 +94,6 @@ const index = ({ articles }: any) => {
         </div>
       </div>
     </Stairs>
-
   );
 };
 
