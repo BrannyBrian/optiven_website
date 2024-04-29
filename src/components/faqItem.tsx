@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { ChevronDown } from "react-feather";
 
 interface ItemProps {
+  id: number;
   title: string;
+  isOpen: boolean;
+  onToggle: () => void;
   children: React.ReactNode;
 }
 
-const FaqItem = ({ title, children }: ItemProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const FaqItem = ({ id, title, isOpen, onToggle, children }: ItemProps) => {
   return (
     <div className="border rounded shadow-sm">
       <button
@@ -16,10 +17,10 @@ const FaqItem = ({ title, children }: ItemProps) => {
         aria-label="open-item"
         title="open-item"
         className="flex items-center justify-between w-full p-4 focus:outline-none"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onToggle}
       >
         <p className="font-bold text-start">{title}</p>
-        <div className="flex items-center justify-center w-8 h-8 border rounded-full">
+        <div className={`flex items-center justify-center w-8 h-8 border rounded-full ${isOpen ? 'transform rotate-180' : ''}`}>
           <ChevronDown size={20} />
         </div>
       </button>
