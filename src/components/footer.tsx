@@ -33,26 +33,26 @@ export default function Footer() {
             />
           </Link>
           <div className="mt-6 lg:max-w-sm">
-            <p className="text-sm text-gray-800">
+            <p className="text-md text-gray-800">
               Optiven Group is a leading brand in the African real estate
               sector. The Group’s main objective is to empower property
               investors and transform the Society.
             </p>
-            <p className="mt-4 text-sm text-gray-800">
+            <p className="mt-4 text-md text-gray-800">
               The Real Estate arm’s flagship product is transformed value added
               plots which are particularly enhanced to suit immediate
               residential settlement, commercial purposes and futuristic capital
               gain.
             </p>
-            <p className="mt-4 text-sm text-gray-800">
+            <p className="mt-4 text-md text-gray-800">
               We have prime plots on sale in Malindi, Thika (Gatanga Road) ,
-              Machakos, Kithimani, Nyeri, Nanyuki, Vipingo,
-              Naro Moru, Nakuru, Kangundo Road and Kajiado.
+              Machakos, Kithimani, Nyeri, Nanyuki, Vipingo, Naro Moru, Nakuru,
+              Kangundo Road and Kajiado.
             </p>
           </div>
         </div>
-        <div className="space-y-2 text-sm">
-          <p className="text-base font-bold tracking-wide text-gray-900">
+        <div className="space-y-2 text-md">
+          <p className="text-xl font-bold tracking-wide text-gray-900">
             Contacts
           </p>
           <div className="flex">
@@ -104,10 +104,50 @@ export default function Footer() {
             </Link>
           </div>
           <div>
-            <span className="text-base font-bold tracking-wide text-gray-900">
+            <span className="text-xl font-bold tracking-wide text-gray-900">
               Socials
             </span>
             <div className="flex items-center mt-1 space-x-3">
+              <Link
+                href={"https://api.whatsapp.com"}
+                target="_blank"
+                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  className="main-grid-item-icon transition-all duration-300 hover:fill-current hover:text-green-600"
+                  fill="currentColor"
+                >
+                  <path d="M6.579 8.121c.209-.663.778-1.457 1.19-1.66.183-.09.319-.11.763-.11.522 0 .548.005.684.14.088.095.328.606.673 1.432.292.71.533 1.315.533 1.347 0 .146-.293.61-.627 1.002-.23.267-.365.47-.365.543 0 .068.167.381.376.69.506.757 1.44 1.696 2.167 2.177.568.376 1.582.867 1.785.867.152 0 .429-.272.992-.982.23-.287.434-.495.512-.511.068-.021.235.005.37.057.392.152 2.371 1.117 2.476 1.211.203.188.037 1.264-.267 1.702-.464.68-1.79 1.259-2.663 1.17-.636-.068-2.14-.564-3.117-1.029-1.253-.6-2.574-1.697-3.644-3.038-.611-.763-1.227-1.692-1.493-2.246-.36-.751-.491-1.331-.455-2 .016-.287.068-.631.11-.762Z" />
+                  <path
+                    clip-rule="evenodd"
+                    d="M.606 9.5C1.582 4.491 5.576.76 10.709.06c.705-.1 2.684-.068 3.368.046.715.126 1.66.371 2.24.59 3.832 1.426 6.663 4.72 7.466 8.683.35 1.729.272 3.755-.203 5.457-1.133 4.03-4.423 7.205-8.511 8.218-2.663.658-5.462.37-7.983-.81l-.617-.292-3.226 1.029C1.473 23.545.01 23.994 0 23.983c-.01-.01.45-1.415 1.029-3.112l1.05-3.096-.424-.84C.48 14.569.12 12.01.605 9.498Zm21.172-.408c-1.028-3.76-4.297-6.626-8.145-7.148-2.099-.282-4.078.037-5.9.956-4.417 2.234-6.522 7.341-4.93 11.957.204.59.752 1.702 1.092 2.213l.271.408-.605 1.775a69.688 69.688 0 0 0-.606 1.817c0 .026.84-.224 1.864-.548a99.767 99.767 0 0 1 1.9-.596c.022 0 .225.11.45.24 2.428 1.447 5.456 1.76 8.187.852a9.927 9.927 0 0 0 6.48-6.945 9.998 9.998 0 0 0-.058-4.98Z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </Link>
+              <Link
+                href={"https://twitter.com/OptivenLimited"}
+                target="_blank"
+                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  width="25"
+                  height="50"
+                  viewBox="0 0 50 50"
+                  fill="currentColor"
+                  className="transition-all duration-300 hover:fill-current hover:text-green-600"
+                >
+                  <path d="M 3.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z "></path>
+                </svg>
+              </Link>
+
               <Link
                 href={"https://www.facebook.com/Optivenlimited/"}
                 target="_blank"
@@ -115,13 +155,7 @@ export default function Footer() {
               >
                 <Facebook />
               </Link>
-              <Link
-                href={"https://twitter.com/OptivenLimited"}
-                target="_blank"
-                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
-              >
-                <Twitter />
-              </Link>
+
               <Link
                 href={"https://www.instagram.com/optivenlimited/"}
                 target="_blank"
@@ -153,7 +187,7 @@ export default function Footer() {
                 <Mail />
               </Link>
             </div>
-            <p className="mt-4 text-sm text-gray-500">
+            <p className="mt-4 text-md text-gray-500">
               We use cookies to ensure that we give you the best experience on
               our website. View our{" "}
               <Link
@@ -165,8 +199,8 @@ export default function Footer() {
             </p>
           </div>
         </div>
-        <div>
-          <span className="text-base font-bold tracking-wide text-gray-900">
+        <div className="ml-12">
+          <span className="text-base font-bold tracking-wide text-gray-900 ">
             Quick Links
           </span>
           <Link
@@ -180,6 +214,7 @@ export default function Footer() {
               alt="George Wachiuri Logo"
               height={100}
               width={160}
+              className="mt-2"
             />
           </Link>
           <Link
@@ -193,6 +228,7 @@ export default function Footer() {
               alt="Optiven Foundation Logo"
               height={100}
               width={160}
+              className="mt-2"
             />
           </Link>
           <Link
@@ -206,10 +242,11 @@ export default function Footer() {
               alt="Optiven Homes Logo"
               height={100}
               width={160}
+              className="mt-2"
             />
           </Link>
         </div>
-        <div className="space-y-2 text-sm">
+        <div className="space-y-2 text-md">
           <p className="text-base font-bold tracking-wide text-gray-900">
             Offices
           </p>
@@ -267,11 +304,11 @@ export default function Footer() {
         <p className="text-sm text-gray-600 font-semibold">
           © Copyright {getCurrentYear()} Optiven Limited. All rights reserved.
         </p>
-        <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
+        <ul className="flex flex-col mb-3 mr-20 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row ">
           <li>
             <Link
               href="/faqs"
-              className="text-sm text-gray-600 transition-colors duration-300 un hover:text-green-600"
+              className="text-base text-gray-600 transition-colors duration-300 un hover:text-green-600"
             >
               F.A.Q
             </Link>
@@ -279,7 +316,7 @@ export default function Footer() {
           <li>
             <Link
               href="/privacy-policy"
-              className="text-sm text-gray-600 transition-colors duration-300 un hover:text-green-600"
+              className="text-base text-gray-600 transition-colors duration-300 un hover:text-green-600"
             >
               Privacy Policy
             </Link>
@@ -287,7 +324,7 @@ export default function Footer() {
           <li>
             <Link
               href="/terms-and-conditions"
-              className="text-sm text-gray-600 transition-colors duration-300 un hover:text-green-600"
+              className="text-base text-gray-600 transition-colors duration-300 un hover:text-green-600"
             >
               Terms & Conditions
             </Link>

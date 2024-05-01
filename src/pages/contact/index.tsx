@@ -39,7 +39,7 @@ export default function Contact() {
       </Head>
       <Stairs>
         <div className="text-gray-600 body-font relative">
-          <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
+          <div className="container px-5 py-10 mx-auto flex sm:flex-nowrap flex-wrap">
             <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
               <iframe
                 width="100%"
@@ -147,6 +147,46 @@ export default function Contact() {
                 Send
               </button>
             </form>
+          </div>
+          <div>
+            <div className="space-y-2 text-md grid grid-cols-1 md:grid-cols-3 md:p-6">
+              <div className="flex">
+                <p className="mx-1 text-gray-800">Head Office:</p>
+                <span className="text-green-600">
+                  Absa Towers Loita Street , 2nd Floor
+                </span>
+              </div>
+              <div className="flex">
+                <p className="mx-1 text-gray-800">Global Office:</p>
+                <span className="text-green-600">
+                  Zamani Business Park , Karen
+                </span>
+              </div>
+              <div className="flex">
+                <p className="mx-1 text-gray-800">Kitengela:</p>
+                <span className="text-green-600">
+                  Optiven Business Center - Acacia Junction
+                </span>
+              </div>
+              <div className="flex">
+                <p className="mx-1 text-gray-800">Nanyuki:</p>
+                <span className="text-green-600">
+                  Ubii Plaza, along Kenyatta Highway, 2nd Floor
+                </span>
+              </div>
+              <div className="flex">
+                <p className="mx-1 text-gray-800">Nakuru:</p>
+                <span className="text-green-600">
+                  Golden Life Mall, 7th Floor
+                </span>
+              </div>
+              <div className="flex">
+                <p className="mx-1 text-gray-800">Mtwapa:</p>
+                <span className="text-green-600">
+                  Shifa Arcade, 2nd Floor, Office No. B5
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </Stairs>

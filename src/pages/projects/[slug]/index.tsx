@@ -8,6 +8,13 @@ import { fetcher } from "../../../../lib/api";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import PlotPriceCard from "@/components/PlotPriceCard";
+import { FaUmbrellaBeach, FaFaucet } from "react-icons/fa";
+import { PiWallFill, } from "react-icons/pi";
+import { FaBoreHole } from "react-icons/fa6";
+import { HiOutlineArrowCircleUp } from "react-icons/hi";
+import { GiGuards,GiCctvCamera,GiOpenGate  } from "react-icons/gi";
+
+
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
@@ -244,6 +251,48 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
             alt={`Main banner image for ${projectName}`}
             className="w-full mb-4 lg:mb-8"
           />
+          {/* // render the value additions */}
+          <div>
+            <h1 className=" flex justify-center text-md font-bold">Value Additions</h1>
+
+            <div className="grid grid-cols-4 justify-between items-center border mt-3 p-6 text-gray-700 rounded-xl">
+          
+              <span>
+                <PiWallFill className="text-white text-5xl icon bg-green-600 rounded-2xl"/>
+                <span className="align-items text-md">Wall</span>
+              </span>
+              <span>
+                <FaFaucet className="text-white text-5xl icon bg-green-600 rounded-2xl" />
+                <span className="align-items text-md ">Water</span>
+              </span>
+              <span>
+                <FaBoreHole className="text-white text-5xl icon bg-green-600 rounded-2xl "/>
+                <span className="align-items text-md">BoreHole</span>
+              </span>
+              <span>
+                <FaUmbrellaBeach className="text-white text-5xl icon bg-green-600 rounded-2xl " />
+                <span className="align-items text-md">Coastal Bliss</span>
+              </span>
+              <span>
+                <HiOutlineArrowCircleUp className="text-white text-5xl icon bg-green-600 rounded-2xl"/>
+                <span className="align-items text-md">Beacons</span>
+              </span>
+              <span>
+                <GiGuards className="text-white text-5xl icon bg-green-600 rounded-2xl " />
+                <span className="align-items text-md">Security</span>
+              </span>
+              <span>
+                <GiCctvCamera  className="text-white text-5xl icon bg-green-600 rounded-2xl "/>
+                <span className="align-items text-md">CCTV</span>
+              </span>
+              <span>
+                <GiOpenGate   className="text-white text-5xl icon bg-green-600 rounded-2xl " />
+                <span className="align-items text-md">Gate</span>
+              </span>
+              
+            </div>
+          </div>
+
           <div className="format md:text-xl lg:text-2xl">
             <BlocksRenderer content={projectContent} />
           </div>
