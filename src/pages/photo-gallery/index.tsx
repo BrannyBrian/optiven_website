@@ -58,41 +58,30 @@ const index = ({ photos }: any) => {
               Master Cleanse Reliac Heirloom
             </h1>
             <p className="lg:w-2/3 mx-auto">
-              Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
-              gentrify, subway tile poke farm-to-table. Franzen you probably
-              haven't heard of them man bun deep jianbing selfies heirloom.
+              Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom.
             </p>
           </div>
-          <div className="flex flex-wrap -m-4">
-            {photos.data.map((photo: any) => (
-              <div key={photo.id} className="w-full md:w-1/2 lg:w-1/3 p-4">
-                <div className="flex relative">
-                  <Image
-                    src={
-                      getBestAvailableImageUrl(
-                        photo.attributes.photo.data.attributes.formats
-                      ).url
-                    }
-                    placeholder="blur"
-                    blurDataURL={
-                      getBestAvailableImageUrl(
-                        photo.attributes.photo.data.attributes.formats
-                      ).blurDataURL
-                    }
-                    height={400}
-                    width={700}
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                    alt={`Image for ${photo.attributes.photoTitle}`}
-                  />
-                  <div className="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
-                    <h2 className="tracking-widest text-sm title-font font-medium text-green-600 mb-1">
-                      {photo.attributes.photoTitle}
-                    </h2>
-                    <p className="leading-relaxed">
-                      {photo.attributes.photoDescription}
-                    </p>
-                  </div>
-                </div>
+          <div className="columns-1 sm:columns-2 md:columns-3 gap-4">
+            {photos.data.map((photo: Photo) => (
+              <div key={photo.id} className="mb-4 break-inside-avoid">
+                <Image
+                  src={getBestAvailableImageUrl(photo.attributes.photo.data.attributes.formats).url}
+                  placeholder="blur"
+                  blurDataURL={getBestAvailableImageUrl(photo.attributes.photo.data.attributes.formats).blurDataURL}
+                 // layout="responsive"
+                  height={400}
+                  width={700}
+                  className="rounded-lg"
+                  alt={`Image for ${photo.attributes.photoTitle}`}
+                />
+               {/* <div className="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+                  <h2 className="tracking-widest text-sm title-font font-medium text-green-600 mb-1">
+                    {photo.attributes.photoTitle}
+                  </h2>
+                  <p className="leading-relaxed">
+                    {photo.attributes.photoDescription}
+                  </p>
+                </div>*/}
               </div>
             ))}
           </div>
