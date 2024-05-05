@@ -94,17 +94,13 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Unlock Investment Opportunities with Optiven
           </h1>
-          <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
-            Optiven is your ultimate destination for investment solutions. Our
-            projects cater to various needs, whether you seek immediate
-            residential settlement, commercial ventures, or future capital
-            gains. Across multiple locations, including those known for their
-            potential growth and development, we offer prime plots strategically
-            positioned for optimal returns. As we prioritize delivering value to
-            you, our properties are designed to be accessible, ensuring
-            affordability without compromising quality. With flexible
-            installment plans, starting from accessible rates, investing in your
-            future has never been more attainable.
+          <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+            Optiven provides versatile investment solutions tailored to your
+            needs. From residential to commercial ventures, our prime plots in
+            promising locations ensure optimal returns. Our properties are both
+            accessible and affordable, designed to deliver quality without
+            compromise. With flexible installment plans starting at accessible
+            rates, securing your future has never been easier with us.
           </p>
         </div>
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
