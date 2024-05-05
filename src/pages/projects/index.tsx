@@ -63,52 +63,80 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
 
   return (
     <Stairs>
-
-<div className="container mx-auto">
-  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
-    <Popover.Group className="hidden lg:flex lg:gap-x-4">
-      <li>
-        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
-          <span className="ml-1"> Home</span>
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />
-      <li>
-        Properties
-      </li>
-    </Popover.Group>
-  </ol>
-</div>
+      <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+        <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
+          <Link
+            href="/customer-information"
+            className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+          >
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+              Important
+            </span>{" "}
+            <span className="text-sm font-medium">
+              See more information about our properties
+            </span>
+            <svg
+              className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </Link>
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            Unlock Investment Opportunities with Optiven
+          </h1>
+          <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+            Optiven is your ultimate destination for investment solutions. Our
+            projects cater to various needs, whether you seek immediate
+            residential settlement, commercial ventures, or future capital
+            gains. Across multiple locations, including those known for their
+            potential growth and development, we offer prime plots strategically
+            positioned for optimal returns. As we prioritize delivering value to
+            you, our properties are designed to be accessible, ensuring
+            affordability without compromising quality. With flexible
+            installment plans, starting from accessible rates, investing in your
+            future has never been more attainable.
+          </p>
+        </div>
+        <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
+      </section>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="md:flex md:justify-center -mt-10">
-          <div className="mb-4 flex flex-col mr-2">
+          <div className="mb-4 flex flex-col md:mr-2">
             <label className="font-bold text-sm">Property Rating</label>
             <select
+              style={{ zIndex: 16 }}
               onChange={(e) =>
                 setSelectedRating(
                   e.target.value === "all" ? "all" : parseInt(e.target.value)
                 )
               }
-              className="w-72"
+              className="w-full md:w-72 rounded-lg"
             >
               <option value="all">All Ratings</option>
-              <option value="5">Platinum</option>
-              <option value="4">Gold</option>
-              <option value="3">Silver</option>
-              <option value="2">Bronze</option>
-              <option value="1">Sapphire</option>
+              <option value="5">Platinum ★★★★★</option>
+              <option value="4">Gold ★★★★</option>
+              <option value="3">Silver ★★★</option>
+              <option value="2">Bronze ★★</option>
+              <option value="1">Sapphire ★</option>
             </select>
           </div>
           <div className="mb-4 flex flex-col">
             <label className="font-bold text-sm">Property Location</label>
             <select
+              style={{ zIndex: 16 }}
               onChange={(e) => setSelectedLocation(e.target.value)}
               value={selectedLocation}
-              className="w-72"
+              className="w-full md:w-72 rounded-lg"
             >
               <option value="all">All Locations</option>
               {uniqueLocations.map((location) => (
@@ -124,7 +152,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             .filter((project: any) => project.attributes.isActive === true)
             .map((project: any) => (
               <div
-                className="overflow-hidden transition-shadow duration-300 bg-white"
+                className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white"
                 key={project.id}
               >
                 <Link href={`projects/${project.id}`} aria-label="Project">
@@ -168,7 +196,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
                     {project.attributes.projectSummary.length > 120 && (
                       <Link
                         href={`projects/${project.id}`}
-                        className="text-green-600 italic hover:underline"
+                        className="text-green-600 font-bold hover:underline"
                       >
                         read more
                       </Link>
