@@ -4,6 +4,7 @@ import Stairs from "@/components/stairs";
 import Image from "next/image";
 import { fetcher } from "../../../lib/api";
 import { useState } from "react";
+import Link from "next/link";
 
 // Define a type for the category data structure
 
@@ -94,12 +95,49 @@ const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
-        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-          <div className="flex flex-col items-center justify-center space-y-4  mb-20">
-            <h1 className="text-4xl font-bold">Frequently Asked Questions</h1>
+        <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+          <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
+            <Link
+              href="/projects"
+              className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+            >
+              <span className="ms-2 text-sm font-medium">
+                View our available properties
+              </span>
+              <svg
+                className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+            </Link>
+
+            <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+              Answering Your Questions
+            </h1>
+            <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+              Get clarity on all your queries with Optiven's comprehensive FAQs.
+              Whether you're curious about our investment solutions, property
+              details, or payment options, we've got you covered. Explore our
+              FAQ section to find the answers you need and embark on your
+              investment journey with confidence.
+            </p>
           </div>
+          <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
+        </section>
+        <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
           <div className="mb-8 flex justify-center">
             <select
+              style={{ zIndex: 16 }}
               onChange={handleCategoryChange}
               className="border border-gray-300 rounded-md px-3 py-2 mr-2 w-72"
               defaultValue="all"
@@ -119,7 +157,7 @@ const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
                   selectedCategory === "all" ||
                   category.attributes.category === selectedCategory
               )
-              .map((category:any) => (
+              .map((category: any) => (
                 <div
                   key={category.id}
                   className="category-card"
@@ -184,7 +222,7 @@ export async function getStaticProps() {
       "faq-categories?populate=*"
     );
 
-    //console.log(faqsResponse.data[0].attributes.category.data.attributes.category)
+    // console.log(faqsResponse.data[0].attributes.category.data.attributes.category)
 
     // Combine FAQs into their categories
     const categoriesWithFaqs = categoriesResponse.data.map((category) => ({

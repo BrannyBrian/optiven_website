@@ -3,8 +3,9 @@ import Stairs from "@/components/stairs";
 import Head from "next/head";
 import { Card, Select, TextInput } from "flowbite-react";
 import Link from "next/link";
-import { Briefcase, ChevronRight, MapPin } from "react-feather";
+import { Briefcase, ChevronRight, MapPin, ChevronsRight } from "react-feather";
 import { fetcher } from "../../../lib/api";
+import { Popover } from "@headlessui/react";
 
 export default function Careers({ careers, locations }: any) {
   const [jobTitle, setJobTitle] = useState("");
