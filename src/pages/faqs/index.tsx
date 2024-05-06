@@ -1,8 +1,90 @@
 import FaqItem from "@/components/faqItem";
 import Head from "next/head";
 import Stairs from "@/components/stairs";
+import Image from "next/image";
+import { fetcher } from "../../../lib/api";
+import { useState } from "react";
 
-const Faq = () => {
+// Define a type for the category data structure
+
+type FAQAttributes = {
+  question: string;
+  answer: string;
+  category: string; // Assuming the category is just a string here. Adjust if it's more complex.
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+};
+
+type FAQ = {
+  id: number;
+  attributes: FAQAttributes;
+};
+
+type CategoryAttributes = {
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  category: string;
+  banner: {
+    url: string;
+  };
+};
+
+type Category = {
+  id: number;
+  attributes: CategoryAttributes;
+};
+
+type FaqsApiResponse = {
+  data: FAQ[];
+};
+
+type CategoriesApiResponse = {
+  data: Category[];
+};
+
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
+
+const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
+  const [openFaqId, setOpenFaqId] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | "all">(
+    "all"
+  );
+
+  // Function to handle opening a FAQ item
+  const handleFaqClick = (faqId: number) => {
+    if (openFaqId === faqId) {
+      // If the FAQ is already open, close it
+      setOpenFaqId(null);
+    } else {
+      // Open the clicked FAQ and close others
+      setOpenFaqId(faqId);
+    }
+  };
+
+  const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
+    if (formats.large) {
+      imageUrl = formats.large.url;
+    } else if (formats.medium) {
+      imageUrl = formats.medium.url;
+    } else if (formats.small) {
+      imageUrl = formats.small.url;
+    }
+
+    // Return both the URL and the blurDataURL (the same static placeholder for now)
+    return { url: imageUrl, blurDataURL: placeholderImage };
+  };
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedCategory(event.target.value);
+  };
+
   return (
     <>
       <Head>
@@ -13,71 +95,122 @@ const Faq = () => {
       </Head>
       <Stairs>
         <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-          <div>
-            <div className="space-y-4">
-              <FaqItem title="How do I access Kitengela?">
-                You get on Nairobi Expressway from Moi Ave and Haile Selassie
-                Ave, Follow Mombasa Road/A104 and Nairobi-Namanga to your
-                destination in Kitengela. Alternatively, take a Shuttle number,
-                110” Kitengela Direct “or Drive along Mombasa road or the
-                Express-Way and exit from the Mlolongo toll station, branch to
-                the right, 2.9 km past Mlolongo, use the under tunnel and drive
-                2.9km from the tunnel and you are at Kitengela Transport City.
-              </FaqItem>
-              <FaqItem title="When do you take clients for Viewing?">
-                We take customers to view from Monday to Saturday. We’ll pick
-                you up from our offices at Absa Towers, Loita Street
-              </FaqItem>
-              <FaqItem title="Do you Charge for Site Visits?">
-                Site Visits to Optiven projects around Nairobi (Kiambu,
-                Kitengela, Thika, Konza, Kangundo Rd etc) are FREE. For projects
-                further out (Malindi, Nanyuki, Kisumu etc) we charge a Fee that
-                will make up part of your investment should you choose to place
-                a booking on a plot. Once you schedule a visit, you’re required
-                to show up at the designated office and a driver & our property
-                advisor will be ready for you, eager to make sure that you are
-                comfortable as you view. We also provide a bottle of water to
-                ensure that you’re refreshed during the viewing tour.
-              </FaqItem>
-              <FaqItem title="What do I do after viewing and selecting a valued added plot?">
-                Give a copy of the ID, and a copy of the KRA PIN. Also, fill in
-                the plot booking form indicating all your details, including the
-                plot number that you booked. Thereafter we will get in touch and
-                send you an offer letter. We give you another 14 days to allow
-                you to do a land search and give you ample time to meditate on
-                your investment decision.
-              </FaqItem>
-              <FaqItem title="Where are your offices?">
-                We are situated at Absa Towers, Loita Street 2nd Floor. Optiven
-                Global Office: Zamani Business Park , Karen Kitengela: Optiven
-                Business Center - Acacia Junction Nanyuki: Ubii Plaza, along
-                Kenyatta Highway, 2nd Floor Nakuru: Golden Life Mall, 7th Floor
-                Mtwapa: Shifa Arcade, 2nd Floor, Office No. B5.
-              </FaqItem>
-              <FaqItem title="Do you sell to Kenyans in Diaspora?">
-                Yes, we have over 500 diaspora clients in our profile that we
-                have sold premium value-added plots. We have a dedicated Global
-                team to help do it at ease and we can email you the Diaspora
-                procedures if you provide us with your email address.
-              </FaqItem>
-              <FaqItem title="How long have you been in this business?">
-                We have been in business for over 24 years. We are here to give
-                you tried and tested real estate solutions.
-              </FaqItem>
-              <FaqItem title="Do you have Title deeds and are they freehold or Leasehold?">
-                Yes, we do. Depending on the nature of the project, some are
-                freehold while others will be leasehold.
-              </FaqItem>
-              <FaqItem title="Do you accept payments in Installments?">
-                Yes, we do. Depending on the project of interest, You can choose
-                to pay in 6 months upto 24 months.
-              </FaqItem>
-            </div>
+          <div className="flex flex-col items-center justify-center space-y-4  mb-20">
+            <h1 className="text-4xl font-bold">Frequently Asked Questions</h1>
+          </div>
+          <div className="mb-8 flex justify-center">
+            <select
+              onChange={handleCategoryChange}
+              className="border border-gray-300 rounded-md px-3 py-2 mr-2 w-72"
+              defaultValue="all"
+            >
+              <option value="all">All Categories</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.attributes.category}>
+                  {category.attributes.category}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categories
+              .filter(
+                (category) =>
+                  selectedCategory === "all" ||
+                  category.attributes.category === selectedCategory
+              )
+              .map((category:any) => (
+                <div
+                  key={category.id}
+                  className="category-card"
+                  style={{
+                    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "8px",
+                    padding: "20px",
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
+                    <Image
+                      src={
+                        getBestAvailableImageUrl(
+                          category.attributes.banner.data.attributes.formats
+                        ).url
+                      }
+                      placeholder="blur"
+                      blurDataURL={
+                        getBestAvailableImageUrl(
+                          category.attributes.banner.data.attributes.formats
+                        ).blurDataURL
+                      }
+                      layout="fill"
+                      objectFit="cover"
+                      alt={category.attributes.category}
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                      <h3 className="category-title text-white text-3xl font-bold">
+                        {category.attributes.category}
+                      </h3>
+                    </div>
+                  </div>
+                  <div className="faq-content space-y-4">
+                    {category.faqs.map((faq: any, index: number) => (
+                      <FaqItem
+                        key={index}
+                        id={faq.id}
+                        title={faq.attributes.question}
+                        isOpen={openFaqId === faq.id}
+                        onToggle={() => handleFaqClick(faq.id)}
+                      >
+                        {faq.attributes.answer}
+                      </FaqItem>
+                    ))}
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </Stairs>
     </>
   );
 };
+
+export async function getStaticProps() {
+  try {
+    const faqsResponse: FaqsApiResponse = await fetcher("faqs?populate=*");
+    const categoriesResponse: CategoriesApiResponse = await fetcher(
+      "faq-categories?populate=*"
+    );
+
+    //console.log(faqsResponse.data[0].attributes.category.data.attributes.category)
+
+    // Combine FAQs into their categories
+    const categoriesWithFaqs = categoriesResponse.data.map((category) => ({
+      ...category,
+      faqs: faqsResponse.data.filter(
+        (faq: any) =>
+          faq.attributes.category.data.attributes.category ===
+          category.attributes.category
+      ),
+    }));
+
+    //  console.log(categoriesWithFaqs[0].attributes.banner.data.attributes.formats.large.url)
+
+    return {
+      props: {
+        categories: categoriesWithFaqs,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching FAQs or categories:", error);
+    return {
+      props: {
+        categories: [],
+      },
+    };
+  }
+}
 
 export default Faq;
