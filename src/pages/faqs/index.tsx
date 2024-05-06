@@ -167,6 +167,7 @@ const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
                     borderRadius: "8px",
                     padding: "20px",
                     backgroundColor: "#fff",
+                    zIndex: 16
                   }}
                 >
                   <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
