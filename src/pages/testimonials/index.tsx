@@ -54,6 +54,7 @@ export default function Testimonials({ testimonials }: any) {
             {testimonials.data.map(
               (testimonial: Testimonial, index: number) => (
                 <div
+                  style={{ zIndex: 16 }}
                   className="lg:m-2 mb-6 p-4 border-2 rounded-xl"
                   key={testimonial.id}
                 >
@@ -82,7 +83,7 @@ export default function Testimonials({ testimonials }: any) {
                     {openModal === index && (
                       <Modal show={true} onClose={() => setOpenModal(null)}>
                         <Modal.Header>
-                          <div className="text-xl">
+                          <div className="text-4xl md:text-5xl md:-mb-4">
                             {testimonial.attributes.clientName}
                           </div>
                         </Modal.Header>
