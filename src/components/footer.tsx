@@ -109,7 +109,7 @@ export default function Footer() {
             </span>
             <div className="flex items-center mt-1 space-x-3">
               <Link
-                href={"https://api.whatsapp.com"}
+                href="https://wa.me/+254790300300"
                 target="_blank"
                 className="text-gray-500 transition-colors duration-300 hover:text-green-600"
               >
