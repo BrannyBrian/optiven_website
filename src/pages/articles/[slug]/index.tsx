@@ -1,6 +1,9 @@
 import React from "react";
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import { ChevronsRight } from "react-feather";
+import { Popover } from "@headlessui/react";
+import Link from "next/link";
 
 type Params = {
   params: {
@@ -12,6 +15,33 @@ const index = ({ article }: any) => {
   const { articleBody } = article.data.attributes;
   return (
     <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+        <Link href="/articles" className="block text-gray-700 font-semibold hover:text-green-500">
+          Blogs & Company News 
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       /> {article.data.attributes.articleTitle}
+    </Popover.Group>
+  </ol>
+</div>
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
           <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl sm:px-16 lg:px-48 dark:text-gray-400">

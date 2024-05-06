@@ -1,5 +1,8 @@
 import Head from "next/head";
 import Stairs from "@/components/stairs";
+import Link from "next/link";
+import { Popover } from "@headlessui/react";
+import { ChevronsRight } from "react-feather";
 
 export default function Contact() {
   const handleSubmit = async (event: any) => {
@@ -38,6 +41,26 @@ export default function Contact() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+        Contact Us
+      </li>
+    </Popover.Group>
+  </ol>
+</div>
         <div className="text-gray-600 body-font relative">
           <div className="container px-5 py-10 mx-auto flex sm:flex-nowrap flex-wrap">
             <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">

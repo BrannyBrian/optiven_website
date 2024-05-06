@@ -2,9 +2,10 @@ import { format } from "date-fns";
 import { fetcher } from "../../../lib/api";
 import Link from "next/link";
 import Stairs from "@/components/stairs";
-import { ChevronRight } from "react-feather";
+import { ChevronRight, ChevronsRight } from "react-feather";
 import Image from "next/image";
 import { useState } from "react";
+import { Popover } from "@headlessui/react";
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
@@ -63,6 +64,26 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
 
   return (
     <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+        Past Projects
+      </li>
+    </Popover.Group>
+  </ol>
+</div>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="flex justify-center -mt-10">
           <div className="mb-4 flex flex-col mr-2">

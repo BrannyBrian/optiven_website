@@ -1,7 +1,7 @@
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import { ChevronRight } from "react-feather";
+import { ChevronRight, ChevronsRight } from "react-feather";
 import { Carousel } from "flowbite-react";
 import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
@@ -14,6 +14,8 @@ import { FaBoreHole } from "react-icons/fa6";
 import { HiOutlineArrowCircleUp } from "react-icons/hi";
 import { GiGuards,GiCctvCamera,GiOpenGate  } from "react-icons/gi";
 
+
+import { Popover } from "@headlessui/react";
 
 
 // Sample base64 image data for blurDataURL (usually much smaller)
@@ -226,6 +228,33 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
 
   return (
     <Stairs>
+
+<div className="container mx-auto">
+  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+    <Popover.Group className="hidden lg:flex lg:gap-x-4">
+      <li>
+        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Home</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />
+      <li>
+      <Link href="/projects" className="block text-gray-700 font-semibold hover:text-green-500">
+          <span className="ml-1"> Properties</span>
+        </Link>
+      </li>
+      <ChevronsRight
+      size={20}
+      className="text-gray-700"
+      aria-hidden="true"
+       />{projectName}
+    </Popover.Group>
+  </ol>
+</div>
       <section
         className="bg-white dark:bg-gray-900 flex
       flex-col justify-center items-center h-full w-full"
