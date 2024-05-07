@@ -5,6 +5,7 @@ import { ChevronRight, ChevronsRight } from "react-feather";
 import Image from "next/image";
 import { useState } from "react";
 import { Popover } from "@headlessui/react";
+import LocationList from "@/components/locationlist";
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
@@ -143,6 +144,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </select>
           </div>
         </div>
+        <LocationList locations={uniqueLocations} />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {(filteredProjects || [])
             .filter((project: any) => project.attributes.isActive === true)
