@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import PlotPriceCard from "@/components/PlotPriceCard";
 import { Popover } from "@headlessui/react";
 
-
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
@@ -221,33 +220,39 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
 
   return (
     <Stairs>
-
-<div className="container mx-auto">
-  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
-    <Popover.Group className="hidden lg:flex lg:gap-x-4">
-      <li>
-        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
-          <span className="ml-1"> Home</span>
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />
-      <li>
-      <Link href="/projects" className="block text-gray-700 font-semibold hover:text-green-500">
-          <span className="ml-1"> Properties</span>
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />{projectName}
-    </Popover.Group>
-  </ol>
-</div>
+      <div className="container mx-auto">
+        <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
+          <Popover.Group className="hidden lg:flex lg:gap-x-4">
+            <li>
+              <Link
+                href="/"
+                className="block text-gray-700 font-semibold hover:text-green-500"
+              >
+                <span className="ml-1"> Home</span>
+              </Link>
+            </li>
+            <ChevronsRight
+              size={20}
+              className="text-gray-700"
+              aria-hidden="true"
+            />
+            <li>
+              <Link
+                href="/projects"
+                className="block text-gray-700 font-semibold hover:text-green-500"
+              >
+                <span className="ml-1"> Properties</span>
+              </Link>
+            </li>
+            <ChevronsRight
+              size={20}
+              className="text-gray-700"
+              aria-hidden="true"
+            />
+            {projectName}
+          </Popover.Group>
+        </ol>
+      </div>
       <section
         className="bg-white dark:bg-gray-900 flex
       flex-col justify-center items-center h-full w-full"
