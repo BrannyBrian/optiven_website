@@ -1,14 +1,13 @@
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import { ChevronRight, ChevronsRight } from "react-feather";
+import { ChevronRight } from "react-feather";
 import { Carousel } from "flowbite-react";
 import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import PlotPriceCard from "@/components/PlotPriceCard";
-import { Popover } from "@headlessui/react";
 import LocationList from "@/components/locationlist";
 
 // Sample base64 image data for blurDataURL (usually much smaller)
@@ -246,7 +245,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               <li className="inline-flex items-center">
                 <Link
                   href="/"
-                  className="inline-flex items-center text-lg font-bold text-gray-700 hover:text-green-600 dark:text-gray-400 dark:hover:text-white"
+                  className="inline-flex items-center text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 dark:text-gray-400 dark:hover:text-white"
                 >
                   <svg
                     className="w-3 h-3 me-2.5"
@@ -279,7 +278,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                   </svg>
                   <Link
                     href="/projects"
-                    className="ms-1 text-lg font-bold text-gray-700 hover:text-green-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+                    className="ms-1 text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
                   >
                     Properties
                   </Link>
@@ -302,7 +301,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                       d="m1 9 4-4-4-4"
                     />
                   </svg>
-                  <span className="ms-1 text-lg font-bold text-gray-500 md:ms-2 dark:text-gray-400">
+                  <span className="ms-1 text-xs md:text-lg font-bold text-gray-500 md:ms-2 dark:text-gray-400">
                     {projectName}
                   </span>
                 </div>
@@ -330,7 +329,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               alt={`Main banner image for ${projectName}`}
               className="w-full mb-4 lg:mb-8"
             />
-            <div className="flex">
+            <div className="md:flex">
               <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-3/4">
                 <BlocksRenderer content={projectContent} />
               </div>
@@ -409,7 +408,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               type="text"
               id="name"
               name="name"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full rounded-lg"
             />
           </div>
           <div className="relative mb-4">
@@ -420,7 +419,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               type="email"
               id="email"
               name="email"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full rounded-lg"
             />
           </div>
           <div className="relative mb-4">
@@ -431,7 +430,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               type="tel"
               id="phone"
               name="phone"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full rounded-lg"
             />
           </div>
           <div className="relative mb-4">
@@ -441,7 +440,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
             <textarea
               id="message"
               name="message"
-              className="textarea textarea-bordered w-full h-24"
+              className="textarea textarea-bordered w-full h-24 rounded-lg"
             />
           </div>
           <div className="relative mb-4">
@@ -452,10 +451,10 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               type="text"
               id="source"
               name="source"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full rounded-lg"
             />
           </div>
-          <button className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
+          <button className="inline-flex rounded-lg items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
             Send
           </button>
         </div>
