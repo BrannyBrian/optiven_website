@@ -144,7 +144,6 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </select>
           </div>
         </div>
-        <LocationList locations={uniqueLocations} />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {(filteredProjects || [])
             .filter((project: any) => project.attributes.isActive === true)
