@@ -57,28 +57,30 @@ export default function Footer() {
           </p>
           <div className="flex">
             <p className="mr-1 text-gray-800">Call/SMS/WhatsApp:</p>
-            <div className="text-center border-r">
-              <Link
-                href={"tel:+254790300300"}
-                className="text-green-600 mr-1 un hover:cursor-pointer"
-              >
-                +254790300300
-              </Link>
-            </div>
-            <div className="text-center">
-              <Link
-                href={"tel:+254723400500"}
-                className="text-green-600 ml-1 un hover:cursor-pointer"
-              >
-                +254723400500
-              </Link>
+            <div className="font-bold">
+              <div className="text-center border-r">
+                <Link
+                  href={"tel:+254790300300"}
+                  className="text-green-600 mr-1 un hover:cursor-pointer"
+                >
+                  +254790300300
+                </Link>
+              </div>
+              <div className="text-center">
+                <Link
+                  href={"tel:+254723400500"}
+                  className="text-green-600 ml-1 un hover:cursor-pointer"
+                >
+                  +254723400500
+                </Link>
+              </div>
             </div>
           </div>
           <div className="flex">
             <p className="mr-1 text-gray-800">Diaspora:</p>
             <Link
               href={"tel:+254796000333"}
-              className="text-green-600 un hover:cursor-pointer"
+              className="text-green-600 font-bold un hover:cursor-pointer"
             >
               +254796000333
             </Link>
@@ -88,7 +90,7 @@ export default function Footer() {
             <Link
               href={"mailto:info@optiven.co.ke"}
               target="_blank"
-              className="text-green-600 un hover:cursor-pointer"
+              className="text-green-600 font-bold un hover:cursor-pointer"
             >
               info@optiven.co.ke
             </Link>
@@ -98,7 +100,7 @@ export default function Footer() {
             <Link
               href={"mailto:globalmarkets@optiven.co.ke"}
               target="_blank"
-              className="text-green-600 un hover:cursor-pointer"
+              className="text-green-600 font-bold un hover:cursor-pointer"
             >
               globalmarkets@optiven.co.ke
             </Link>
@@ -250,53 +252,53 @@ export default function Footer() {
           <p className="text-base font-bold tracking-wide text-gray-900">
             Offices
           </p>
-          <div className="flex">
+          <div className="flex text-sm md:text-md">
             <MapPin size={16} />
             <p className="mx-1 text-gray-800">Head Office:</p>
-            <span className="text-green-600">
+            <span className="text-green-600 font-bold">
               Absa Towers Loita Street , 2nd Floor
             </span>
           </div>
-          <div className="flex">
+          <div className="flex text-sm md:text-md">
             <MapPin size={16} />
             <p className="mx-1 text-gray-800">Global Office:</p>
-            <span className="text-green-600">Zamani Business Park , Karen</span>
+            <span className="text-green-600 font-bold">Zamani Business Park , Karen</span>
           </div>
-          <div className="flex">
+          <div className="flex text-sm md:text-md">
             <MapPin size={16} />
             <p className="mx-1 text-gray-800">Kitengela:</p>
-            <span className="text-green-600">
+            <span className="text-green-600 font-bold">
               Optiven Business Center - Acacia Junction
             </span>
           </div>
-          <div className="flex">
+          <div className="flex text-sm md:text-md">
             <MapPin size={16} />
             <p className="mx-1 text-gray-800">Nanyuki:</p>
-            <span className="text-green-600">
+            <span className="text-green-600 font-bold">
               Ubii Plaza, along Kenyatta Highway, 2nd Floor
             </span>
           </div>
-          <div className="flex">
+          <div className="flex text-sm md:text-md">
             <MapPin size={16} />
             <p className="mx-1 text-gray-800">Nakuru:</p>
-            <span className="text-green-600">Golden Life Mall, 7th Floor</span>
+            <span className="text-green-600 font-bold">Golden Life Mall, 7th Floor</span>
           </div>
-          <div className="flex">
+          <div className="flex text-sm md:text-md">
             <MapPin size={16} />
             <p className="mx-1 text-gray-800">Mtwapa:</p>
-            <span className="text-green-600">
+            <span className="text-green-600 font-bold">
               Shifa Arcade, 2nd Floor, Office No. B5
             </span>
           </div>
-          <div className="flex">
+          <div className="flex text-sm md:text-md">
             <Clock size={16} />
             <p className="ml-1 text-gray-800">Monday - Friday</p>
-            <span className="text-green-600">: 8:00 AM - 5:00 PM</span>
+            <span className="text-green-600 font-bold">: 8:00 AM - 5:00 PM</span>
           </div>
-          <div className="flex">
+          <div className="flex text-sm md:text-md">
             <Clock size={16} />
             <p className="ml-1 text-gray-800">Saturday:</p>
-            <span className="text-green-600">: 8:00 AM - 1:00 PM</span>
+            <span className="text-green-600 font-bold">: 8:00 AM - 1:00 PM</span>
           </div>
         </div>
       </div>
