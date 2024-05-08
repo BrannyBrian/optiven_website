@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const LocationList = ({ locations }: any) => {
   return (
-    <div className="w-96 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+    <div className="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
       <div className="m-4 font-extrabold uppercase tracking-wide text-lg">
         View More Properties
       </div>
