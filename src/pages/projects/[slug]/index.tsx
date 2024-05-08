@@ -1,22 +1,14 @@
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import { ChevronRight, ChevronsRight } from "react-feather";
+import { ChevronRight } from "react-feather";
 import { Carousel } from "flowbite-react";
 import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import PlotPriceCard from "@/components/PlotPriceCard";
-import { FaUmbrellaBeach, FaFaucet } from "react-icons/fa";
-import { PiWallFill, } from "react-icons/pi";
-import { FaBoreHole } from "react-icons/fa6";
-import { HiOutlineArrowCircleUp } from "react-icons/hi";
-import { GiGuards,GiCctvCamera,GiOpenGate  } from "react-icons/gi";
-
-
-import { Popover } from "@headlessui/react";
-
+import LocationList from "@/components/locationlist";
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
@@ -25,9 +17,10 @@ const placeholderImage =
 type PageProps = {
   project: any;
   currencies: any;
+  projects: any;
 };
 
-const index: NextPage<PageProps> = ({ project, currencies }) => {
+const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
   const {
     projectMainBanner,
     projectName,
@@ -226,271 +219,282 @@ const index: NextPage<PageProps> = ({ project, currencies }) => {
     return { url: imageUrl, blurDataURL: placeholderImage };
   };
 
+  // Extract projects with locations
+  const projectsWithLocationsArray = projects.data
+    .map((project: any) => project.attributes.projectLocation.data)
+    .filter((project: any) => project !== null);
+
+  // Deduplicate and sort locations
+  const uniqueLocations = Array.from(
+    new Set(
+      projectsWithLocationsArray.map(
+        (location: any) => location.attributes.projectLocation
+      )
+    )
+  ).sort();
+
   return (
     <Stairs>
-
-<div className="container mx-auto">
-  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
-    <Popover.Group className="hidden lg:flex lg:gap-x-4">
-      <li>
-        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
-          <span className="ml-1"> Home</span>
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />
-      <li>
-      <Link href="/projects" className="block text-gray-700 font-semibold hover:text-green-500">
-          <span className="ml-1"> Properties</span>
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />{projectName}
-    </Popover.Group>
-  </ol>
-</div>
-      <section
-        className="bg-white dark:bg-gray-900 flex
-      flex-col justify-center items-center h-full w-full"
-      >
-        <div className="max-w-4xl px-4 py-8 md:py-10 lg:py-20">
-          <h1 className="text-4xl font-bold text-gray-700 lg:text-7xl dark:text-gray-400">
-            {projectName}
-          </h1>
-          <Image
-            src={
-              getBestAvailableImageUrl(
-                projectMainBanner.data.attributes.formats
-              ).url
-            }
-            placeholder="blur"
-            blurDataURL={
-              getBestAvailableImageUrl(
-                projectMainBanner.data.attributes.formats
-              ).blurDataURL
-            }
-            width={1000}
-            height={600}
-            alt={`Main banner image for ${projectName}`}
-            className="w-full mb-4 lg:mb-8"
-          />
-          {/* // render the value additions */}
-          <div>
-            <h1 className=" flex justify-center text-md font-bold">Value Additions</h1>
-
-            <div className="grid grid-cols-4 justify-between items-center border mt-3 p-6 text-gray-700 rounded-xl">
-          
-              <span>
-                <PiWallFill className="text-white text-5xl icon bg-green-600 rounded-2xl"/>
-                <span className="align-items text-md">Wall</span>
-              </span>
-              <span>
-                <FaFaucet className="text-white text-5xl icon bg-green-600 rounded-2xl" />
-                <span className="align-items text-md ">Water</span>
-              </span>
-              <span>
-                <FaBoreHole className="text-white text-5xl icon bg-green-600 rounded-2xl "/>
-                <span className="align-items text-md">BoreHole</span>
-              </span>
-              <span>
-                <FaUmbrellaBeach className="text-white text-5xl icon bg-green-600 rounded-2xl " />
-                <span className="align-items text-md">Coastal Bliss</span>
-              </span>
-              <span>
-                <HiOutlineArrowCircleUp className="text-white text-5xl icon bg-green-600 rounded-2xl"/>
-                <span className="align-items text-md">Beacons</span>
-              </span>
-              <span>
-                <GiGuards className="text-white text-5xl icon bg-green-600 rounded-2xl " />
-                <span className="align-items text-md">Security</span>
-              </span>
-              <span>
-                <GiCctvCamera  className="text-white text-5xl icon bg-green-600 rounded-2xl "/>
-                <span className="align-items text-md">CCTV</span>
-              </span>
-              <span>
-                <GiOpenGate   className="text-white text-5xl icon bg-green-600 rounded-2xl " />
-                <span className="align-items text-md">Gate</span>
-              </span>
-              
-            </div>
-          </div>
-
-          <div className="format md:text-xl lg:text-2xl">
-            <BlocksRenderer content={projectContent} />
-          </div>
-          {imageUrls.length > 0 && (
-            <div className="my-8">
-              <Carousel slideInterval={3000}>
-                {imageUrls.map((imageUrl, index) => (
-                  <div
-                    key={index}
-                    className="relative"
-                    style={{ paddingBottom: "56.25%" }}
+      <div className="flex flex-col lg:flex-row">
+        <section className="bg-white dark:bg-gray-900 flex flex-col justify-center items-center h-full w-full">
+          <nav
+            className="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
+            aria-label="Breadcrumb"
+          >
+            <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+              <li className="inline-flex items-center">
+                <Link
+                  href="/"
+                  className="inline-flex items-center text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 dark:text-gray-400 dark:hover:text-white"
+                >
+                  <svg
+                    className="w-3 h-3 me-2.5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
                   >
-                    <Image
-                      src={imageUrl}
-                      layout="fill"
-                      objectFit="cover"
-                      alt={`Carousel image ${index + 1} for ${projectName}`}
-                      placeholder="blur"
-                      blurDataURL={placeholderImage}
+                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                  </svg>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <div className="flex items-center">
+                  <svg
+                    className="rtl:rotate-180 block w-3 h-3 mx-1 text-gray-400 "
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="m1 9 4-4-4-4"
                     />
-                  </div>
-                ))}
-              </Carousel>
+                  </svg>
+                  <Link
+                    href="/projects"
+                    className="ms-1 text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Properties
+                  </Link>
+                </div>
+              </li>
+              <li aria-current="page">
+                <div className="flex items-center">
+                  <svg
+                    className="rtl:rotate-180  w-3 h-3 mx-1 text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="m1 9 4-4-4-4"
+                    />
+                  </svg>
+                  <span className="ms-1 text-xs md:text-lg font-bold text-gray-500 md:ms-2 dark:text-gray-400">
+                    {projectName}
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </nav>
+          <div className="max-w-4xl px-4 py-8 md:py-10 lg:py-20">
+            <h1 className="text-4xl font-bold text-gray-700 lg:text-7xl dark:text-gray-400">
+              {projectName}
+            </h1>
+            <Image
+              src={
+                getBestAvailableImageUrl(
+                  projectMainBanner.data.attributes.formats
+                ).url
+              }
+              placeholder="blur"
+              blurDataURL={
+                getBestAvailableImageUrl(
+                  projectMainBanner.data.attributes.formats
+                ).blurDataURL
+              }
+              width={1000}
+              height={600}
+              alt={`Main banner image for ${projectName}`}
+              className="w-full mb-4 lg:mb-8"
+            />
+            <div className="md:flex">
+              <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-3/4">
+                <BlocksRenderer content={projectContent} />
+              </div>
+              <aside className="lg:w-1/4">
+                <LocationList locations={uniqueLocations} />
+              </aside>
             </div>
-          )}
-          <div className="flex flex-col mt-12 md:flex-row lg:flex-row justify-between items-start">
-            <div className="flex justify-center items-center">
+            {imageUrls.length > 0 && (
+              <div className="my-8">
+                <Carousel slideInterval={3000}>
+                  {imageUrls.map((imageUrl, index) => (
+                    <div
+                      key={index}
+                      className="relative"
+                      style={{ paddingBottom: "56.25%" }}
+                    >
+                      <Image
+                        src={imageUrl}
+                        layout="fill"
+                        objectFit="cover"
+                        alt={`Carousel image ${index + 1} for ${projectName}`}
+                        placeholder="blur"
+                        blurDataURL={placeholderImage}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            )}
+            <div className="flex flex-col mt-12 md:flex-row lg:flex-row justify-between items-start">
               <Link
-                href={subDivisionMapLink ? subDivisionMapLink : "#"}
+                href={subDivisionMapLink || "#"}
                 target="_blank"
                 className="text-xl flex un hover:text-green-600 lg:text-3xl"
               >
-                Grand Master Plan
-                <ChevronRight size={24} />
+                Grand Master Plan <ChevronRight size={24} />
               </Link>
-            </div>
-            <div className="flex justify-center items-center">
               <Link
-                href={onlineOfferLetterLink ? onlineOfferLetterLink : "#"}
+                href={onlineOfferLetterLink || "#"}
                 target="_blank"
                 className="text-xl flex un hover:text-green-600 lg:text-3xl"
               >
-                Offer Letter
-                <ChevronRight size={24} />
+                Offer Letter <ChevronRight size={24} />
               </Link>
-            </div>
-            <div className="flex justify-center items-center">
               <Link
-                href={waterApplicationFormLink ? waterApplicationFormLink : "#"}
+                href={waterApplicationFormLink || "#"}
                 target="_blank"
                 className="text-xl flex un hover:text-green-600 lg:text-3xl"
               >
-                Water Application Form
-                <ChevronRight size={24} />
+                Water Application Form <ChevronRight size={24} />
               </Link>
             </div>
           </div>
+        </section>
+      </div>
+      <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
+        <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 flex items-end justify-start relative">
+          <iframe
+            width="100%"
+            height="100%"
+            className="w-full h-full inset-0"
+            loading="lazy"
+            title="map"
+            src={projectMapLocationLink}
+          />
         </div>
-        <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
-          <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 flex items-end justify-start relative">
-            <iframe
-              width="100%"
-              height="100%"
-              className="w-full h-full inset-0"
-              loading="lazy"
-              title="map"
-              src={projectMapLocationLink}
+        <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
+          <h2 className="text-lg mb-1 font-bold uppercase">
+            Secure your piece of {projectName} today
+          </h2>
+          <div className="relative mb-4">
+            <label htmlFor="name" className="label font-bold">
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              className="input input-bordered w-full rounded-lg"
             />
           </div>
-          <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-            <h2 className="text-lg mb-1 font-bold uppercase">
-              Secure your piece of {projectName} today
-            </h2>
-            <div className="relative mb-4">
-              <label htmlFor="name" className="label font-bold">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label htmlFor="email" className="label font-bold">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label htmlFor="phone" className="label font-bold">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                className="input input-bordered w-full"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label htmlFor="message" className="label font-bold">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                className="textarea textarea-bordered w-full h-24"
-              />
-            </div>
-            <div className="relative mb-4">
-              <label htmlFor="source" className="label font-bold">
-                How did you hear about us?
-              </label>
-              <input
-                type="text"
-                id="source"
-                name="source"
-                className="input input-bordered w-full"
-              />
-            </div>
-            <button className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
-              Send
-            </button>
+          <div className="relative mb-4">
+            <label htmlFor="email" className="label font-bold">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="input input-bordered w-full rounded-lg"
+            />
+          </div>
+          <div className="relative mb-4">
+            <label htmlFor="phone" className="label font-bold">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              className="input input-bordered w-full rounded-lg"
+            />
+          </div>
+          <div className="relative mb-4">
+            <label htmlFor="message" className="label font-bold">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              className="textarea textarea-bordered w-full h-24 rounded-lg"
+            />
+          </div>
+          <div className="relative mb-4">
+            <label htmlFor="source" className="label font-bold">
+              How did you hear about us?
+            </label>
+            <input
+              type="text"
+              id="source"
+              name="source"
+              className="input input-bordered w-full rounded-lg"
+            />
+          </div>
+          <button className="inline-flex rounded-lg items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
+            Send
+          </button>
+        </div>
+      </div>
+      <div className="w-screen py-4 px-4 md:py-6 md:px-6 lg:py-10 lg:px-10">
+        <div className="text-center">
+          <h2 className="mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+            Investment
+          </h2>
+          <p className="text-base text-gray-700 md:text-lg">
+            *Prices in 6 and 12 Months are inclusive of deposit placed.
+          </p>
+          <div className="my-4">
+            <select
+              title="currency-select"
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              className="p-2 border rounded"
+            >
+              <option value="KES">KES</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
           </div>
         </div>
-        <div className="w-screen py-4 px-4 md:py-6 md:px-6 lg:py-10 lg:px-10">
-          <div className="text-center">
-            <h2 className="mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-              Investment
-            </h2>
-            <p className="text-base text-gray-700 md:text-lg">
-              *Prices in 6 and 12 Months are inclusive of deposit placed.
-            </p>
-            <div className="my-4">
-              <select
-                title="currency-select"
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-                className="p-2 border rounded"
-              >
-                <option value="KES">KES</option>
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-              </select>
-            </div>
-          </div>
-          <div className="grid gap-4 row-gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {Object.keys(displayPrices).map((plotSize) => (
-              <PlotPriceCard
-                key={plotSize}
-                plotSize={plotSize}
-                cashPrice={displayPrices[plotSize].cashPrice}
-                threeMonthsPrice={displayPrices[plotSize].threeMonthsPrice}
-                sixMonthsPrice={displayPrices[plotSize].sixMonthsPrice}
-                twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
-                deposit={displayPrices[plotSize].deposit}
-              />
-            ))}
-          </div>
+        <div className="grid gap-4 row-gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {Object.keys(displayPrices).map((plotSize) => (
+            <PlotPriceCard
+              key={plotSize}
+              plotSize={plotSize}
+              cashPrice={displayPrices[plotSize].cashPrice}
+              threeMonthsPrice={displayPrices[plotSize].threeMonthsPrice}
+              sixMonthsPrice={displayPrices[plotSize].sixMonthsPrice}
+              twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
+              deposit={displayPrices[plotSize].deposit}
+            />
+          ))}
         </div>
-      </section>
+      </div>
     </Stairs>
   );
 };
@@ -512,6 +516,7 @@ export async function getServerSideProps({ params }: Params) {
         },
       }
     );
+    const projectsResponse = await fetcher<any>("projects?populate=*");
 
     if (!projectResponse.ok) {
       throw new Error(
@@ -526,6 +531,7 @@ export async function getServerSideProps({ params }: Params) {
       props: {
         project: projectDetails,
         currencies: currenciesResponse.data[0],
+        projects: projectsResponse,
       },
     };
   } catch (error) {

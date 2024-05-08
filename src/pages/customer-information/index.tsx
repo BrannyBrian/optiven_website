@@ -1,44 +1,53 @@
 import Link from "next/link";
 import React from "react";
-import { ChevronRight,ChevronsRight } from "react-feather";
 import Stairs from "@/components/stairs";
-import { Popover } from "@headlessui/react";
 
 const index = () => {
   return (
     <Stairs>
-
-<div className="container mx-auto">
-  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
-    <Popover.Group className="hidden lg:flex lg:gap-x-4">
-      <li>
-        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
-          <span className="ml-1"> Home</span>
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />
-      <li>
-        Customer Information
-      </li>
-    </Popover.Group>
-  </ol>
-</div>
-      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-        <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-          <h2 className="max-w-xl mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-            5 LEVELS OF OPTIVEN PROPERTIES
-          </h2>
-          <p className="text-base text-gray-700 md:text-lg">
-            At Optiven we have different levels of projects that go with your
-            budget. Each level has its value additions. The levels are also
-            based on location and proximity to infrastructure. Market prices are
-            thus based on these factors.
+      <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+        <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
+          <Link
+            href="/porjects"
+            className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+          >
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+              Properties
+            </span>{" "}
+            <span className="text-sm font-medium">
+              View our various properties
+            </span>
+            <svg
+              className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </Link>
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            5 Levels of Optiven Properties
+          </h1>
+          <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+            At Optiven, we offer a range of projects tailored to fit various
+            budgets, each with its unique value additions. These projects are
+            categorized into different levels, taking into account their
+            location and proximity to essential infrastructure. As a result,
+            market prices are determined by these factors, ensuring that you
+            find the perfect fit for your needs and preferences.
           </p>
         </div>
+        <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
+      </section>
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
         <div className="grid gap-6 row-gap-10 lg:grid-cols-2">
           <div className="lg:py-6 lg:pr-16">
             <div className="flex">
@@ -77,7 +86,7 @@ const index = () => {
                   This level of a project comes with sophisticated value
                   additions such as paved cabro roads, CCTV, stone perimeter
                   fencing, and a spectacular entry gate, to mention a few.
-                </p>                
+                </p>
               </div>
             </div>
             <div className="flex">

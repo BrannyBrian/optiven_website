@@ -5,6 +5,7 @@ import { ChevronRight, ChevronsRight } from "react-feather";
 import Image from "next/image";
 import { useState } from "react";
 import { Popover } from "@headlessui/react";
+import LocationList from "@/components/locationlist";
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =

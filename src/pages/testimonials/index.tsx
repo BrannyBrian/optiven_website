@@ -1,10 +1,8 @@
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import { useState } from "react";
-import { Button, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import Link from "next/link";
-import { ChevronsRight } from "react-feather";
-import { Popover } from "@headlessui/react";
 
 export default function Testimonials({ testimonials }: any) {
   const [openModal, setOpenModal] = useState<number | null>(null);
@@ -56,6 +54,9 @@ export default function Testimonials({ testimonials }: any) {
                 <div
                   className="lg:m-2 mb-6 p-4 border-2 rounded-xl"
                   key={testimonial.id}
+                  style={{
+                    zIndex: 16,
+                  }}
                 >
                   <div className="h-full text-center">
                     <img
