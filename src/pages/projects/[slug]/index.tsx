@@ -309,7 +309,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
           </ol>
         </nav>
       </div>
-      <div className="flex flex-col items-center justify-center mt-4">
+      <div className="flex flex-col items-center justify-center mt-8">
         <h1 className="text-4xl font-bold text-center text-gray-700 lg:text-7xl dark:text-gray-400">
           {projectName}
         </h1>
