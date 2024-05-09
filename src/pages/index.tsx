@@ -120,6 +120,21 @@ export default function Home({
         },
       });
     });
+
+    // Animation for articles
+    gsap.from(".article-card", {
+      duration: 1,
+      opacity: 0,
+      y: 50,
+      stagger: 0.3,
+      scrollTrigger: {
+        trigger: ".articles-container",
+        start: "top 80%",
+        end: "bottom top",
+        toggleActions: "play none none reverse",
+      },
+    });
+
   });
 
   const getBestAvailableImageUrl = (formats: any) => {
@@ -294,13 +309,16 @@ export default function Home({
           {/* Articles */}
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
             <h1 className="text-4xl border-b mb-4">Optiven in the News</h1>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full articles-container">
               {articles.data
                 .filter(
                   (article: Article) => article.attributes.isFeatured === true
                 )
-                .map((article: Article) => (
-                  <div className="overflow-hidden transition-shadow duration-300 bg-white h-max">
+                .map((article: Article, index: number) => (
+                  <div
+                    className="overflow-hidden transition-shadow duration-300 bg-white h-max article-card"
+                    key={index}
+                  >
                     <Image
                       src={
                         getBestAvailableImageUrl(

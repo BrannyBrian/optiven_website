@@ -4,6 +4,10 @@ import Stairs from "@/components/stairs";
 import { ChevronRight } from "react-feather";
 import Image from "next/image";
 import { useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+gsap.registerPlugin(ScrollTrigger);
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
@@ -14,6 +18,26 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
   const [selectedLocation, setSelectedLocation] = useState<string | "all">(
     "all"
   );
+
+  useGSAP(() => {
+    gsap.from(".project-card", {
+      duration: 1,
+      opacity: 0,
+      y: 50, // moves up from 50 pixels below
+      stagger: 0.66, // delay between each card animation
+      scrollTrigger: {
+        trigger: ".projects-container",
+        start: "top bottom", // starts when the top of ".projects-container" hits the bottom of the viewport
+        end: "bottom top", // ends when the bottom hits the top of the viewport
+        toggleActions: "play none none none",
+      },
+    });
+
+    // Cleanup function to kill all ScrollTriggers to prevent memory leaks
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   // Extract projects with locations
   const projectsWithLocationsArray = projects.data
@@ -147,7 +171,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             .filter((project: any) => project.attributes.isActive === true)
             .map((project: any) => (
               <div
-                className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white"
+                className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white project-card"
                 key={project.id}
               >
                 <Link href={`projects/${project.id}`} aria-label="Project">
