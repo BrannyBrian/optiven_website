@@ -2,15 +2,38 @@ import { format } from "date-fns";
 import { fetcher } from "../../../lib/api";
 import Link from "next/link";
 import Stairs from "@/components/stairs";
-import { ChevronRight, ChevronsRight } from "react-feather";
+import { ChevronRight } from "react-feather";
 import Image from "next/image";
-import { Popover } from "@headlessui/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+gsap.registerPlugin(ScrollTrigger);
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
 const index = ({ articles }: any) => {
+  useGSAP(() => {
+    gsap.from(".article-card", {
+      duration: 1,
+      opacity: 0,
+      y: 50, // moves up from 50 pixels below
+      stagger: 0.66, // delay between each card animation
+      scrollTrigger: {
+        trigger: ".projects-container",
+        start: "top bottom", // starts when the top of ".projects-container" hits the bottom of the viewport
+        end: "bottom top", // ends when the bottom hits the top of the viewport
+        toggleActions: "play none none none",
+      },
+    });
+
+    // Cleanup function to kill all ScrollTriggers to prevent memory leaks
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   const getBestAvailableImageUrl = (formats: any) => {
     let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
     if (formats.large) {
@@ -74,7 +97,7 @@ const index = ({ articles }: any) => {
           {articles.data.map((article: any) => (
             <div
               style={{ zIndex: 16 }}
-              className="overflow-hidden transition-shadow duration-300 bg-white"
+              className="overflow-hidden transition-shadow duration-300 bg-white rounded-lg article-card"
             >
               <Image
                 src={

@@ -4,14 +4,36 @@ import Link from "next/link";
 import Stairs from "@/components/stairs";
 import { ChevronRight, ChevronsRight } from "react-feather";
 import Image from "next/image";
-import { Popover } from "@headlessui/react";
-
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+gsap.registerPlugin(ScrollTrigger);
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
 const index = ({ projectUpdates }: any) => {
+  useGSAP(() => {
+    gsap.from(".update-card", {
+      duration: 1,
+      opacity: 0,
+      y: 50, // moves up from 50 pixels below
+      stagger: 0.66, // delay between each card animation
+      scrollTrigger: {
+        trigger: ".projects-container",
+        start: "top bottom", // starts when the top of ".projects-container" hits the bottom of the viewport
+        end: "bottom top", // ends when the bottom hits the top of the viewport
+        toggleActions: "play none none none",
+      },
+    });
+
+    // Cleanup function to kill all ScrollTriggers to prevent memory leaks
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   const getBestAvailableImageUrl = (formats: any) => {
     let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
     if (formats.large) {
@@ -28,30 +50,56 @@ const index = ({ projectUpdates }: any) => {
 
   return (
     <Stairs>
-
-<div className="container mx-auto">
-  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
-    <Popover.Group className="hidden lg:flex lg:gap-x-4">
-      <li>
-        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
-          <span className="ml-1"> Home</span>
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />
-      <li>
-        Project Updates
-      </li>
-    </Popover.Group>
-  </ol>
-</div>
+      <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+        <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
+          <Link
+            href="/projects"
+            className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+          >
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+              Properties
+            </span>{" "}
+            <span className="text-sm font-medium">
+              Have a look at our various properties
+            </span>
+            <svg
+              className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </Link>
+          <div>
+            <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+              Explore the Latest Developments at Optiven
+            </h1>
+            <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+              Stay up-to-date with our ongoing and upcoming projects. Our
+              updates provide insights into the progress and exciting new
+              features of our properties. Discover the innovative designs and
+              sustainable practices being integrated into each development,
+              ensuring value and quality in our real estate portfolio.
+            </p>
+          </div>
+        </div>
+        <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
+      </section>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
           {projectUpdates.data.map((projectUpdate: ProjectUpdate) => (
-            <div className="overflow-hidden transition-shadow duration-300 bg-white">
+            <div
+              className="overflow-hidden transition-shadow duration-300 bg-white rounded-lg update-card"
+              style={{ zIndex: 16 }}
+            >
               <Image
                 src={
                   getBestAvailableImageUrl(

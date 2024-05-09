@@ -38,10 +38,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       <AnimatePresence mode="wait">
         <div className="mt-32">
           <Component key={router.route} {...pageProps} />
-          {/* <div className="fixed bottom-6 left-6">
-            <MagneticButton />
-          </div> */}
-          <div className="fixed end-6 bottom-6 group">
+          <div className="fixed end-6 bottom-6 group z-20">
             <Link href="https://wa.me/+254790300300">
               <Image
                 src={`/amani.png`}

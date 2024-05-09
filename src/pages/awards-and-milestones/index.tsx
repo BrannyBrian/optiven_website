@@ -77,8 +77,11 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
             href="/projects"
             className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
           >
-            <span className="ms-2 text-sm font-medium">
-              View our available properties
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+              Properties
+            </span>{" "}
+            <span className="text-sm font-medium">
+              Have a look at our various properties
             </span>
             <svg
               className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
@@ -96,16 +99,11 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
               />
             </svg>
           </Link>
-          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-            Celebrating Optiven's Achievements
-          </h1>
-          <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
-            Delve into Optiven's journey of excellence and recognition. From
-            prestigious awards to significant milestones, we showcase our
-            commitment to innovation, quality, and customer satisfaction.
-            Explore our achievements and see why Optiven is a trusted name in
-            the investment landscape.
-          </p>
+          <div>
+            <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+              Why Choose Optiven?
+            </h1>
+          </div>
         </div>
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
       </section>
