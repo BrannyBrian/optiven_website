@@ -39,24 +39,56 @@ export default function Careers({ careers, locations }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stairs>
-        <div className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-8">
-          <div className="mx-auto lg:max-w-2xl">
-            <div className="max-w-xl mb-10 md:mx-auto lg:max-w-2xl md:mb-12">
-              <h2 className="mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-                We're looking for YOU!
-              </h2>
-              <p className="font-bold md:text-lg">
-                Are you committed, trainable, with self-drive and with good
-                relationship skills with team members?
-              </p>
-              <p className="text-base text-gray-700 md:text-lg">
-                At Optiven Group, we are looking for you to join the family
-                through giving innovative solutions to our customers and
-                innovatively meet targets through self-driven targets. So, if
-                these challenges are surmountable for you, we welcome your
-                application to the open positions available at the moment.
+        <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+          <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
+            <Link
+              href="/projects"
+              className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+            >
+              <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+                Properties
+              </span>{" "}
+              <span className="text-sm font-medium">
+                Have a look at our various properties
+              </span>
+              <svg
+                className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 6 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="m1 9 4-4-4-4"
+                />
+              </svg>
+            </Link>
+            <div>
+              <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                Join Our Team at Optiven!
+              </h1>
+              <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+                At Optiven, we believe in empowering our team to innovate, grow,
+                and succeed. We offer a dynamic work environment that fosters
+                creativity and collaboration. With a commitment to professional
+                development and work-life balance, we provide our employees with
+                the tools and support they need to achieve their career goals.
+                Explore the opportunities to be part of a team that values
+                progress and rewards hard work.
               </p>
             </div>
+          </div>
+          <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
+        </section>
+        <div
+          style={{ zIndex: 16 }}
+          className="px-4 py-8 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-8"
+        >
+          <div className="mx-auto lg:max-w-2xl">
             <div className="mb-4 transition-shadow duration-300 hover:shadow-xl lg:mb-6">
               <img
                 className="object-cover w-full h-56 rounded shadow-lg sm:h-64 md:h-80 lg:h-96"
@@ -64,7 +96,9 @@ export default function Careers({ careers, locations }: any) {
                 alt=""
               />
             </div>
-            <p className="font-bold md:text-lg">Caution Alert</p>
+            <p className="mb-4 text-2xl font-extrabold tracking-tight leading-none text-red-600 md:text-3xl lg:text-4xl dark:text-white">
+              Caution Alert
+            </p>
             <p className="text-base text-gray-700 md:text-lg">
               As part of our mandate to operate transparently, take note that
               all our job openings are always posted on our website. There

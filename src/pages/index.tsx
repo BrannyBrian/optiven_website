@@ -316,7 +316,7 @@ export default function Home({
                 )
                 .map((article: Article, index: number) => (
                   <div
-                    className="overflow-hidden transition-shadow duration-300 bg-white h-max article-card"
+                    className="overflow-hidden transition-shadow duration-300 bg-white h-max article-card rounded-lg"
                     key={index}
                   >
                     <Image
