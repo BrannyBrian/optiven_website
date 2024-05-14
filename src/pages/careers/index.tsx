@@ -46,10 +46,10 @@ export default function Careers({ careers, locations }: any) {
               className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
             >
               <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
-                Properties
+                About Us
               </span>{" "}
               <span className="text-sm font-medium">
-                Have a look at our various properties
+                Get to learn what we're all about and what we stand for
               </span>
               <svg
                 className="w-2.5 h-2.5 ms-2 rtl:rotate-180"

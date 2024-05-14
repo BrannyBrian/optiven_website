@@ -101,8 +101,18 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
           </Link>
           <div>
             <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-              Why Choose Optiven?
+              Celebrating Excellence with Optiven Awards{" "}
             </h1>
+            <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+              At Optiven, we take pride in our commitment to excellence and
+              innovation. Our awards are a testament to the hard work and
+              dedication of our team in delivering outstanding real estate
+              solutions and community development. These accolades highlight our
+              relentless pursuit of quality, customer satisfaction, and
+              sustainable growth. Join us in celebrating the milestones and
+              achievements that reflect our passion for creating lasting value
+              and making a positive impact in the industry.
+            </p>
           </div>
         </div>
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
