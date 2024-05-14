@@ -290,7 +290,8 @@ export default function Home({
                     <h6 className="text-4xl lg:text-7xl xl:text-8xl">
                       {new Intl.NumberFormat("en-IN").format(
                         stat.attributes.completedProjects
-                      )}+
+                      )}
+                      +
                     </h6>
                     <p className="text-sm mb-4 uppercase">Completed Projects</p>
                   </div>
@@ -597,7 +598,7 @@ export async function getStaticProps() {
 
     const statsResponse = await fetcher<Stat[]>("stats?populate=*");
 
-    console.log(statsResponse.data[0]);
+    // console.log(statsResponse.data[0]);
 
     return {
       props: {
