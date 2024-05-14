@@ -1,10 +1,11 @@
 import React from "react";
 import Stairs from "@/components/stairs";
 import Link from "next/link";
-import { Popover } from "@headlessui/react";
-import { ChevronsRight } from "react-feather";
 
-const index = () => {
+import { fetcher } from "../../../lib/api";
+
+const index = ({ optivenInTheMedia }: any) => {
+  // const { title, link } = optivenInTheMedia.data[0].attributes;
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
@@ -51,9 +52,77 @@ const index = () => {
         </div>
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
       </section>
-      <div>optiven in the media</div>
+      <section className="text-gray-600 body-font">
+        <div className="container px-5 py-24 mx-auto">
+          <div className="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+            <div className="sm:w-32 sm:order-none order-first sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-green-100 text-green-500 flex-shrink-0">
+              <svg
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                className="w-12 h-12"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            {optivenInTheMedia.data.map((item: any) => (
+              <div
+                className="flex-grow sm:text-left text-center mt-6 sm:mt-0"
+                style={{ zIndex: 16 }}
+              >
+                <h2 className="text-gray-900 text-lg title-font font-medium mb-2">
+                  {item.attributes.title}
+                </h2>
+                <Link
+                  href={`${item.attributes.link}`}
+                  className="mt-3 text-green-500 inline-flex items-center"
+                >
+                  Learn More
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    className="w-4 h-4 ml-2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </Stairs>
   );
 };
+
+export async function getStaticProps() {
+  try {
+    const optivenInTheMediaResponse = await fetcher<any>(
+      "optiven-in-the-medias?populate=*"
+    );
+
+    console.log(optivenInTheMediaResponse.data);
+
+    return {
+      props: {
+        optivenInTheMedia: optivenInTheMediaResponse,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching content:", error);
+    return {
+      props: {
+        optivenInTheMedia: [],
+      },
+    };
+  }
+}
 
 export default index;
