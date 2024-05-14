@@ -168,91 +168,88 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
           </div>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
-          {(filteredProjects || [])
-            .filter((project: any) => project.attributes.isActive === true)
-            .map((project: any) => (
-              <div
-                className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white project-card"
-                key={project.id}
-              >
-                <Link href={`projects/${project.id}`} aria-label="Project">
-                  <Image
-                    src={
-                      getBestAvailableImageUrl(
-                        project.attributes.projectMainBanner.data.attributes
-                          .formats
-                      ).url
-                    }
-                    placeholder="blur"
-                    blurDataURL={
-                      getBestAvailableImageUrl(
-                        project.attributes.projectMainBanner.data.attributes
-                          .formats
-                      ).blurDataURL
-                    }
-                    height={400}
-                    width={700}
-                    className="object-cover w-full h-64 md:h-72 lg:h-80"
-                    alt={`Image for ${project.attributes.projectName}`}
-                  />
-                </Link>
-                <div className="p-4 border border-t-0">
-                  <Link
-                    href={`projects/${project.id}`}
-                    aria-label="Project"
-                    className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
-                  >
-                    <p className="secondary-text text-2xl font-bold transition-colors duration-200 hover:text-green-600">
-                      {project.attributes.projectName}
-                    </p>
+          {filteredProjects.length > 0 ? (
+            filteredProjects
+              .filter((project: any) => project.attributes.isActive === true)
+              .map((project: any) => (
+                <div
+                  className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white project-card"
+                  key={project.id}
+                >
+                  <Link href={`projects/${project.id}`} aria-label="Project">
+                    <Image
+                      src={
+                        getBestAvailableImageUrl(
+                          project.attributes.projectMainBanner.data.attributes
+                            .formats
+                        ).url
+                      }
+                      placeholder="blur"
+                      blurDataURL={
+                        getBestAvailableImageUrl(
+                          project.attributes.projectMainBanner.data.attributes
+                            .formats
+                        ).blurDataURL
+                      }
+                      height={400}
+                      width={700}
+                      className="object-cover w-full h-64 md:h-72 lg:h-80"
+                      alt={`Image for ${project.attributes.projectName}`}
+                    />
                   </Link>
-                  <div className="mb-2">
-                    <StarRating rating={project.attributes.projectRating}  />
-                  </div>
-                  <p className="text-gray-700">
-                    {project.attributes.projectSummary.length > 120
-                      ? `${project.attributes.projectSummary.substring(
-                          0,
-                          100
-                        )}...`
-                      : project.attributes.projectSummary}
-                    {project.attributes.projectSummary.length > 120 && (
-                      <Link
-                        href={`projects/${project.id}`}
-                        className="text-green-600 font-bold hover:underline"
-                      >
-                        read more
-                      </Link>
-                    )}
-                  </p>
-                  <div className="flex items-center">
+                  <div className="p-4 border border-t-0">
                     <Link
                       href={`projects/${project.id}`}
-                      className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                      aria-label="Project"
+                      className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
                     >
-                      Read More
-                      <ChevronRight size={16} />
+                      <p className="secondary-text text-2xl font-bold transition-colors duration-200 hover:text-green-600">
+                        {project.attributes.projectName}
+                      </p>
                     </Link>
+                    <div className="mb-2">
+                      <StarRating rating={project.attributes.projectRating} />
+                    </div>
+                    <p className="text-gray-700">
+                      {project.attributes.projectSummary.length > 120
+                        ? `${project.attributes.projectSummary.substring(
+                            0,
+                            100
+                          )}...`
+                        : project.attributes.projectSummary}
+                      {project.attributes.projectSummary.length > 120 && (
+                        <Link
+                          href={`projects/${project.id}`}
+                          className="text-green-600 font-bold hover:underline"
+                        >
+                          read more
+                        </Link>
+                      )}
+                    </p>
+                    <div className="flex items-center">
+                      <Link
+                        href={`projects/${project.id}`}
+                        className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                      >
+                        Read More
+                        <ChevronRight size={16} />
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+          ) : (
+            <div className="flex flex-col w-screen mt-8 flex-1 justify-center items-center">
+              <Image
+                width={300}
+                height={250}
+                alt="not-found"
+                src="/coming-soon.png"
+              />
+              <p className="text-center text-gray-700 text-3xl">Coming Soon!</p>
+            </div>
+          )}
         </div>
-        {projects.data.filter(
-          (project: any) => project.attributes.isActive === true
-        ).length === 0 && (
-          <div className="flex flex-col justify-center items-center">
-            <Image
-              width={400}
-              height={250}
-              alt="not-found"
-              src="/pngs/404 Error-pana.png"
-            />
-            <p className="text-center text-gray-700 text-3xl">
-              No projects available
-            </p>
-          </div>
-        )}
       </div>
     </Stairs>
   );
