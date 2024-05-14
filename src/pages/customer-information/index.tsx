@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Stairs from "@/components/stairs";
+import StarRating from "@/components/starRating";
 
 const index = () => {
   return (
@@ -81,7 +82,12 @@ const index = () => {
                 <div className="w-px h-full bg-gray-300" />
               </div>
               <div className="pt-1 pb-8">
-                <p className="mb-2 text-lg font-bold">PLATINUM - ★★★★★</p>
+                <div className="mb-2 text-lg font-bold flex">
+                  <div>PLATINUM -</div>
+                  <div className="-mt-1">
+                    <StarRating rating={5} />
+                  </div>
+                </div>
                 <p className="text-gray-700">
                   This level of a project comes with sophisticated value
                   additions such as paved cabro roads, CCTV, stone perimeter
@@ -120,7 +126,12 @@ const index = () => {
                 <div className="w-px h-full bg-gray-300" />
               </div>
               <div className="pt-1 pb-8">
-                <p className="mb-2 text-lg font-bold">GOLD - ★★★★</p>
+                <div className="mb-2 text-lg font-bold flex">
+                  <div>GOLD -</div>
+                  <div className="-mt-1">
+                    <StarRating rating={4} />
+                  </div>
+                </div>
                 <p className="text-gray-700">
                   These properties come with mesh fencing using concrete posts,
                   gates, and solar street lights.
@@ -158,7 +169,12 @@ const index = () => {
                 <div className="w-px h-full bg-gray-300" />
               </div>
               <div className="pt-1 pb-8">
-                <p className="mb-2 text-lg font-bold">SILVER - ★★★</p>
+                <div className="mb-2 text-lg font-bold flex">
+                  <div>SILVER -</div>
+                  <div className="-mt-1">
+                    <StarRating rating={3} />
+                  </div>
+                </div>
                 <p className="text-gray-700">
                   This level has properties with value additions including Mesh
                   fences, Trees, Gates and murram roads
@@ -196,7 +212,12 @@ const index = () => {
                 <div className="w-px h-full bg-gray-300" />
               </div>
               <div className="pt-1 pb-8">
-                <p className="mb-2 text-lg font-bold">BRONZE - ★★</p>
+                <div className="mb-2 text-lg font-bold flex">
+                  <div>BRONZE -</div>
+                  <div className="-mt-1">
+                    <StarRating rating={2} />
+                  </div>
+                </div>
                 <p className="text-gray-700">
                   These projects have a marking fence and graded roads.
                 </p>
@@ -232,7 +253,12 @@ const index = () => {
                 </div>
               </div>
               <div className="pt-1 pb-8">
-                <p className="mb-2 text-lg font-bold">SAPPHIRE - ★</p>
+                <div className="mb-2 text-lg font-bold flex">
+                  <div>SAPPHIRE -</div>
+                  <div className="-mt-1">
+                    <StarRating rating={1} />
+                  </div>
+                </div>
                 <p className="text-gray-700">
                   These properties are bare and targeted at investors looking to
                   do Land Banking.
