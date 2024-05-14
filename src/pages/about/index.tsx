@@ -483,7 +483,7 @@ export async function getStaticProps() {
   try {
     const aboutResponse = await fetcher<About[]>("abouts?populate=*");
 
-    console.log(aboutResponse.data[0].attributes.image1.data.attributes);
+    // console.log(aboutResponse.data[0].attributes.image1.data.attributes);
 
     return {
       props: {
