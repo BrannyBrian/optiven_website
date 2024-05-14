@@ -1,10 +1,64 @@
 import Stairs from "@/components/stairs";
 import Head from "next/head";
 import Link from "next/link";
-import { ChevronRight, ChevronsRight } from "react-feather";
-import { Popover } from "@headlessui/react";
+import { ChevronRight } from "react-feather";
+import { fetcher } from "../../../lib/api";
+import { NextPage } from "next";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
-export default function About() {
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
+
+type PageProps = {
+  about: any;
+};
+
+const index: NextPage<PageProps> = ({ about }) => {
+  const {
+    paragraph1,
+    paragraph2,
+    award1,
+    award2,
+    award3,
+    award4,
+    award5,
+    award6,
+    mission,
+    vision,
+    objective1,
+    objective2,
+    objective3,
+    objective4,
+    objective5,
+    ourPeople,
+    workingMethodology,
+    image1,
+    image2,
+    image3,
+    image4,
+    image5,
+    image6,
+    image7,
+    image8,
+    image9,
+    image10,
+    image11,
+  } = about.data[0].attributes;
+
+  const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
+    if (formats.large) {
+      imageUrl = formats.large.url;
+    } else if (formats.medium) {
+      imageUrl = formats.medium.url;
+    } else if (formats.small) {
+      imageUrl = formats.small.url;
+    }
+
+    // Return both the URL and the blurDataURL (the same static placeholder for now)
+    return { url: imageUrl, blurDataURL: placeholderImage };
+  };
   return (
     <>
       <Head>
@@ -71,68 +125,34 @@ export default function About() {
                 <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 uppercase md:text-4xl lg:text-5xl">
                   Who we <span className="inline-block text-primary">are</span>
                 </h2>
-                <p className="md:text-lg">
-                  Optiven is a leading brand in the region and has a number of
-                  flourishing Strategic Business Units (SBUs) that include
-                  Optiven Real Estate,{" "}
-                  <Link
-                    href={"https://www.optivenhomes.co.ke/"}
-                    className="un text-green-600 font-bold"
-                    target="_blank"
-                  >
-                    Optiven Homes
-                  </Link>
-                  , and Optiven Water. The firm has also gained a foothold into
-                  the hospitality industry with its{" "}
-                  <Link
-                    href={"https://www.gmcplace.co.ke/"}
-                    className="un text-green-600 font-bold"
-                    target="_blank"
-                  >
-                    GMC Place
-                  </Link>{" "}
-                  and food franchises{" "}
-                  <Link
-                    href={"https://www.facebook.com/SpurAtTheHubKaren"}
-                    className="un text-green-600 font-bold"
-                    target="_blank"
-                  >
-                    Eagle Peak Spur.
-                  </Link>
-                </p>
-                <p className="mt-2  md:text-lg">
-                  Optiven also has a soft arm, which undertakes charity works,
-                  by the name{" "}
-                  <Link
-                    href={"https://www.optivenfoundation.org/"}
-                    className="un text-green-600 font-bold"
-                    target="_blank"
-                  >
-                    Optiven Foundation
-                  </Link>
-                  . The Foundation has so far been involved in numerous
-                  philanthropic works in its quest to transform the social
-                  well-being of thousands of Kenyans.
-                </p>
+                <div className="format md:text-lg lg:text-2xl">
+                  <BlocksRenderer content={paragraph1} />
+                </div>
               </div>
             </div>
             <div className="flex items-center justify-center -mx-4 lg:pl-8">
               <div className="flex flex-col items-end px-3">
                 <img
                   className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
-                  src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                  src={
+                    getBestAvailableImageUrl(image1.data.attributes.formats).url
+                  }
                   alt=""
                 />
                 <img
                   className="object-cover w-20 h-20 rounded shadow-lg sm:h-32 xl:h-40 sm:w-32 xl:w-40"
-                  src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                  src={
+                    getBestAvailableImageUrl(image2.data.attributes.formats).url
+                  }
                   alt=""
                 />
               </div>
               <div className="px-3">
                 <img
                   className="object-cover w-40 h-40 rounded shadow-lg sm:h-64 xl:h-80 sm:w-64 xl:w-80"
-                  src="https://images.pexels.com/photos/3182739/pexels-photo-3182739.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500"
+                  src={
+                    getBestAvailableImageUrl(image3.data.attributes.formats).url
+                  }
                   alt=""
                 />
               </div>
@@ -143,35 +163,17 @@ export default function About() {
           <div className="flex flex-col items-center justify-between lg:flex-row-reverse">
             <div className="mb-10 lg:max-w-xl">
               <div className="mb-6">
-                <p className="text-base text-white md:text-lg">
-                  Optiven is captained by its Founder and CEO,{" "}
-                  <Link
-                    href={"https://www.georgewachiuri.com/"}
-                    className="un-white text-white font-bold"
-                    target="_blank"
-                  >
-                    George Wachiuri
-                  </Link>
-                  , and is rightly living up to its mission, which is to create
-                  an environment that positively transforms its staff,
-                  customers, and all its stakeholders through offering
-                  state-of-the-art products and services.
-                </p>
-                <p className="text-base text-white mt-2 md:text-lg">
-                  The firm aims at creating over 30,000 direct employees by the
-                  year 2030, and has continued to be a differentiated and
-                  trusted name that regularly receives accolades both inside and
-                  outside Kenya. Optiven has also empowered over 10, 000 Kenyans
-                  to own property and also directly and indirectly employed
-                  about 2, 000 employees across the real estate and hospitality
-                  sector.
-                </p>
+                <div className="format md:text-lg lg:text-2xl text-white">
+                  <BlocksRenderer content={paragraph2} />
+                </div>
               </div>
             </div>
             <div className="relative lg:w-2/5">
               <img
                 className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
-                src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=3&amp;h=750&amp;w=1260"
+                src={
+                  getBestAvailableImageUrl(image4.data.attributes.formats).url
+                }
                 alt=""
               />
             </div>
@@ -184,60 +186,49 @@ export default function About() {
               <div className="p-2 md:w-1/3 md:h-72 w-full">
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">01</h1>
-                  <p className="leading-relaxed mb-6">
-                    The Top Real Estate company in the DIASPORA at the
-                    Starbrands East Africa Awards ceremony that took place on
-                    21st April 2023
-                  </p>
+                  <div className="format text-sm">
+                    <BlocksRenderer content={award1} />
+                  </div>
                 </div>
               </div>
               <div className="p-2 md:w-1/3 md:h-72 w-full">
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">02</h1>
-                  <p className="leading-relaxed mb-6">
-                    Real Estate company Optiven has been awarded for its GoGreen
-                    Initiative 2022 by KEPSA
-                  </p>
+                  <div className="format text-sm">
+                    <BlocksRenderer content={award2} />
+                  </div>
                 </div>
               </div>
               <div className="p-2 md:w-1/3 md:h-72 w-full">
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">03</h1>
-                  <p className="leading-relaxed mb-6">
-                    Scooped the best employer in East Africa 2019 by East Africa
-                    Best Employer Brand Awards
-                  </p>
+                  <div className="format text-sm">
+                    <BlocksRenderer content={award3} />
+                  </div>
                 </div>
               </div>
               <div className="p-2 md:w-1/3 md:h-72 w-full">
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">04</h1>
-                  <p className="leading-relaxed mb-6">
-                    Optiven also scooped the overall winner’s trophy in the Top
-                    100 Mid-Sized Companies Survey, 2014/2015 by KPMG and Nation
-                    Media Group
-                  </p>
+                  <div className="format text-sm">
+                    <BlocksRenderer content={award4} />
+                  </div>
                 </div>
               </div>
               <div className="p-2 md:w-1/3 md:h-72 w-full">
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">05</h1>
-                  <p className="leading-relaxed mb-6">
-                    The firm also won the Best Company in Customer Orientation &
-                    Marketing in Kenya (COYA AWARDS) - in 2015
-                  </p>
+                  <div className="format text-sm">
+                    <BlocksRenderer content={award5} />
+                  </div>
                 </div>
               </div>
               <div className="p-2 md:w-1/3 md:h-72 w-full">
                 <div className="h-full bg-gray-100 p-8 rounded">
                   <h1 className="text-7xl border-b mb-2 font-medium">06</h1>
-                  <p className="leading-relaxed mb-6">
-                    The firm has continued to mark its place as a leading brand
-                    in Kenya with its real estate arm taking home two winner’s
-                    trophies for the Land Agent of the Year and the Best Value
-                    Added Land Selling Company during the 2nd Annual Real Estate
-                    Excellence Awards, 2019.
-                  </p>
+                  <div className="format text-sm">
+                    <BlocksRenderer content={award6} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -259,7 +250,9 @@ export default function About() {
               <div className="relative">
                 <img
                   className="object-cover w-full h-64 rounded-t lg:h-80 xl:h-96"
-                  src="https://images.pexels.com/photos/3182796/pexels-photo-3182796.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                  src={
+                    getBestAvailableImageUrl(image5.data.attributes.formats).url
+                  }
                   alt=""
                 />
                 <div className="absolute inset-0 bg-gray-800 bg-opacity-25" />
@@ -268,18 +261,18 @@ export default function About() {
                 <h5 className="mb-2 text-xl font-bold leading-none sm:text-2xl">
                   Our Mission
                 </h5>
-                <p className="mb-5 text-gray-700">
-                  To create an environment that Positively Transforms our Staff,
-                  Customers, and other Stakeholders through offering
-                  state-of-the-Art Products and Services.
-                </p>
+                <div className="format md:text-lg lg:text-2xl">
+                  <BlocksRenderer content={mission} />
+                </div>
               </div>
             </div>
             <div className="transition duration-300 transform bg-wshadowounded shadow-sm hover:-translate-y-1 hover:shadow md:text-center">
               <div className="relative">
                 <img
                   className="object-cover w-full h-64 rounded-t lg:h-80 xl:h-96"
-                  src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                  src={
+                    getBestAvailableImageUrl(image6.data.attributes.formats).url
+                  }
                   alt=""
                 />
                 <div className="absolute inset-0 bg-gray-800 bg-opacity-25" />
@@ -288,9 +281,9 @@ export default function About() {
                 <h5 className="mb-2 text-xl font-bold leading-none sm:text-2xl">
                   Our Vision
                 </h5>
-                <p className="mb-5 text-gray-700">
-                  To be the champions of Social Economic Transformation
-                </p>
+                <div className="format md:text-lg lg:text-2xl">
+                  <BlocksRenderer content={vision} />
+                </div>
               </div>
             </div>
           </div>
@@ -334,43 +327,41 @@ export default function About() {
               </h2>
               <div className="flex">
                 <div>
-                  <p className="text-lg text-white">
-                    To provide affordable prime properties to professionals and
-                    business people.
-                  </p>
+                  <div className="format md:text-lg text-white lg:text-2xl">
+                    <BlocksRenderer content={objective1} />
+                  </div>
                   <hr className="w-96 my-4 border-gray-300" />
                 </div>
               </div>
               <div className="flex">
                 <div>
-                  <p className="text-lg text-white">
-                    To link up homeowners and developers with the market
-                  </p>
+                  <div className="format md:text-lg text-white lg:text-2xl">
+                    <BlocksRenderer content={objective2} />
+                  </div>
                   <hr className="w-96 my-4 border-gray-300" />
                 </div>
               </div>
               <div className="flex">
                 <div>
-                  <p className="text-lg text-white">
-                    To give back to the community through our soft arm, Optiven
-                    Foundation
-                  </p>
+                  <div className="format md:text-lg text-white lg:text-2xl">
+                    <BlocksRenderer content={objective3} />
+                  </div>
                   <hr className="w-96 my-4 border-gray-300" />
                 </div>
               </div>
               <div className="flex">
                 <div>
-                  <p className="text-lg text-white">
-                    To create 30,000 jobs by the year 2030
-                  </p>
+                  <div className="format md:text-lg text-white lg:text-2xl">
+                    <BlocksRenderer content={objective4} />
+                  </div>
                   <hr className="w-96 my-4 border-gray-300" />
                 </div>
               </div>
               <div className="flex">
                 <div>
-                  <p className="text-lg text-white">
-                    To transit from a private company to public owned company
-                  </p>
+                  <div className="format md:text-lg text-white lg:text-2xl">
+                    <BlocksRenderer content={objective5} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -378,17 +369,23 @@ export default function About() {
             <div className="grid grid-cols-2 gap-5">
               <img
                 className="object-cover w-full h-56 col-span-2 rounded shadow-lg"
-                src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                src={
+                  getBestAvailableImageUrl(image7.data.attributes.formats).url
+                }
                 alt=""
               />
               <img
                 className="object-cover w-full h-48 rounded shadow-lg"
-                src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                src={
+                  getBestAvailableImageUrl(image8.data.attributes.formats).url
+                }
                 alt=""
               />
               <img
                 className="object-cover w-full h-48 rounded shadow-lg"
-                src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+                src={
+                  getBestAvailableImageUrl(image9.data.attributes.formats).url
+                }
                 alt=""
               />
             </div>
@@ -400,21 +397,16 @@ export default function About() {
               <h5 className="mb-4 text-4xl font-extrabold leading-none">
                 Our People
               </h5>
-              <p className="mb-6 text-gray-900 text-lg md:w-3/4">
-                Optiven has go-getters and high-level caliber staff who propel
-                the growth of the enterprise. We are strong believers in having
-                the best of what the market can offer. Our staff are motivated
-                and they deliver services in a timely manner. We also believe in
-                strong alliances and networking with other market-leading
-                professionals. We have built relationships with progressing
-                organizations that are key stakeholders to our company as we
-                carry out our activities.
-              </p>
+              <div className="format md:text-lg lg:text-2xl">
+                <BlocksRenderer content={ourPeople} />
+              </div>
             </div>
             <div>
               <img
                 className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
-                src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=3&amp;h=750&amp;w=1260"
+                src={
+                  getBestAvailableImageUrl(image10.data.attributes.formats).url
+                }
                 alt=""
               />
             </div>
@@ -427,28 +419,17 @@ export default function About() {
                 <h5 className="mb-4 text-4xl font-extrabold leading-none">
                   Working Methodology
                 </h5>
-                <p className="text-base md:text-lg">
-                  Optiven works through stable business networks and has very
-                  well-established relations with both the central and devolved
-                  governments as well as the relevant ministries. We have also
-                  developed close working relations with both local and
-                  international partners and institutions across relevant
-                  sectors and industries.
-                </p>
-                <p className="text-base mt-2 md:text-lg">
-                  Besides, we have established strong partnerships with various
-                  financial providers including but not limited to Equity Bank,
-                  Commercial Bank of Africa, Consolidated Bank, and Co-operative
-                  Bank of Kenya. We have further enhanced our relationship with
-                  like-minded partners such as private equity entities and
-                  regulators to help us achieve our mission and vision.
-                </p>
+                <div className="format md:text-lg lg:text-2xl text-white">
+                  <BlocksRenderer content={workingMethodology} />
+                </div>
               </div>
             </div>
             <div className="relative lg:w-2/5">
               <img
                 className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
-                src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=3&amp;h=750&amp;w=1260"
+                src={
+                  getBestAvailableImageUrl(image11.data.attributes.formats).url
+                }
                 alt=""
               />
             </div>
@@ -457,4 +438,66 @@ export default function About() {
       </Stairs>
     </>
   );
+};
+
+type About = {
+  id: number;
+  attributes: {
+    paragraph1: any;
+    paragraph2: any;
+    award1: any;
+    award2: any;
+    award3: any;
+    award4: any;
+    award5: any;
+    award6: any;
+    mission: any;
+    vision: any;
+    objective1: any;
+    objective2: any;
+    objective3: any;
+    objective4: any;
+    objective5: any;
+    ourPeople: any;
+    workingMethodology: any;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    locale: string;
+    image1: any;
+    image2: any;
+    image3: any;
+    image4: any;
+    image5: any;
+    image6: any;
+    image7: any;
+    image8: any;
+    image9: any;
+    image10: any;
+    image11: any;
+    localizations: any;
+  };
+};
+
+export async function getStaticProps() {
+  try {
+    const aboutResponse = await fetcher<About[]>("abouts?populate=*");
+
+    console.log(aboutResponse.data[0].attributes.image1.data.attributes);
+
+    return {
+      props: {
+        about: aboutResponse,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching about:", error);
+    return {
+      props: {
+        about: [],
+      },
+    };
+  }
 }
+
+export default index;
