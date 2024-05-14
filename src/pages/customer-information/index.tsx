@@ -2,8 +2,42 @@ import Link from "next/link";
 import React from "react";
 import Stairs from "@/components/stairs";
 import StarRating from "@/components/starRating";
+import { fetcher } from "../../../lib/api";
+import { NextPage } from "next";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
-const index = () => {
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
+
+type PageProps = {
+  customerInfo: any;
+};
+
+const index: NextPage<PageProps> = ({ customerInfo }) => {
+  const {
+    platinumDetails,
+    goldDetails,
+    silverDetails,
+    bronzeDetails,
+    sapphireDetails,
+    image,
+  } = customerInfo.data[0].attributes;
+
+  const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
+    if (formats.large) {
+      imageUrl = formats.large.url;
+    } else if (formats.medium) {
+      imageUrl = formats.medium.url;
+    } else if (formats.small) {
+      imageUrl = formats.small.url;
+    }
+
+    // Return both the URL and the blurDataURL (the same static placeholder for now)
+    return { url: imageUrl, blurDataURL: placeholderImage };
+  };
+
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
@@ -88,11 +122,9 @@ const index = () => {
                     <StarRating rating={5} />
                   </div>
                 </div>
-                <p className="text-gray-700">
-                  This level of a project comes with sophisticated value
-                  additions such as paved cabro roads, CCTV, stone perimeter
-                  fencing, and a spectacular entry gate, to mention a few.
-                </p>
+                <div className="format md:text-lg lg:text-2xl">
+                  <BlocksRenderer content={platinumDetails} />
+                </div>
               </div>
             </div>
             <div className="flex">
@@ -132,10 +164,9 @@ const index = () => {
                     <StarRating rating={4} />
                   </div>
                 </div>
-                <p className="text-gray-700">
-                  These properties come with mesh fencing using concrete posts,
-                  gates, and solar street lights.
-                </p>
+                <div className="format md:text-lg lg:text-2xl">
+                  <BlocksRenderer content={goldDetails} />
+                </div>
               </div>
             </div>
             <div className="flex">
@@ -175,10 +206,9 @@ const index = () => {
                     <StarRating rating={3} />
                   </div>
                 </div>
-                <p className="text-gray-700">
-                  This level has properties with value additions including Mesh
-                  fences, Trees, Gates and murram roads
-                </p>
+                <div className="format md:text-lg lg:text-2xl">
+                  <BlocksRenderer content={silverDetails} />
+                </div>
               </div>
             </div>
             <div className="flex">
@@ -218,9 +248,9 @@ const index = () => {
                     <StarRating rating={2} />
                   </div>
                 </div>
-                <p className="text-gray-700">
-                  These projects have a marking fence and graded roads.
-                </p>
+                <div className="format md:text-lg lg:text-2xl">
+                  <BlocksRenderer content={bronzeDetails} />
+                </div>
               </div>
             </div>
             <div className="flex">
@@ -259,17 +289,16 @@ const index = () => {
                     <StarRating rating={1} />
                   </div>
                 </div>
-                <p className="text-gray-700">
-                  These properties are bare and targeted at investors looking to
-                  do Land Banking.
-                </p>
+                <div className="format md:text-lg lg:text-2xl">
+                  <BlocksRenderer content={sapphireDetails} />
+                </div>
               </div>
             </div>
           </div>
           <div className="relative">
             <img
               className="inset-0 object-cover object-bottom w-full rounded shadow-lg h-96 lg:absolute lg:h-full"
-              src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+              src={getBestAvailableImageUrl(image.data.attributes.formats).url}
               alt=""
             />
           </div>
@@ -278,5 +307,28 @@ const index = () => {
     </Stairs>
   );
 };
+
+export async function getStaticProps() {
+  try {
+    const customerInfoResponse = await fetcher<any[]>(
+      "customer-infos?populate=*"
+    );
+
+    // console.log(customerInfoResponse.data[0].attributes);
+
+    return {
+      props: {
+        customerInfo: customerInfoResponse,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching customerInfo:", error);
+    return {
+      props: {
+        customerInfo: [],
+      },
+    };
+  }
+}
 
 export default index;

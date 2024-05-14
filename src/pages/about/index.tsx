@@ -59,6 +59,7 @@ const index: NextPage<PageProps> = ({ about }) => {
     // Return both the URL and the blurDataURL (the same static placeholder for now)
     return { url: imageUrl, blurDataURL: placeholderImage };
   };
+  
   return (
     <>
       <Head>
