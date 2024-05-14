@@ -45,6 +45,7 @@ export default function Home({
   articles,
   projectUpdate,
   carouselImages,
+  stats,
 }: any) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const container = useRef(null);
@@ -272,38 +273,68 @@ export default function Home({
             <h1 className="text-4xl mb-2 mx-6 text-gray-200 border-b">
               Numbers Don't Lie
             </h1>
-            <div className="w-full pt-4 mx-auto lg:py-10 text-gray-300">
-              <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
-                <div className="text-center md:border-r">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">24</h6>
-                  <p className="text-sm mb-4 uppercase">
-                    Years of Transformation
-                  </p>
-                </div>
-                <div className="text-center md:border-r">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">60+</h6>
-                  <p className="text-sm mb-4 uppercase">Completed Projects</p>
-                </div>
-                <div className="text-center md:border-r">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">10,000+</h6>
-                  <p className="text-sm mb-4 uppercase">
-                    Disbursed Title Deeds
-                  </p>
-                </div>
-                <div className="text-center md:border-r">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">50+</h6>
-                  <p className="text-sm mb-4 uppercase">Awards</p>
-                </div>
-                <div className="text-center md:border-r">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">10,000+</h6>
-                  <p className="text-sm mb-4 uppercase">Happy Clients</p>
-                </div>
-                <div className="text-center">
-                  <h6 className="text-4xl lg:text-7xl xl:text-8xl">500+</h6>
-                  <p className="text-sm mb-4 uppercase">Workforce</p>
+            {(stats.data || []).map((stat: Stat) => (
+              <div className="w-full pt-4 mx-auto lg:py-10 text-gray-300">
+                <div className="grid grid-cols-2 row-gap-8 md:grid-cols-4 lg:grid-cols-6">
+                  <div className="text-center md:border-r">
+                    <h6 className="text-4xl lg:text-7xl xl:text-8xl">
+                      {new Intl.NumberFormat("en-IN").format(
+                        stat.attributes.yearsOfTransformation
+                      )}
+                    </h6>
+                    <p className="text-sm mb-4 uppercase">
+                      Years of Transformation
+                    </p>
+                  </div>
+                  <div className="text-center md:border-r">
+                    <h6 className="text-4xl lg:text-7xl xl:text-8xl">
+                      {new Intl.NumberFormat("en-IN").format(
+                        stat.attributes.completedProjects
+                      )}+
+                    </h6>
+                    <p className="text-sm mb-4 uppercase">Completed Projects</p>
+                  </div>
+                  <div className="text-center md:border-r">
+                    <h6 className="text-4xl lg:text-7xl xl:text-8xl">
+                      {new Intl.NumberFormat("en-IN").format(
+                        stat.attributes.disbursedTitleDeeds
+                      )}
+                      +
+                    </h6>
+                    <p className="text-sm mb-4 uppercase">
+                      Disbursed Title Deeds
+                    </p>
+                  </div>
+                  <div className="text-center md:border-r">
+                    <h6 className="text-4xl lg:text-7xl xl:text-8xl">
+                      {new Intl.NumberFormat("en-IN").format(
+                        stat.attributes.awards
+                      )}
+                      +
+                    </h6>
+                    <p className="text-sm mb-4 uppercase">Awards</p>
+                  </div>
+                  <div className="text-center md:border-r">
+                    <h6 className="text-4xl lg:text-7xl xl:text-8xl">
+                      {new Intl.NumberFormat("en-IN").format(
+                        stat.attributes.happyClients
+                      )}
+                      +
+                    </h6>
+                    <p className="text-sm mb-4 uppercase">Happy Clients</p>
+                  </div>
+                  <div className="text-center">
+                    <h6 className="text-4xl lg:text-7xl xl:text-8xl">
+                      {new Intl.NumberFormat("en-IN").format(
+                        stat.attributes.workforce
+                      )}
+                      +
+                    </h6>
+                    <p className="text-sm mb-4 uppercase">Workforce</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
           {/* Articles */}
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
@@ -536,6 +567,23 @@ type ProjectUpdate = {
   };
 };
 
+type Stat = {
+  id: number;
+  attributes: {
+    completedProjects: number;
+    yearsOfTransformation: number;
+    awards: number;
+    happyClients: number;
+    disbursedTitleDeeds: number;
+    workforce: number;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    locale: string;
+    localizations: any;
+  };
+};
+
 export async function getStaticProps() {
   try {
     const articlesResponse = await fetcher<Article[]>("articles?populate=*");
@@ -547,12 +595,17 @@ export async function getStaticProps() {
       "project-updates?populate=*"
     );
 
+    const statsResponse = await fetcher<Stat[]>("stats?populate=*");
+
+    console.log(statsResponse.data[0]);
+
     return {
       props: {
         articles: articlesResponse,
         carouselImages: carouselsResponse,
         projects: projectsResponse,
         projectUpdate: projectUpdateResponse,
+        stats: statsResponse,
       },
       revalidate: 3600,
     };
