@@ -1,7 +1,7 @@
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import { ChevronRight } from "react-feather";
+import { CheckCircle, ChevronRight } from "react-feather";
 import { Carousel } from "flowbite-react";
 import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
@@ -29,6 +29,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
     onlineOfferLetterLink,
     waterApplicationFormLink,
     projectMapLocationLink,
+    valueAdditions,
   } = project.data.attributes;
 
   const prepareInitialPrices = (attributes: any) => ({
@@ -333,7 +334,21 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               className="rounded-lg mb-4 lg:mb-8"
             />
           </div>
-          <div className="md:flex">
+          <h1 className="text-3xl font-bold">Value Additions</h1>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 my-4 lg:w-full">
+            {valueAdditions.data.map((valueAddition: any) => (
+              <div
+                className={`flex items-center border p-2 text-gray-700 rounded-xl value-addition-${project.id}`}
+                key={valueAddition.id}
+              >
+                <CheckCircle color="black" size={16} />
+                <h1 className="ml-1 font-semibold">
+                  {valueAddition.attributes.valueAdditionTitle}
+                </h1>
+              </div>
+            ))}
+          </div>
+          <div className=" mt-4 md:flex">
             <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-3/4">
               <BlocksRenderer content={projectContent} />
             </div>
@@ -529,6 +544,12 @@ export async function getServerSideProps({ params }: Params) {
     const projectDetails = await projectResponse.json();
 
     const currenciesResponse = await fetcher<any>("currencies?populate=*");
+
+    // console.log(
+    //   projectDetails.data.attributes.valueAdditions.data.map(
+    //     (item: any) => item.attributes.valueAdditionTitle
+    //   )
+    // );
 
     return {
       props: {
