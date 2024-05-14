@@ -7,6 +7,7 @@ import { useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import StarRating from "@/components/starRating";
 gsap.registerPlugin(ScrollTrigger);
 
 // Sample base64 image data for blurDataURL (usually much smaller)
@@ -205,6 +206,9 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
                       {project.attributes.projectName}
                     </p>
                   </Link>
+                  <div className="mb-2">
+                    <StarRating rating={project.attributes.projectRating}  />
+                  </div>
                   <p className="text-gray-700">
                     {project.attributes.projectSummary.length > 120
                       ? `${project.attributes.projectSummary.substring(
