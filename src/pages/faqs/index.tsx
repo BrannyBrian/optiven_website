@@ -5,6 +5,7 @@ import Image from "next/image";
 import { fetcher } from "../../../lib/api";
 import { useState } from "react";
 import Link from "next/link";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 // Define a type for the category data structure
 
@@ -167,7 +168,7 @@ const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
                     borderRadius: "8px",
                     padding: "20px",
                     backgroundColor: "#fff",
-                    zIndex: 16
+                    zIndex: 16,
                   }}
                 >
                   <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
@@ -189,9 +190,9 @@ const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
                       className="object-cover"
                     />
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                      <h3 className="category-title text-white text-3xl font-bold">
+                      <h1 className="category-title text-white text-3xl font-bold">
                         {category.attributes.category}
-                      </h3>
+                      </h1>
                     </div>
                   </div>
                   <div className="faq-content space-y-4">
@@ -203,7 +204,12 @@ const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
                         isOpen={openFaqId === faq.id}
                         onToggle={() => handleFaqClick(faq.id)}
                       >
-                        {faq.attributes.answer}
+                        <div
+                          style={{ zIndex: 16 }}
+                          className="format md:text-xl lg:text-2xl"
+                        >
+                          <BlocksRenderer content={faq.attributes.answer} />
+                        </div>
                       </FaqItem>
                     ))}
                   </div>
@@ -223,7 +229,7 @@ export async function getStaticProps() {
       "faq-categories?populate=*"
     );
 
-    // console.log(faqsResponse.data[0].attributes.category.data.attributes.category)
+    console.log(faqsResponse.data[0].attributes);
 
     // Combine FAQs into their categories
     const categoriesWithFaqs = categoriesResponse.data.map((category) => ({

@@ -2,9 +2,7 @@ import React from "react";
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import { Popover } from "@headlessui/react";
 import Link from "next/link";
-import { ChevronsRight } from "react-feather";
 
 const index = ({ csr }: any) => {
   const { csrContent } = csr.data[0].attributes;

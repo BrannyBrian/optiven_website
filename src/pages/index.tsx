@@ -134,7 +134,6 @@ export default function Home({
         toggleActions: "play none none reverse",
       },
     });
-
   });
 
   const getBestAvailableImageUrl = (formats: any) => {
@@ -367,9 +366,9 @@ export default function Home({
                         {article.attributes.articleIntro.length > 120 && (
                           <Link
                             href={`projects/${article.id}`}
-                            className="text-green-600 italic hover:underline"
+                            className="text-green-600 font-bold hover:underline"
                           >
-                            read more
+                            read more.
                           </Link>
                         )}
                       </p>
