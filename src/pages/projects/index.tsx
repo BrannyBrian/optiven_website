@@ -67,8 +67,8 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             selectedLocation);
       return matchesRating && matchesLocation;
     })
-    .sort((a, b) =>
-      a.attributes.projectName.localeCompare(b.attributes.projectName)
+    .sort(
+      (a, b) => a.attributes.projectPosition - b.attributes.projectPosition
     );
 
   const getBestAvailableImageUrl = (formats: any) => {
@@ -277,6 +277,7 @@ type Project = {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
+    projectPosition: number;
   };
 };
 
