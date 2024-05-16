@@ -61,7 +61,7 @@ export async function getStaticProps() {
   try {
     const whyUsResponse = await fetcher<any>("why-uses?populate=*");
 
-    console.log(whyUsResponse.data);
+    // console.log(whyUsResponse.data);
 
     return {
       props: {

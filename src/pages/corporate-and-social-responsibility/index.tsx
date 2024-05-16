@@ -69,7 +69,7 @@ export async function getStaticProps() {
       "corporate-social-responsibilities?populate=*"
     );
 
-    console.log(csrResponse.data);
+    // console.log(csrResponse.data);
 
     return {
       props: {

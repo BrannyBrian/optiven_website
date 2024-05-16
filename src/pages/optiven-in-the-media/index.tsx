@@ -108,7 +108,7 @@ export async function getStaticProps() {
       "optiven-in-the-medias?populate=*"
     );
 
-    console.log(optivenInTheMediaResponse.data);
+    // console.log(optivenInTheMediaResponse.data);
 
     return {
       props: {

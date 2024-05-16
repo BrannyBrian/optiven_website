@@ -3,20 +3,19 @@ import { fetcher } from "../../../lib/api";
 import Image from "next/image";
 import Stairs from "@/components/stairs";
 import Link from "next/link";
-import { Home, ChevronsRight } from "react-feather";
-import { Popover } from "@headlessui/react";
+
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
 const index = ({ photos }: any) => {
   const getBestAvailableImageUrl = (formats: any) => {
-    let imageUrl = formats.thumbnail?.url || ""; // Default to thumbnail if available
-    if (formats.large) {
+    let imageUrl = formats?.thumbnail?.url || ""; // Default to thumbnail if available
+    if (formats?.large) {
       imageUrl = formats.large.url;
-    } else if (formats.medium) {
+    } else if (formats?.medium) {
       imageUrl = formats.medium.url;
-    } else if (formats.small) {
+    } else if (formats?.small) {
       imageUrl = formats.small.url;
     }
 
@@ -68,36 +67,25 @@ const index = ({ photos }: any) => {
       <div className="text-gray-600 body-font">
         <div className="container px-5 py-10 mx-auto">
           <div className="columns-1 sm:columns-2 md:columns-3 gap-4">
-            {photos.data.map((photo: Photo) => (
-              <div key={photo.id} className="mb-4 break-inside-avoid">
-                <Image
-                  src={
-                    getBestAvailableImageUrl(
-                      photo.attributes.photo.data.attributes.formats
-                    ).url
-                  }
-                  placeholder="blur"
-                  blurDataURL={
-                    getBestAvailableImageUrl(
-                      photo.attributes.photo.data.attributes.formats
-                    ).blurDataURL
-                  }
-                  // layout="responsive"
-                  height={400}
-                  width={700}
-                  className="rounded-lg"
-                  alt={`Image for ${photo.attributes.photoTitle}`}
-                />
-                {/* <div className="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
-                  <h2 className="tracking-widest text-sm title-font font-medium text-green-600 mb-1">
-                    {photo.attributes.photoTitle}
-                  </h2>
-                  <p className="leading-relaxed">
-                    {photo.attributes.photoDescription}
-                  </p>
-                </div>*/}
-              </div>
-            ))}
+            {photos.data.map((photo: Photo) => {
+              const formats = photo.attributes.photo?.data?.attributes?.formats;
+              if (!formats) {
+                return null;
+              }
+              return (
+                <div key={photo.id} className="mb-4 break-inside-avoid">
+                  <Image
+                    src={getBestAvailableImageUrl(formats).url}
+                    placeholder="blur"
+                    blurDataURL={getBestAvailableImageUrl(formats).blurDataURL}
+                    height={400}
+                    width={700}
+                    className="rounded-lg"
+                    alt={`Image for ${photo.attributes.photoTitle}`}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
