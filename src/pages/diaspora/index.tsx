@@ -77,7 +77,7 @@ export async function getStaticProps() {
   try {
     const diasporaResponse = await fetcher<any>("diasporas?populate=*");
 
-    console.log(diasporaResponse.data);
+    // console.log(diasporaResponse.data);
 
     return {
       props: {
