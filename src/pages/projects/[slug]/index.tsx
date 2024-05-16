@@ -32,76 +32,49 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
     valueAdditions,
   } = project.data.attributes;
 
-  const prepareInitialPrices = (attributes: any) => ({
-    "1/8 Acre": {
-      cashPrice: attributes.eighthAcreCashPrice
-        ? Number(attributes.eighthAcreCashPrice).toLocaleString()
-        : "-",
-      threeMonthsPrice: attributes.eigthAcre3MonthsPrice
-        ? Number(attributes.eigthAcre3MonthsPrice).toLocaleString()
-        : "-",
-      sixMonthsPrice: attributes.eighthAcre6MonthsPrice
-        ? Number(attributes.eighthAcre6MonthsPrice).toLocaleString()
-        : "-",
-      twelveMonthsPrice: attributes.eighthAcre12MonthsPrice
-        ? Number(attributes.eighthAcre12MonthsPrice).toLocaleString()
-        : "-",
-      deposit: attributes.eighthAcreDeposit
-        ? Number(attributes.eighthAcreDeposit).toLocaleString()
-        : "-",
-    },
-    "1/4 Acre": {
-      cashPrice: attributes.quarterAcreCashPrice
-        ? Number(attributes.quarterAcreCashPrice).toLocaleString()
-        : "-",
-      threeMonthsPrice: attributes.quarterAcre3MonthsPrice
-        ? Number(attributes.quarterAcre3MonthsPrice).toLocaleString()
-        : "-",
-      sixMonthsPrice: attributes.quarterAcre6MonthsPrice
-        ? Number(attributes.quarterAcre6MonthsPrice).toLocaleString()
-        : "-",
-      twelveMonthsPrice: attributes.quarterAcre12MonthsPrice
-        ? Number(attributes.quarterAcre12MonthsPrice).toLocaleString()
-        : "-",
-      deposit: attributes.quarterAcreDeposit
-        ? Number(attributes.quarterAcreDeposit).toLocaleString()
-        : "-",
-    },
-    "1/2 Acre": {
-      cashPrice: attributes.halfAcreCashPrice
-        ? Number(attributes.halfAcreCashPrice).toLocaleString()
-        : "-",
-      threeMonthsPrice: attributes.halfAcre3MonthsPrice
-        ? Number(attributes.halfAcre3MonthsPrice).toLocaleString()
-        : "-",
-      sixMonthsPrice: attributes.halfAcre6MonthsPrice
-        ? Number(attributes.halfAcre6MonthsPrice).toLocaleString()
-        : "-",
-      twelveMonthsPrice: attributes.halfAcre12MonthsPrice
-        ? Number(attributes.halfAcre12MonthsPrice).toLocaleString()
-        : "-",
-      deposit: attributes.halfAcreDeposit
-        ? Number(attributes.halfAcreDeposit).toLocaleString()
-        : "-",
-    },
-    Acre: {
-      cashPrice: attributes.acreCashPrice
-        ? Number(attributes.acreCashPrice).toLocaleString()
-        : "-",
-      threeMonthsPrice: attributes.acre3MonthsPrice
-        ? Number(attributes.acre3MonthsPrice).toLocaleString()
-        : "-",
-      sixMonthsPrice: attributes.acre6MonthsPrice
-        ? Number(attributes.acre6MonthsPrice).toLocaleString()
-        : "-",
-      twelveMonthsPrice: attributes.acre12MonthsPrice
-        ? Number(attributes.acre12MonthsPrice).toLocaleString()
-        : "-",
-      deposit: attributes.acreDeposit
-        ? Number(attributes.acreDeposit).toLocaleString()
-        : "-",
-    },
-  });
+  const prepareInitialPrices = (attributes: any) => {
+    const formatPrice = (price: any) => {
+      const numericPrice =
+        typeof price === "string" ? parseFloat(price) : price;
+      return numericPrice && numericPrice !== 0
+        ? numericPrice.toLocaleString()
+        : "-";
+    };
+
+    const initialPrices = {
+      "1/8 Acre": {
+        cashPrice: formatPrice(attributes.eighthAcreCashPrice),
+        threeMonthsPrice: formatPrice(attributes.eigthAcre3MonthsPrice),
+        sixMonthsPrice: formatPrice(attributes.eighthAcre6MonthsPrice),
+        twelveMonthsPrice: formatPrice(attributes.eighthAcre12MonthsPrice),
+        deposit: formatPrice(attributes.eighthAcreDeposit),
+      },
+      "1/4 Acre": {
+        cashPrice: formatPrice(attributes.quarterAcreCashPrice),
+        threeMonthsPrice: formatPrice(attributes.quarterAcre3MonthsPrice),
+        sixMonthsPrice: formatPrice(attributes.quarterAcre6MonthsPrice),
+        twelveMonthsPrice: formatPrice(attributes.quarterAcre12MonthsPrice),
+        deposit: formatPrice(attributes.quarterAcreDeposit),
+      },
+      "1/2 Acre": {
+        cashPrice: formatPrice(attributes.halfAcreCashPrice),
+        threeMonthsPrice: formatPrice(attributes.halfAcre3MonthsPrice),
+        sixMonthsPrice: formatPrice(attributes.halfAcre6MonthsPrice),
+        twelveMonthsPrice: formatPrice(attributes.halfAcre12MonthsPrice),
+        deposit: formatPrice(attributes.halfAcreDeposit),
+      },
+      Acre: {
+        cashPrice: formatPrice(attributes.acreCashPrice),
+        threeMonthsPrice: formatPrice(attributes.acre3MonthsPrice),
+        sixMonthsPrice: formatPrice(attributes.acre6MonthsPrice),
+        twelveMonthsPrice: formatPrice(attributes.acre12MonthsPrice),
+        deposit: formatPrice(attributes.acreDeposit),
+      },
+    };
+
+    console.log("Prepared Initial Prices:", initialPrices);
+    return initialPrices;
+  };
 
   const initialPrices: any = prepareInitialPrices(project.data.attributes);
 
