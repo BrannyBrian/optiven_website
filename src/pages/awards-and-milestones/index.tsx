@@ -134,7 +134,7 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
                 <button
                   aria-label="Previous slide"
                   id="keen-slider-previous-desktop"
-                  className="rounded-full border border-rose-600 p-4 text-rose-600 transition hover:bg-rose-600 hover:text-white"
+                  className="rounded-full border border-green-600 p-4 text-green-600 transition hover:bg-green-600 hover:text-white"
                 >
                   <svg
                     className="size-5 rtl:rotate-180"
@@ -154,7 +154,7 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
                 <button
                   aria-label="Next slide"
                   id="keen-slider-next-desktop"
-                  className="rounded-full border border-rose-600 p-4 text-rose-600 transition hover:bg-rose-600 hover:text-white"
+                  className="rounded-full border border-green-600 p-4 text-green-600 transition hover:bg-green-600 hover:text-white"
                 >
                   <svg
                     className="size-5 rtl:rotate-180"
@@ -195,7 +195,7 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
                                 alt={`trophy ${award.id}`}
                                 src={"/trophy.png"}
                               />
-                              <p className="mt-4 uppercase text-2xl font-bold text-rose-600 sm:text-3xl">
+                              <p className="mt-4 uppercase text-2xl font-bold text-green-600 sm:text-3xl">
                                 {award.attributes.awardTitle}
                               </p>
                               <p className="mt-1 leading-relaxed text-gray-700">
@@ -218,7 +218,7 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
             <button
               aria-label="Previous slide"
               id="keen-slider-previous"
-              className="rounded-full border border-rose-600 p-4 text-rose-600 transition hover:bg-rose-600 hover:text-white"
+              className="rounded-full border border-green-600 p-4 text-green-600 transition hover:bg-green-600 hover:text-white"
             >
               <svg
                 className="size-5 -rotate-180 transform"
@@ -239,7 +239,7 @@ const index: React.FC<AwardsProps> = ({ awards }) => {
             <button
               aria-label="Next slide"
               id="keen-slider-next"
-              className="rounded-full border border-rose-600 p-4 text-rose-600 transition hover:bg-rose-600 hover:text-white"
+              className="rounded-full border border-green-600 p-4 text-green-600 transition hover:bg-green-600 hover:text-white"
             >
               <svg
                 className="h-5 w-5"
