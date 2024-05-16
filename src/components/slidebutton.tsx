@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React from "react";
 
 // Props type for SlideButton for potential customization and onClick handler
