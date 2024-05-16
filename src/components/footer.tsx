@@ -295,6 +295,13 @@ export default function Footer() {
             </span>
           </div>
           <div className="flex text-sm md:text-md">
+            <MapPin size={16} />
+            <p className="mx-1 text-gray-800">Malindi:</p>
+            <span className="text-green-600 font-bold">
+              Festive Mall, 1st Floor, opposite Malindi Airport
+            </span>
+          </div>
+          <div className="flex text-sm md:text-md">
             <Clock size={16} />
             <p className="ml-1 text-gray-800">Monday - Friday</p>
             <span className="text-green-600 font-bold">
