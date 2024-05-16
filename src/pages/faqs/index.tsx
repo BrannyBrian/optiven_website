@@ -102,8 +102,11 @@ const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
               href="/projects"
               className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
             >
-              <span className="ms-2 text-sm font-medium">
-                View our available properties
+              <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+                Properties
+              </span>{" "}
+              <span className="text-sm font-medium">
+                Have a look at our various properties
               </span>
               <svg
                 className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
@@ -121,7 +124,6 @@ const Faq: React.FC<{ categories: Category[] }> = ({ categories }) => {
                 />
               </svg>
             </Link>
-
             <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
               Answering Your Questions
             </h1>

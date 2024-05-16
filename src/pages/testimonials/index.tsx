@@ -2,18 +2,47 @@ import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import Link from "next/link";
 import TestimonialsCarousel from "@/components/testimonialsCarousel";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export default function Testimonials({ testimonials }: any) {
+// Sample base64 image data for blurDataURL (usually much smaller)
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
+
+export default function Testimonials({ testimonials, photos }: any) {
+  const [clientRendered, setClientRendered] = useState(false);
+
+  useEffect(() => {
+    setClientRendered(true);
+  }, []);
+
+  const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats?.thumbnail?.url || ""; // Default to thumbnail if available
+    if (formats?.large) {
+      imageUrl = formats.large.url;
+    } else if (formats?.medium) {
+      imageUrl = formats.medium.url;
+    } else if (formats?.small) {
+      imageUrl = formats.small.url;
+    }
+
+    // Assuming 'placeholderImage' is the base64 string for the blur effect
+    return { url: imageUrl, blurDataURL: placeholderImage };
+  };
+
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
         <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
-          <Link
+        <Link
             href="/projects"
             className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
           >
-            <span className="ms-2 text-sm font-medium">
-              View our available properties
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+              Properties
+            </span>{" "}
+            <span className="text-sm font-medium">
+              Have a look at our various properties
             </span>
             <svg
               className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
@@ -45,8 +74,50 @@ export default function Testimonials({ testimonials }: any) {
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
       </section>
       <div>
-        <div className="container px-5 py-24 mx-auto">
+        <div className="container px-5 py-4 mx-auto">
           <TestimonialsCarousel testimonials={testimonials.data} />
+        </div>
+      </div>
+      <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+        <div className="pt-4 px-4 mx-auto max-w-screen-xl text-center lg:pt-8 z-10 relative">
+          <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+            We also take pride in sharing moments of joy as our clients receive
+            their title deeds. These photos capture the excitement and
+            satisfaction of our clients as they secure their investment with
+            Optiven. Each image tells a story of trust, accomplishment, and the
+            beginning of a prosperous journey. Witness the smiles and
+            celebrations of those who have placed their confidence in us and
+            joined the Optiven family.
+          </p>
+        </div>
+        <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
+      </section>
+      <div className="text-gray-600 body-font">
+        <div className="container px-5 py-10 mx-auto">
+          {clientRendered && (
+            <div className="columns-1 sm:columns-2 md:columns-3 gap-4">
+              {photos.data[0]?.attributes.images.data.map((photo: any) => {
+                const formats = photo.attributes.formats;
+                if (!formats) {
+                  return null;
+                }
+                const { url, blurDataURL } = getBestAvailableImageUrl(formats);
+                return (
+                  <div key={photo.id} className="mb-4 break-inside-avoid">
+                    <Image
+                      src={url}
+                      placeholder="blur"
+                      blurDataURL={blurDataURL}
+                      height={400}
+                      width={700}
+                      className="rounded-lg"
+                      alt={`Image for ${photo.attributes.name}`}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </Stairs>
@@ -66,15 +137,22 @@ type Testimonial = {
   };
 };
 
+type Photo = {
+  id: number;
+  attributes: {
+    images: any;
+  };
+};
+
 export async function getStaticProps() {
   try {
-    const testimonialsResponse = await fetcher<Testimonial[]>(
-      "testimonials?populate=*"
-    );
+    const testimonialsResponse = await fetcher<any>("testimonials?populate=*");
+    const photosResponse = await fetcher<any>("testimonial-images?populate=*");
 
     return {
       props: {
         testimonials: testimonialsResponse,
+        photos: photosResponse,
       },
     };
   } catch (error) {
@@ -82,6 +160,7 @@ export async function getStaticProps() {
     return {
       props: {
         testimonials: [],
+        photos: [],
       },
     };
   }
