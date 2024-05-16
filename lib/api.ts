@@ -21,9 +21,9 @@ export async function fetcher<T>(
     const response = await fetch(process.env.STRAPI_URL_PROD + url, options);
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Error response:", response.status, errorData);
-      throw new Error(errorData.message || "Request failed");
+      const errorText = await response.text(); // Read the response as text
+      console.error("Error response:", response.status, errorText);
+      throw new Error(errorText || "Request failed");
     }
 
     const data: T = await response.json();

@@ -10,11 +10,23 @@ import { useGSAP } from "@gsap/react";
 import StarRating from "@/components/starRating";
 gsap.registerPlugin(ScrollTrigger);
 
+const PAGE_SIZE = 10; // Number of projects to fetch per page
+
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
-const Index = ({ projects }: { projects: { data: Project[] } }) => {
+const Index = ({
+  initialProjects,
+  total,
+}: {
+  initialProjects: Project[];
+  total: number;
+}) => {
+  const [projects, setProjects] = useState(initialProjects);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
   const [selectedRating, setSelectedRating] = useState<number | "all">("all");
   const [selectedLocation, setSelectedLocation] = useState<string | "all">(
     "all"
@@ -40,8 +52,25 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
     };
   }, []);
 
+  const loadMoreProjects = async () => {
+    setLoading(true);
+    const nextPage = page + 1;
+    try {
+      const response = await fetcher<{
+        data: Project[];
+      }>(
+        `projects?populate[projectMainBanner][fields][0]=formats&populate[projectLocation][fields][0]=projectLocation&fields[0]=projectName&fields[1]=projectRating&fields[2]=projectSummary&fields[3]=isActive&fields[4]=projectPosition&pagination[page]=${nextPage}&pagination[pageSize]=${PAGE_SIZE}`
+      );
+      setProjects([...projects, ...response.data]);
+      setPage(nextPage);
+    } catch (error) {
+      console.error("Error loading more projects:", error);
+    }
+    setLoading(false);
+  };
+
   // Extract projects with locations
-  const projectsWithLocationsArray = projects.data
+  const projectsWithLocationsArray = projects
     .map((project: Project) => project.attributes.projectLocation.data)
     .filter((project: any) => project !== null);
 
@@ -55,7 +84,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
   ).sort();
 
   // Filter projects based on selected rating and location
-  const filteredProjects = projects.data
+  const filteredProjects = projects
     .filter((project) => {
       const matchesRating =
         selectedRating === "all" ||
@@ -72,6 +101,9 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
     );
 
   const getBestAvailableImageUrl = (formats: any) => {
+    if (!formats) {
+      return { url: "/default-image.png", blurDataURL: placeholderImage }; // Use a default image if formats is undefined
+    }
     let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
     if (formats.large) {
       imageUrl = formats.large.url;
@@ -167,77 +199,75 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </select>
           </div>
         </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
+        <div className="projects-container grid gap-5 row-gap-8 lg:grid-cols-3 sm:row-gap-6 sm:grid-cols-2">
           {filteredProjects.length > 0 ? (
             filteredProjects
               .filter((project: any) => project.attributes.isActive === true)
-              .map((project: any) => (
-                <div
-                  className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white project-card"
-                  key={project.id}
-                >
-                  <Link href={`projects/${project.id}`} aria-label="Project">
-                    <Image
-                      src={
-                        getBestAvailableImageUrl(
-                          project.attributes.projectMainBanner.data.attributes
-                            .formats
-                        ).url
-                      }
-                      placeholder="blur"
-                      blurDataURL={
-                        getBestAvailableImageUrl(
-                          project.attributes.projectMainBanner.data.attributes
-                            .formats
-                        ).blurDataURL
-                      }
-                      height={400}
-                      width={700}
-                      className="object-cover w-full h-64 md:h-72 lg:h-80"
-                      alt={`Image for ${project.attributes.projectName}`}
-                    />
-                  </Link>
-                  <div className="p-4 border border-t-0">
-                    <Link
-                      href={`projects/${project.id}`}
-                      aria-label="Project"
-                      className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
-                    >
-                      <p className="secondary-text text-2xl font-bold transition-colors duration-200 hover:text-green-600">
-                        {project.attributes.projectName}
-                      </p>
+              .map((project: any) => {
+                const { url, blurDataURL } = getBestAvailableImageUrl(
+                  project.attributes.projectMainBanner?.data?.attributes
+                    ?.formats
+                );
+                return (
+                  <div
+                    className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white project-card"
+                    key={project.id}
+                  >
+                    <Link href={`projects/${project.id}`} aria-label="Project">
+                      <Image
+                        src={url}
+                        placeholder="blur"
+                        blurDataURL={blurDataURL}
+                        height={400}
+                        width={700}
+                        className="object-cover w-full h-64 md:h-72 lg:h-80"
+                        alt={`Image for ${project.attributes.projectName}`}
+                      />
                     </Link>
-                    <div className="mb-2">
-                      <StarRating rating={project.attributes.projectRating} />
-                    </div>
-                    <p className="text-gray-700">
-                      {project.attributes.projectSummary.length > 120
-                        ? `${project.attributes.projectSummary.substring(
-                            0,
-                            100
-                          )}...`
-                        : project.attributes.projectSummary}
-                      {project.attributes.projectSummary.length > 120 && (
-                        <Link
-                          href={`projects/${project.id}`}
-                          className="text-green-600 font-bold hover:underline"
-                        >
-                          read more
-                        </Link>
-                      )}
-                    </p>
-                    <div className="flex items-center">
+                    <div className="p-4 border border-t-0">
                       <Link
                         href={`projects/${project.id}`}
-                        className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                        aria-label="Project"
+                        className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
                       >
-                        Read More
-                        <ChevronRight size={16} />
+                        <p className="secondary-text text-2xl font-bold transition-colors duration-200 hover:text-green-600">
+                          {project.attributes.projectName}
+                        </p>
                       </Link>
+                      <div className="mb-2">
+                        <StarRating
+                          rating={project.attributes.projectRating}
+                        />
+                      </div>
+                      <p className="text-gray-700">
+                        {project.attributes.projectSummary.length > 120
+                          ? `${project.attributes.projectSummary.substring(
+                              0,
+                              100
+                            )}...`
+                          : project.attributes.projectSummary}
+                        {project.attributes.projectSummary.length > 120 && (
+                          <Link
+                            href={`projects/${project.id}`}
+                            className="text-green-600 font-bold hover:underline"
+                          >
+                            read more
+                          </Link>
+                        )}
+                      </p>
+                      <div className="flex items-center">
+                        <Link
+                          href={`projects/${project.id}`}
+                          className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                        >
+                          Read More
+                          <ChevronRight size={16} />
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
+                );
+              })
           ) : (
             <div className="flex flex-col w-screen mt-8 flex-1 justify-center items-center">
               <Image
@@ -250,6 +280,17 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </div>
           )}
         </div>
+        {projects.length < total && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={loadMoreProjects}
+              className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+              disabled={loading}
+            >
+              {loading ? "Loading..." : "Load More"}
+            </button>
+          </div>
+        )}
       </div>
     </Stairs>
   );
@@ -261,40 +302,34 @@ type Project = {
     projectName: string;
     projectRating: number;
     projectSummary: string;
-    projectFeatures: string;
-    eighthAcrePrice: number;
-    quarterAcrePrice: number;
-    halfAcrePrice: number;
-    acrePrice: number;
-    isFeatured: boolean;
-    projectContent: any;
     isActive: boolean;
     projectMainBanner: any;
     projectLocation: any;
-    subProjects: any;
-    projectUpdate: any;
-    valueAdditions: any;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
     projectPosition: number;
   };
 };
 
 export async function getStaticProps() {
   try {
-    const projectsResponse = await fetcher<Project[]>("projects?populate=*");
+    const projectsResponse = await fetcher<{
+      data: Project[];
+      meta: { pagination: { total: number } };
+    }>(
+      `projects?populate[projectMainBanner][fields][0]=formats&populate[projectLocation][fields][0]=projectLocation&fields[0]=projectName&fields[1]=projectRating&fields[2]=projectSummary&fields[3]=isActive&fields[4]=projectPosition&pagination[page]=1&pagination[pageSize]=${PAGE_SIZE}`
+    );
 
     return {
       props: {
-        projects: projectsResponse,
+        initialProjects: projectsResponse.data,
+        total: projectsResponse.meta.pagination.total,
       },
     };
   } catch (error) {
     console.error("Error fetching projects:", error);
     return {
       props: {
-        projects: [],
+        initialProjects: [],
+        total: 0,
       },
     };
   }
