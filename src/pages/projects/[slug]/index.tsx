@@ -72,7 +72,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
       },
     };
 
-    console.log("Prepared Initial Prices:", initialPrices);
+    // console.log("Prepared Initial Prices:", initialPrices);
     return initialPrices;
   };
 
