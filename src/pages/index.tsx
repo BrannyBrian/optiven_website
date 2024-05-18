@@ -148,7 +148,7 @@ export default function Home({
       <Stairs>
         <main ref={container}>
           {/* carousel */}
-          <div className="-mt-16 lg:-mt-8 lg:h-screen">
+          <div className="-mt-16 lg:-mt-4 lg:h-screen">
             <div className="h-3/4">
               <div className="mx-2 h-72 md:h-96 lg:h-full">
                 <Carousel slideInterval={3000}>
