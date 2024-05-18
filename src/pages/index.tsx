@@ -138,16 +138,8 @@ export default function Home({
   });
 
   const getBestAvailableImageUrl = (formats: any) => {
-    let imageUrl = formats.thumbnail?.url || ""; // Default to thumbnail if available
-    if (formats.large) {
-      imageUrl = formats.large.url;
-    } else if (formats.medium) {
-      imageUrl = formats.medium.url;
-    } else if (formats.small) {
-      imageUrl = formats.small.url;
-    }
-
-    // Assuming 'placeholderImage' is the base64 string for the blur effect
+    let imageUrl =
+      formats.large?.url || formats.medium?.url || formats.small?.url;
     return { url: imageUrl, blurDataURL: placeholderImage };
   };
 
@@ -164,8 +156,8 @@ export default function Home({
                     <Image
                       key={index}
                       src={imageUrl}
-                      height={500}
-                      width={2000}
+                      height={1080}
+                      width={1920}
                       alt={`home-carousel-banner-image-${index}`}
                       placeholder="blur"
                       blurDataURL={placeholderImage}
