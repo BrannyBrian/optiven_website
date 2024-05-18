@@ -5,6 +5,7 @@ import {
   Camera,
   ChevronDown,
   Download,
+  Facebook,
   Film,
   Gift,
   Info,
@@ -12,9 +13,11 @@ import {
   Plus,
   Radio,
   Rss,
+  Twitter,
   Users,
   Video,
   X,
+  Youtube,
 } from "react-feather";
 import Image from "next/image";
 import Link from "next/link";
@@ -122,7 +125,7 @@ export default function Navbar() {
   return (
     <header className="bg-white fixed top-0 left-0 right-0 z-50">
       {/* Top banner */}
-      <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+      <div className="relative isolate flex items-center justify-between gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
         <div
           className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
           aria-hidden="true"
@@ -147,19 +150,34 @@ export default function Navbar() {
             }}
           />
         </div>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 justify-center w-full">
-          <div className="text-center border-r">
+
+        {/* Phone number on the left side for medium/large devices */}
+        <div className="hidden sm:flex items-center text-gray-900 font-semibold whitespace-nowrap">
+          <span>
+            Call us:{" "}
+            <Link
+              href={"tel:+254790300300"}
+              className="hover:text-green-500 sm:mr-3 un"
+            >
+              +254 790 300 300
+            </Link>
+          </span>
+        </div>
+
+        {/* Middle links */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 justify-center w-full sm:order-2">
+          <div className="text-center border-r sm:border-none">
             <Link
               href="/diaspora"
-              className="text-md leading-6 text-gray-900 font-semibold hover:text-green-500 mr-3  un"
+              className="text-md leading-6 text-gray-900 font-semibold hover:text-green-500 sm:mr-3 un"
             >
               Diaspora
             </Link>
           </div>
-          <div className="text-center border-r">
+          <div className="text-center border-r sm:border-none">
             <Link
               href="/past-projects"
-              className="text-md leading-6 text-gray-900 font-semibold hover:text-green-500 mr-3 un"
+              className="text-md leading-6 text-gray-900 font-semibold hover:text-green-500 sm:mr-3 un"
             >
               Past Projects
             </Link>
@@ -172,6 +190,40 @@ export default function Navbar() {
               Project Updates
             </Link>
           </div>
+        </div>
+
+        {/* Social media links on the right side for medium/large devices */}
+        <div className="hidden sm:flex items-center space-x-4 text-gray-900 sm:order-3">
+          <Link
+            href="https://www.facebook.com/Optivenlimited/"
+            aria-label="Facebook"
+          >
+            <Facebook className="hover:text-green-500 transform transition-transform duration-300 hover:scale-150" />
+          </Link>
+          <Link
+            href="https://www.twitter.com/OptivenLimited"
+            aria-label="Twitter"
+            className="-m-4"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              width="25"
+              height="50"
+              viewBox="0 0 50 50"
+              fill="currentColor"
+              className="transition-transform duration-300 hover:fill-current hover:text-green-600 transform hover:scale-150"
+            >
+              <path d="M 3.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z "></path>
+            </svg>
+          </Link>
+          <Link
+            href="https://www.youtube.com/@OptivenKenyaLimited"
+            aria-label="YouTube"
+          >
+            <Youtube className="hover:text-green-500 transform transition-transform duration-300 hover:scale-150" />
+          </Link>
         </div>
       </div>
       <nav
@@ -270,52 +322,52 @@ export default function Navbar() {
             Testimonials
           </Link>
           <Popover className="relative">
-  <Popover.Button className="text-lg flex items-center gap-x-1 leading-6 text-gray-900">
-    Information Center
-    <ChevronDown
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-    />
-  </Popover.Button>
-  <Transition
-    as={Fragment}
-    enter="transition ease-out duration-200"
-    enterFrom="opacity-0 translate-y-1"
-    enterTo="opacity-100 translate-y-0"
-    leave="transition ease-in duration-150"
-    leaveFrom="opacity-100 translate-y-0"
-    leaveTo="opacity-0 translate-y-1"
-  >
-    <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-      <div className="p-4 md:p-2"> 
-        {infoCenterMenuItems.map((item) => (
-          <div
-            key={item.name}
-            className="group relative flex items-center gap-x-6 rounded-lg p-4 md:p-2 text-sm leading-6 hover:bg-gray-50" 
-          >
-            <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-              <item.icon
-                className="h-6 w-6 text-gray-600 group-hover:text-green-600"
+            <Popover.Button className="text-lg flex items-center gap-x-1 leading-6 text-gray-900">
+              Information Center
+              <ChevronDown
+                size={20}
+                className="text-gray-700"
                 aria-hidden="true"
               />
-            </div>
-            <div className="flex-auto">
-              <Link
-                href={item.href}
-                className="block text-gray-700 font-semibold"
-              >
-                {item.name}
-                <span className="absolute inset-0" />
-              </Link>
-              <p className="mt-1 text-gray-600">{item.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </Popover.Panel>
-  </Transition>
-</Popover>
+            </Popover.Button>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-200"
+              enterFrom="opacity-0 translate-y-1"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition ease-in duration-150"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 translate-y-1"
+            >
+              <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+                <div className="p-4 md:p-2">
+                  {infoCenterMenuItems.map((item) => (
+                    <div
+                      key={item.name}
+                      className="group relative flex items-center gap-x-6 rounded-lg p-4 md:p-2 text-sm leading-6 hover:bg-gray-50"
+                    >
+                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                        <item.icon
+                          className="h-6 w-6 text-gray-600 group-hover:text-green-600"
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <div className="flex-auto">
+                        <Link
+                          href={item.href}
+                          className="block text-gray-700 font-semibold"
+                        >
+                          {item.name}
+                          <span className="absolute inset-0" />
+                        </Link>
+                        <p className="mt-1 text-gray-600">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Popover.Panel>
+            </Transition>
+          </Popover>
 
           <Link
             href="/careers"

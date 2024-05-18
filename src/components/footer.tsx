@@ -132,7 +132,7 @@ export default function Footer() {
                 </svg>
               </Link>
               <Link
-                href={"https://twitter.com/OptivenLimited"}
+                href={"https://x.com/OptivenLimited"}
                 target="_blank"
                 className="text-gray-500 transition-colors duration-300 hover:text-green-600"
               >
