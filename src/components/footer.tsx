@@ -113,7 +113,7 @@ export default function Footer() {
               <Link
                 href="https://wa.me/+254790300300"
                 target="_blank"
-                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
+                className="text-gray-500 transition-colors duration-300 hover:text-green-600 hover:scale-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@ export default function Footer() {
                   height="50"
                   viewBox="0 0 50 50"
                   fill="currentColor"
-                  className="transition-all duration-300 hover:fill-current hover:text-green-600"
+                  className="transition-all duration-300 hover:fill-current hover:text-green-600 hover:scale-150"
                 >
                   <path d="M 3.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z "></path>
                 </svg>
@@ -153,7 +153,7 @@ export default function Footer() {
               <Link
                 href={"https://www.facebook.com/Optivenlimited/"}
                 target="_blank"
-                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
+                className="text-gray-500 transition-colors hover:text-green-600 duration-300 hover:scale-150"
               >
                 <Facebook />
               </Link>
@@ -161,7 +161,7 @@ export default function Footer() {
               <Link
                 href={"https://www.instagram.com/optivenlimited/"}
                 target="_blank"
-                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
+                className="text-gray-500 transition-colors duration-300 hover:text-green-600 hover:scale-150"
               >
                 <Instagram />
               </Link>
@@ -170,21 +170,21 @@ export default function Footer() {
                   "https://www.linkedin.com/company/optiven-limited?originalSubdomain=ke"
                 }
                 target="_blank"
-                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
+                className="text-gray-500 transition-colors duration-300 hover:text-green-600 hover:scale-150"
               >
                 <Linkedin />
               </Link>
               <Link
                 href={"https://www.youtube.com/user/OptivenEnterprises/videos"}
                 target="_blank"
-                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
+                className="text-gray-500 transition-colors duration-300 hover:text-green-600 hover:scale-150"
               >
                 <Youtube />
               </Link>
               <Link
                 href="mailto:info@optiven.co.ke"
                 target="_blank"
-                className="text-gray-500 transition-colors duration-300 hover:text-green-600"
+                className="text-gray-500 transition-colors duration-300 hover:text-green-600 hover:scale-150"
               >
                 <Mail />
               </Link>
@@ -216,7 +216,7 @@ export default function Footer() {
               alt="George Wachiuri Logo"
               height={100}
               width={160}
-              className="mt-2"
+              className="mt-2 hover:scale-125"
             />
           </Link>
           <Link
@@ -230,7 +230,7 @@ export default function Footer() {
               alt="Optiven Foundation Logo"
               height={100}
               width={160}
-              className="mt-2"
+              className="mt-2 hover:scale-125"
             />
           </Link>
           <Link
@@ -244,7 +244,7 @@ export default function Footer() {
               alt="Optiven Homes Logo"
               height={100}
               width={160}
-              className="mt-2"
+              className="mt-2 hover:scale-125"
             />
           </Link>
         </div>
