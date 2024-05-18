@@ -229,7 +229,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
                     <div className="flex items-center">
                       <Link
                         href={`projects/${project.id}`}
-                        className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                        className="flex text-sm font-bold mt-4 w-24 hover:text-green-600 hover:underline"
                       >
                         Read More
                         <ChevronRight size={16} />

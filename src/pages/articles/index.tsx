@@ -133,7 +133,9 @@ const index = ({ articles }: any) => {
                   href={`articles/${article.id}`}
                   className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                 >
-                  {article.attributes.articleTitle}
+                  {article.attributes.articleTitle.length > 36
+                    ? `${article.attributes.articleTitle.substring(0, 36)}...`
+                    : article.attributes.articleTitle}
                 </Link>
                 <p className="text-gray-700">
                   {article.attributes.articleIntro.length > 120
@@ -150,7 +152,7 @@ const index = ({ articles }: any) => {
                 </p>
                 <Link
                   href={`articles/${article.id}`}
-                  className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                  className="flex text-sm font-bold mt-4 w-24 hover:text-green-600 hover:underline"
                 >
                   Read More
                   <ChevronRight size={16} />

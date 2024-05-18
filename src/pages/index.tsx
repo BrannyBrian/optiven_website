@@ -378,7 +378,12 @@ export default function Home({
                         href={`articles/${article.id}`}
                         className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                       >
-                        {article.attributes.articleTitle}
+                        {article.attributes.articleTitle.length > 36
+                          ? `${article.attributes.articleTitle.substring(
+                              0,
+                              36
+                            )}...`
+                          : article.attributes.articleTitle}
                       </Link>
                       <p className="text-gray-700">
                         {article.attributes.articleIntro.length > 120
@@ -392,16 +397,16 @@ export default function Home({
                             href={`projects/${article.id}`}
                             className="text-green-600 font-bold hover:underline"
                           >
-                            read more.
+                            read more
                           </Link>
                         )}
                       </p>
                       <Link
                         href={`articles/${article.id}`}
-                        className="flex text-md mt-4 w-24 un hover:text-green-600"
+                        className="flex text-sm font-bold mt-4 w-24 hover:text-green-600 hover:underline"
                       >
                         Read More
-                        <ChevronRight size={16} className="pt-1 ml-1" />
+                        <ChevronRight size={16} />
                       </Link>
                     </div>
                   </div>

@@ -132,14 +132,32 @@ const index = ({ projectUpdates }: any) => {
                   href={`projects-updates/${projectUpdate.id}`}
                   className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                 >
-                  {projectUpdate.attributes.projectUpdateTitle}
+                  {projectUpdate.attributes.projectUpdateTitle.length > 36
+                    ? `${projectUpdate.attributes.projectUpdateTitle.substring(
+                        0,
+                        36
+                      )}...`
+                    : projectUpdate.attributes.projectUpdateTitle}
                 </Link>
                 <p className="mb-2 text-gray-700">
-                  {projectUpdate.attributes.projectUpdateIntro}
+                  {projectUpdate.attributes.projectUpdateIntro.length > 120
+                    ? `${projectUpdate.attributes.projectUpdateIntro.substring(
+                        0,
+                        100
+                      )}...`
+                    : projectUpdate.attributes.projectUpdateIntro}
+                  {projectUpdate.attributes.projectUpdateIntro.length > 120 && (
+                    <Link
+                      href={`projects-updates/${projectUpdate.id}`}
+                      className="text-green-600 font-bold hover:underline"
+                    >
+                      read more
+                    </Link>
+                  )}
                 </p>
                 <Link
                   href={`projects-updates/${projectUpdate.id}`}
-                  className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                  className="flex text-sm font-bold mt-4 w-24 hover:text-green-600 hover:underline"
                 >
                   Read More
                   <ChevronRight size={16} />
