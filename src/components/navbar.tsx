@@ -100,12 +100,12 @@ const infoCenterMenuItems = [
     href: "/newsletters-and-downloads",
     icon: Download,
   },
-  {
-    name: "Optiven in the Media",
-    description: "Explore Optiven's presence in the media",
-    href: "/optiven-in-the-media",
-    icon: Film,
-  },
+  // {
+  //   name: "Optiven in the Media",
+  //   description: "Explore Optiven's presence in the media",
+  //   href: "/optiven-in-the-media",
+  //   icon: Film,
+  // },
 ];
 
 function classNames(...classes: string[]) {

@@ -9,7 +9,7 @@ type PlotPriceCardProps = {
   deposit: string;
 };
 
-const PlotPriceCard: React.FC<PlotPriceCardProps> = ({
+const index: React.FC<PlotPriceCardProps> = ({
   plotSize,
   cashPrice,
   threeMonthsPrice,
@@ -68,4 +68,4 @@ const PlotPriceCard: React.FC<PlotPriceCardProps> = ({
   );
 };
 
-export default PlotPriceCard;
+export default index;

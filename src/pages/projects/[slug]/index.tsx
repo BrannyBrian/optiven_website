@@ -7,7 +7,7 @@ import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import PlotPriceCard from "@/components/PlotPriceCard";
+import PlotPriceCard from "@/components/plotPriceCard";
 import LocationList from "@/components/locationlist";
 
 // Sample base64 image data for blurDataURL (usually much smaller)
