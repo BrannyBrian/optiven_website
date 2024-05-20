@@ -5,7 +5,7 @@ type PlotPriceCardProps = {
   cashPrice: string;
   threeMonthsPrice: string;
   sixMonthsPrice: string;
-  twelveMonthsPrice: string;
+  // twelveMonthsPrice: string;
   deposit: string;
 };
 
