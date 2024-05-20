@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { fetcher } from "../../../lib/api";
 import Link from "next/link";
 import Stairs from "@/components/stairs";
-import { ChevronRight, ChevronsRight } from "react-feather";
+import { ChevronRight } from "react-feather";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -132,7 +132,7 @@ const index = ({ projectUpdates }: any) => {
                   href={`projects-updates/${projectUpdate.id}`}
                   className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                 >
-                  {projectUpdate.attributes.projectUpdateTitle.length > 36
+                  {projectUpdate.attributes.projectUpdateTitle.length > 40
                     ? `${projectUpdate.attributes.projectUpdateTitle.substring(
                         0,
                         36

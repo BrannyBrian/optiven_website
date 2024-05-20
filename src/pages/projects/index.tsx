@@ -42,6 +42,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
 
   // Extract projects with locations
   const projectsWithLocationsArray = projects.data
+    .filter((project: any) => project.attributes.isActive === true)
     .map((project: Project) => project.attributes.projectLocation.data)
     .filter((project: any) => project !== null);
 
@@ -204,7 +205,12 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
                       className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
                     >
                       <p className="secondary-text text-2xl font-bold transition-colors duration-200 hover:text-green-600">
-                        {project.attributes.projectName}
+                        {project.attributes.projectName.length > 40
+                          ? `${project.attributes.projectName.substring(
+                              0,
+                              40
+                            )}...`
+                          : project.attributes.projectName}
                       </p>
                     </Link>
                     <div className="mb-2">

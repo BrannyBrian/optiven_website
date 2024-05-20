@@ -2,8 +2,6 @@ import React from "react";
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import { Popover } from "@headlessui/react";
-import { ChevronsRight } from "react-feather";
 
 type Params = {
   params: {
@@ -15,33 +13,49 @@ const index = ({ projectUpdate }: any) => {
   const { projectUpdateBody } = projectUpdate.data.attributes;
   return (
     <Stairs>
-
-<div className="container mx-auto">
-  <ol className="flex justify-start space-x-2 rtl:space-x-reverse">
-    <Popover.Group className="hidden lg:flex lg:gap-x-4">
-      <li>
-        <Link href="/" className="block text-gray-700 font-semibold hover:text-green-500">
-          <span className="ml-1"> Home</span>
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />
-      <li>
-        <Link href="/projet-updates" className="block text-gray-700 font-semibold hover:text-green-500">
-          Project Updates
-        </Link>
-      </li>
-      <ChevronsRight
-      size={20}
-      className="text-gray-700"
-      aria-hidden="true"
-       />{projectUpdate.data.attributes.projectUpdateTitle}
-    </Popover.Group>
-  </ol>
-</div>
+      <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+        <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
+          <Link
+            href="/projects"
+            className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+          >
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+              Properties
+            </span>{" "}
+            <span className="text-sm font-medium">
+              Have a look at our various properties
+            </span>
+            <svg
+              className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </Link>
+          <div>
+            <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+              Explore the Latest Developments at Optiven
+            </h1>
+            <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+              Stay up-to-date with our ongoing and upcoming projects. Our
+              updates provide insights into the progress and exciting new
+              features of our properties. Discover the innovative designs and
+              sustainable practices being integrated into each development,
+              ensuring value and quality in our real estate portfolio.
+            </p>
+          </div>
+        </div>
+        <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
+      </section>
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
           <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl sm:px-16 lg:px-48 dark:text-gray-400">

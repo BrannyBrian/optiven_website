@@ -5,6 +5,7 @@ import { ChevronRight } from "react-feather";
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../../../lib/api";
 import { useRouter } from "next/router";
+import StarRating from "@/components/starRating";
 
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
@@ -132,10 +133,13 @@ const LocationPage = ({ projects }: { projects: Project[] }) => {
                 </Link>
                 <div className="p-4 border border-t-0">
                   <Link href={`/projects/${project.id}`}>
-                    <p className="text-2xl font-bold text-black hover:text-green-600">
+                    <p className="secondary-text text-2xl font-bold transition-colors duration-200 hover:text-green-600">
                       {project.attributes.projectName}
                     </p>
                   </Link>
+                  <div className="mb-2">
+                    <StarRating rating={project.attributes.projectRating} />
+                  </div>
                   <p className="text-gray-700">
                     {project.attributes.projectSummary.length > 120
                       ? `${project.attributes.projectSummary.substring(

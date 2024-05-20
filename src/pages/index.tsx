@@ -378,10 +378,10 @@ export default function Home({
                         href={`articles/${article.id}`}
                         className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
                       >
-                        {article.attributes.articleTitle.length > 36
+                        {article.attributes.articleTitle.length > 40
                           ? `${article.attributes.articleTitle.substring(
                               0,
-                              36
+                              40
                             )}...`
                           : article.attributes.articleTitle}
                       </Link>

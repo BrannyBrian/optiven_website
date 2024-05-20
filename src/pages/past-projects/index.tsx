@@ -1,11 +1,9 @@
-import { format } from "date-fns";
 import { fetcher } from "../../../lib/api";
 import Link from "next/link";
 import Stairs from "@/components/stairs";
-import { ChevronRight, ChevronsRight } from "react-feather";
+import { ChevronRight } from "react-feather";
 import Image from "next/image";
 import { useState } from "react";
-import { Popover } from "@headlessui/react";
 
 // Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
@@ -19,6 +17,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
 
   // Extract projects with locations
   const projectsWithLocationsArray = projects.data
+    .filter((project: any) => project.attributes.isActive === false)
     .map((project: Project) => project.attributes.projectLocation.data)
     .filter((project: any) => project !== null);
 
@@ -185,7 +184,12 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
                     className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
                   >
                     <p className="secondary-text text-2xl font-bold transition-colors duration-200 hover:text-green-600">
-                      {project.attributes.projectName}
+                      {project.attributes.projectName.length > 40
+                        ? `${project.attributes.projectName.substring(
+                            0,
+                            36
+                          )}...`
+                        : project.attributes.projectName}
                     </p>
                   </Link>
                   <p className="text-gray-700">
@@ -207,7 +211,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
                   <div className="flex items-center">
                     <Link
                       href={`projects/${project.id}`}
-                      className="text-sm mt-4 flex un w-24 tracking-wide hover:text-green-600 font-bold"
+                      className="flex text-sm font-bold mt-4 w-24 hover:text-green-600 hover:underline"
                     >
                       Read More
                       <ChevronRight size={16} />

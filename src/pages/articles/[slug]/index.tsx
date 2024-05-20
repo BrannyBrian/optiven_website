@@ -13,8 +13,8 @@ type Params = {
 
 const index = ({ article, projects }: any) => {
   const { articleBody } = article.data.attributes;
-  // Extract projects with locations
   const projectsWithLocationsArray = projects.data
+    .filter((project: any) => project.attributes.isActive === true)
     .map((project: any) => project.attributes.projectLocation.data)
     .filter((project: any) => project !== null);
 
