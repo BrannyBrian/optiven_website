@@ -5,11 +5,10 @@ import TestimonialsCarousel from "@/components/testimonialsCarousel";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-// Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
-export default function Testimonials({ testimonials, photos }: any) {
+export default function Testimonials({ testimonials, photos, video }: any) {
   const [clientRendered, setClientRendered] = useState(false);
 
   useEffect(() => {
@@ -26,7 +25,6 @@ export default function Testimonials({ testimonials, photos }: any) {
       imageUrl = formats.small.url;
     }
 
-    // Assuming 'placeholderImage' is the base64 string for the blur effect
     return { url: imageUrl, blurDataURL: placeholderImage };
   };
 
@@ -34,7 +32,7 @@ export default function Testimonials({ testimonials, photos }: any) {
     <Stairs>
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
         <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
-        <Link
+          <Link
             href="/projects"
             className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
           >
@@ -75,7 +73,32 @@ export default function Testimonials({ testimonials, photos }: any) {
       </section>
       <div>
         <div className="container px-5 py-4 mx-auto">
-          <TestimonialsCarousel testimonials={testimonials.data} />
+          {clientRendered && (
+            <TestimonialsCarousel testimonials={testimonials.data} />
+          )}
+        </div>
+      </div>
+      <div className="text-gray-600 body-font">
+        <div className="container px-5 py-10 mx-auto">
+          {clientRendered && video.data.length > 0 && (
+            <div className="mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                Featured Video
+              </h2>
+              <div
+                className="relative w-full h-0"
+                style={{ paddingBottom: "56.25%" }}
+              >
+                <iframe
+                  src={video.data[0].attributes.video.data.attributes.url}
+                  frameBorder="0"
+                  allowFullScreen
+                  className="absolute top-0 left-0 w-full h-full"
+                  title="Featured Video"
+                ></iframe>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
@@ -144,15 +167,36 @@ type Photo = {
   };
 };
 
+type Video = {
+  id: number;
+  attributes: {
+    video: {
+      data: {
+        attributes: {
+          url: string;
+        };
+      };
+    };
+  };
+};
+
 export async function getStaticProps() {
   try {
-    const testimonialsResponse = await fetcher<any>("testimonials?populate=*");
-    const photosResponse = await fetcher<any>("testimonial-images?populate=*");
+    const testimonialsResponse = await fetcher<Testimonial>(
+      "testimonials?populate=*"
+    );
+    const photosResponse = await fetcher<Photo>(
+      "testimonial-images?populate=*"
+    );
+    const videoResponse = await fetcher<Video>(
+      "testimonial-feature-videos?populate=*"
+    );
 
     return {
       props: {
         testimonials: testimonialsResponse,
         photos: photosResponse,
+        video: videoResponse,
       },
     };
   } catch (error) {
@@ -161,6 +205,7 @@ export async function getStaticProps() {
       props: {
         testimonials: [],
         photos: [],
+        video: [],
       },
     };
   }
