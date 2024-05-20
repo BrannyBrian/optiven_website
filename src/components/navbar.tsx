@@ -21,7 +21,7 @@ import {
 } from "react-feather";
 import Image from "next/image";
 import Link from "next/link";
-import SlideButton from "./slidebutton";
+import SlideButton from "./testimonials-page/slidebutton";
 import { useRouter } from "next/router";
 
 const aboutMenuItems = [

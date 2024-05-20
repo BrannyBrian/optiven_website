@@ -1,7 +1,7 @@
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import Link from "next/link";
-import TestimonialsCarousel from "@/components/testimonialsCarousel";
+import TestimonialsCarousel from "@/components/testimonials-page/testimonialsCarousel";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 

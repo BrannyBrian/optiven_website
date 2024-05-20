@@ -63,7 +63,7 @@ const TestimonialsCarousel: React.FC<TestimonialsProps> = ({
           <SwiperSlide key={testimonial.id}>
             <div className="flex flex-col items-center h-full justify-center p-4 border-2 rounded-xl">
               <img
-                alt="testimonial"
+                alt={`${testimonial.attributes.clientName}`}
                 className="w-20 h-20 mb-4 object-cover object-center rounded-full border-2 border-gray-200 bg-gray-100"
                 src="/avatar.png"
               />
