@@ -458,12 +458,18 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
           <p className="text-base text-gray-700 md:text-lg">
             *Prices in 6 and 12 Months are inclusive of deposit placed.
           </p>
-          <div className="my-4">
+          <div className="my-4 flex flex-col justify-center items-center">
+            <label
+              htmlFor="currency-select"
+              className="font-bold text-green-600"
+            >
+              Please Select Your Locality's Currency
+            </label>
             <select
               title="currency-select"
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
-              className="p-2 border rounded"
+              className="p-2 border rounded w-full md:w-1/2 lg:w-1/4"
             >
               <option value="KES">KES</option>
               <option value="USD">USD</option>
@@ -480,7 +486,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               cashPrice={displayPrices[plotSize].cashPrice}
               threeMonthsPrice={displayPrices[plotSize].threeMonthsPrice}
               sixMonthsPrice={displayPrices[plotSize].sixMonthsPrice}
-              twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
+              // twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
               deposit={displayPrices[plotSize].deposit}
             />
           ))}
