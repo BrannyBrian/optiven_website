@@ -161,6 +161,7 @@ export default function Home({
                       alt={`home-carousel-banner-image-${index}`}
                       placeholder="blur"
                       blurDataURL={placeholderImage}
+                      className="rounded-xl"
                     />
                   ))}
                 </Carousel>
@@ -241,7 +242,7 @@ export default function Home({
                         height={400}
                         width={700}
                         alt={`Image for ${project.attributes.projectName}`}
-                        className="rounded-md w-full h-auto mb-4"
+                        className="rounded-xl w-full h-auto mb-4"
                       />
                     </Link>
                   </div>
@@ -481,7 +482,7 @@ export default function Home({
                       }
                       height={400}
                       width={700}
-                      className="w-full h-64 md:h-auto"
+                      className="w-full h-64 md:h-auto rounded-xl"
                       alt={`Image for ${projectUpdate.attributes.projectUpdateTitle}`}
                     />
                   </div>
