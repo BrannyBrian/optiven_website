@@ -5,7 +5,7 @@ type PlotPriceCardProps = {
   cashPrice: string;
   threeMonthsPrice: string;
   sixMonthsPrice: string;
-  // twelveMonthsPrice: string;
+  twelveMonthsPrice: string;
   deposit: string;
 };
 
@@ -51,14 +51,14 @@ const PlotPriceCard: React.FC<PlotPriceCardProps> = ({
             <div className="text-5xl font-bold">{sixMonthsPrice}</div>
           </div>
         </div>
-        {/* <div>
+        <div>
           <label className="text-lg font-semibold text-green-600">
             12 Months Price
           </label>
           <div className="flex items-center justify-center mt-2">
             <div className="text-5xl font-bold">{twelveMonthsPrice}</div>
           </div>
-        </div> */}
+        </div>
         <label className="text-lg font-semibold text-green-600">Deposit</label>
         <div className="flex items-center justify-center mt-2">
           <div className="text-5xl font-bold">{deposit}</div>

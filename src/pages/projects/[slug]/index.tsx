@@ -486,7 +486,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               cashPrice={displayPrices[plotSize].cashPrice}
               threeMonthsPrice={displayPrices[plotSize].threeMonthsPrice}
               sixMonthsPrice={displayPrices[plotSize].sixMonthsPrice}
-              // twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
+              twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
               deposit={displayPrices[plotSize].deposit}
             />
           ))}
