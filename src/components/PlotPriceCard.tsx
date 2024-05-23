@@ -14,7 +14,7 @@ const PlotPriceCard: React.FC<PlotPriceCardProps> = ({
   cashPrice,
   threeMonthsPrice,
   sixMonthsPrice,
-  // twelveMonthsPrice,
+  twelveMonthsPrice,
   deposit,
 }) => {
   return (
