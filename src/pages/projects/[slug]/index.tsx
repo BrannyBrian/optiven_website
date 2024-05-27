@@ -46,28 +46,28 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
         cashPrice: formatPrice(attributes.eighthAcreCashPrice),
         threeMonthsPrice: formatPrice(attributes.eigthAcre3MonthsPrice),
         sixMonthsPrice: formatPrice(attributes.eighthAcre6MonthsPrice),
-        twelveMonthsPrice: formatPrice(attributes.eighthAcre12MonthsPrice),
+        // twelveMonthsPrice: formatPrice(attributes.eighthAcre12MonthsPrice),
         deposit: formatPrice(attributes.eighthAcreDeposit),
       },
       "1/4 Acre": {
         cashPrice: formatPrice(attributes.quarterAcreCashPrice),
         threeMonthsPrice: formatPrice(attributes.quarterAcre3MonthsPrice),
         sixMonthsPrice: formatPrice(attributes.quarterAcre6MonthsPrice),
-        twelveMonthsPrice: formatPrice(attributes.quarterAcre12MonthsPrice),
+        // twelveMonthsPrice: formatPrice(attributes.quarterAcre12MonthsPrice),
         deposit: formatPrice(attributes.quarterAcreDeposit),
       },
       "1/2 Acre": {
         cashPrice: formatPrice(attributes.halfAcreCashPrice),
         threeMonthsPrice: formatPrice(attributes.halfAcre3MonthsPrice),
         sixMonthsPrice: formatPrice(attributes.halfAcre6MonthsPrice),
-        twelveMonthsPrice: formatPrice(attributes.halfAcre12MonthsPrice),
+        // twelveMonthsPrice: formatPrice(attributes.halfAcre12MonthsPrice),
         deposit: formatPrice(attributes.halfAcreDeposit),
       },
       Acre: {
         cashPrice: formatPrice(attributes.acreCashPrice),
         threeMonthsPrice: formatPrice(attributes.acre3MonthsPrice),
         sixMonthsPrice: formatPrice(attributes.acre6MonthsPrice),
-        twelveMonthsPrice: formatPrice(attributes.acre12MonthsPrice),
+        // twelveMonthsPrice: formatPrice(attributes.acre12MonthsPrice),
         deposit: formatPrice(attributes.acreDeposit),
       },
     };
@@ -132,12 +132,12 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                   sanitizePrice(plotPrices.sixMonthsPrice) / rate
                 ).toLocaleString()
               : "-",
-          twelveMonthsPrice:
-            sanitizePrice(plotPrices.twelveMonthsPrice) !== null
-              ? Math.round(
-                  sanitizePrice(plotPrices.twelveMonthsPrice) / rate
-                ).toLocaleString()
-              : "-",
+          // twelveMonthsPrice:
+          //   sanitizePrice(plotPrices.twelveMonthsPrice) !== null
+          //     ? Math.round(
+          //         sanitizePrice(plotPrices.twelveMonthsPrice) / rate
+          //       ).toLocaleString()
+          //     : "-",
           deposit:
             sanitizePrice(plotPrices.deposit) !== null
               ? Math.round(
@@ -486,7 +486,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               cashPrice={displayPrices[plotSize].cashPrice}
               threeMonthsPrice={displayPrices[plotSize].threeMonthsPrice}
               sixMonthsPrice={displayPrices[plotSize].sixMonthsPrice}
-              twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
+              // twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
               deposit={displayPrices[plotSize].deposit}
             />
           ))}

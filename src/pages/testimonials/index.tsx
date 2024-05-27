@@ -91,7 +91,6 @@ export default function Testimonials({ testimonials, photos, video }: any) {
               >
                 <iframe
                   src={video.data[0].attributes.video.data.attributes.url}
-                  frameBorder="0"
                   allowFullScreen
                   className="absolute top-0 left-0 w-full h-full"
                   title="Featured Video"

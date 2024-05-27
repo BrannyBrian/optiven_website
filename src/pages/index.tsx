@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Carousel } from "flowbite-react";
+import { Carousel, Modal } from "flowbite-react";
 import { CheckCircle, ChevronRight } from "react-feather";
 import Stairs from "@/components/stairs";
 import StarRating from "@/components/starRating";
@@ -46,8 +46,11 @@ export default function Home({
   projectUpdate,
   carouselImages,
   stats,
+  testimonials,
 }: any) {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [randomTestimonials, setRandomTestimonials] = useState<any[]>([]);
+  const [openModal, setOpenModal] = useState<number | null>(null);
   const container = useRef(null);
 
   useEffect(() => {
@@ -63,6 +66,12 @@ export default function Home({
     );
 
     setImageUrls(images || []);
+
+    // Select random three testimonials
+    const shuffledTestimonials = [...testimonials.data].sort(
+      () => 0.5 - Math.random()
+    );
+    setRandomTestimonials(shuffledTestimonials.slice(0, 3));
   }, []);
 
   useGSAP(() => {
@@ -330,6 +339,87 @@ export default function Home({
               </div>
             ))}
           </div>
+          {/* Testimonials */}
+          <section className="text-gray-600 body-font">
+            <div className="container px-5 py-24 mx-auto">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-12 text-center">
+                Here's what some of our clients say
+              </h1>
+              <div className="flex flex-wrap -m-4">
+                {randomTestimonials.map((testimonial, index) => (
+                  <div
+                    className="p-4 md:w-1/2 lg:w-1/3 w-full"
+                    key={testimonial.id}
+                  >
+                    <div className="h-full bg-gray-100 p-8 rounded">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        className="block w-5 h-5 text-gray-400 mb-4"
+                        viewBox="0 0 975.036 975.036"
+                      >
+                        <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z" />
+                      </svg>
+                      <p className="leading-relaxed mb-6">
+                        {testimonial.attributes.clientComment &&
+                        testimonial.attributes.clientComment.length > 200
+                          ? testimonial.attributes.clientComment.substring(
+                              0,
+                              140
+                            ) + "..."
+                          : testimonial.attributes.clientComment}
+                        {testimonial.attributes.clientComment.length > 200 && (
+                          <div
+                            onClick={() => setOpenModal(index)}
+                            className="text-green-600 italic cursor-pointer hover:underline"
+                          >
+                            read more
+                          </div>
+                        )}
+                      </p>
+                      <a className="inline-flex items-center">
+                        <span className="flex-grow flex flex-col">
+                          <span className="font-bold text-gray-900">
+                            - {testimonial.attributes.clientName}
+                          </span>
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                ))}
+                {randomTestimonials.map(
+                  (testimonial, index) =>
+                    openModal === index && (
+                      <Modal
+                        key={index}
+                        show={true}
+                        onClose={() => setOpenModal(null)}
+                      >
+                        <Modal.Header>
+                          <div className="text-xl">
+                            {testimonial.attributes.clientName}
+                          </div>
+                        </Modal.Header>
+                        <Modal.Body>
+                          <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                            {testimonial.attributes.clientComment}
+                          </p>
+                        </Modal.Body>
+                      </Modal>
+                    )
+                )}
+              </div>
+            </div>
+          </section>
+          <div className="flex justify-center items-center">
+            <Link
+              href="/testimonials"
+              className="text-3xl md:text-4xl lg:text-5xl mt-4 flex un hover:text-green-600"
+            >
+              View More Testimonials
+              <ChevronRight size={32} />
+            </Link>
+          </div>
           {/* Articles */}
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
             <h1 className="text-4xl border-b mb-4">Optiven in the News</h1>
@@ -583,6 +673,19 @@ type Stat = {
   };
 };
 
+type Testimonial = {
+  id: number;
+  attributes: {
+    clientName: string;
+    clientTitle: string;
+    clientComment: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    isFeatured: boolean;
+  };
+};
+
 export async function getStaticProps() {
   try {
     const articlesResponse = await fetcher<Article[]>("articles?populate=*");
@@ -593,10 +696,10 @@ export async function getStaticProps() {
     const projectUpdateResponse = await fetcher<ProjectUpdate[]>(
       "project-updates?populate=*"
     );
-
+    const testimonialsResponse = await fetcher<Testimonial[]>(
+      "testimonials?populate=*"
+    );
     const statsResponse = await fetcher<Stat[]>("stats?populate=*");
-
-    // console.log(statsResponse.data[0]);
 
     return {
       props: {
@@ -605,6 +708,7 @@ export async function getStaticProps() {
         projects: projectsResponse,
         projectUpdate: projectUpdateResponse,
         stats: statsResponse,
+        testimonials: testimonialsResponse,
       },
       revalidate: 3600,
     };
@@ -616,6 +720,8 @@ export async function getStaticProps() {
         carouselImages: [],
         projects: [],
         projectUpdate: [],
+        stats: [],
+        testimonials: [],
       },
     };
   }
