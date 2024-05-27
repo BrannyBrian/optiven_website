@@ -140,7 +140,7 @@ export default function Contact() {
                   type="text"
                   id="name"
                   name="name"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full rounded-lg"
                 />
               </div>
               <div className="relative mb-4">
@@ -151,7 +151,7 @@ export default function Contact() {
                   type="email"
                   id="email"
                   name="email"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full rounded-lg"
                 />
               </div>
               <div className="relative mb-4">
@@ -162,33 +162,22 @@ export default function Contact() {
                   type="tel"
                   id="phone"
                   name="phone"
-                  className="input input-bordered w-full"
+                  className="input input-bordered w-full rounded-lg"
                 />
               </div>
-              <div className="relative mb-4">
+              <div className="relative">
                 <label htmlFor="message" className="label font-bold">
                   Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
-                  className="textarea textarea-bordered w-full h-24"
-                />
-              </div>
-              <div className="relative mb-4">
-                <label htmlFor="source" className="label font-bold">
-                  How did you hear about us?
-                </label>
-                <input
-                  type="text"
-                  id="source"
-                  name="source"
-                  className="input input-bordered w-full"
+                  className="textarea textarea-bordered w-full h-24 rounded-lg"
                 />
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"
+                className="inline-flex items-center justify-center w-full h-12 px-6 mt-2 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"
               >
                 Send
               </button>

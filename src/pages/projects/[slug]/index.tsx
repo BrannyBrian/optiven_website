@@ -367,7 +367,10 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               Offer Letter <ChevronRight size={24} />
             </Link>
             <Link
-              href={waterApplicationFormLink || "#"}
+              href={
+                `https://portal.optiven.co.ke/dashboard/optivenwater/form.php` ||
+                "#"
+              }
               target="_blank"
               className="text-xl flex un hover:text-green-600 lg:text-3xl"
             >
