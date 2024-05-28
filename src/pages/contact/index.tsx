@@ -1,37 +1,71 @@
 import Head from "next/head";
 import Stairs from "@/components/stairs";
 import Link from "next/link";
-import { Popover } from "@headlessui/react";
-import { ChevronsRight } from "react-feather";
+import { useState } from "react";
+import { Button, Toast } from "flowbite-react";
+import { FaCircleCheck } from "react-icons/fa6";
 
 export default function Contact() {
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
+  const [submissionStatus, setSubmissionStatus] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
-    const formData = {
-      name: event.target.name.value,
-      email: event.target.email.value,
-      phone: event.target.phone.value,
-      message: event.target.message.value,
-      source: event.target.source.value,
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmissionStatus(""); // Reset status
+
+    const formData = new FormData(event.currentTarget);
+
+    // Validate mandatory fields
+    if (
+      !formData.get("name") ||
+      !formData.get("phone") ||
+      !formData.get("message")
+    ) {
+      setToastMessage("Please fill in all required fields.");
+      setShowToast(true);
+      return;
+    }
+
+    // Construct JSON object from form data
+    const jsonData = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      message: formData.get("message") as string,
+      leadsource_id: "59",
     };
 
-    const response = await fetch("/api/send-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await fetch(
+        "https://crm.optiven.co.ke/API/website.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(jsonData),
+          redirect: "follow",
+        }
+      );
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) {
-      console.log("Form successfully submitted");
-    } else {
-      console.error("Error submitting form:", data.message);
+      if (response.ok && data.ResultCode === "0") {
+        console.log("Form successfully submitted");
+        setToastMessage(data.ResultDesc);
+      } else {
+        console.error("Error submitting form:", data.ResultDesc);
+        setToastMessage(data.ResultDesc || "Error submitting form.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setToastMessage("Error submitting form.");
+    } finally {
+      setShowToast(true);
     }
   };
+
   return (
     <>
       <Head>
@@ -134,13 +168,14 @@ export default function Contact() {
               </p>
               <div className="relative mb-4">
                 <label htmlFor="name" className="label font-bold">
-                  Name
+                  Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   className="input input-bordered w-full rounded-lg"
+                  required
                 />
               </div>
               <div className="relative mb-4">
@@ -156,31 +191,68 @@ export default function Contact() {
               </div>
               <div className="relative mb-4">
                 <label htmlFor="phone" className="label font-bold">
-                  Phone Number
+                  Phone Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
                   className="input input-bordered w-full rounded-lg"
+                  required
                 />
               </div>
               <div className="relative">
                 <label htmlFor="message" className="label font-bold">
-                  Message
+                  Message <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="message"
                   name="message"
-                  className="textarea textarea-bordered w-full h-24 rounded-lg"
-                />
+                  className="textarea textarea-bordered w-full h-32 rounded-lg resize-none"
+                  required
+                ></textarea>
               </div>
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center w-full h-12 px-6 mt-2 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none"
-              >
-                Send
-              </button>
+              <div className="relative">
+                <Button
+                  color="success"
+                  type="submit"
+                  disabled={showToast}
+                  className="w-full"
+                >
+                  Submit
+                </Button>
+              </div>
+              {showToast && (
+                <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
+                  <Toast>
+                    <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-100 text-cyan-500 dark:bg-cyan-800 dark:text-cyan-200">
+                      <FaCircleCheck color="green" className="h-5 w-5" />
+                    </div>
+                    <div className="ml-3 text-sm font-normal">
+                      {toastMessage}
+                    </div>
+                    <button
+                      type="button"
+                      className="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-500 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-gray-500 dark:hover:text-white"
+                      onClick={() => setShowToast(false)}
+                    >
+                      <span className="sr-only">Close</span>
+                      <svg
+                        className="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
+                    </button>
+                  </Toast>
+                </div>
+              )}
             </form>
           </div>
         </div>
