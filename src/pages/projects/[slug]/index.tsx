@@ -1,4 +1,4 @@
-import Stairs from "@/components/stairs";
+import Stairs from "../../../components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
 import { CheckCircle, ChevronRight } from "react-feather";
@@ -7,8 +7,8 @@ import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import PlotPriceCard from "@/components/plotPriceCard";
-import LocationList from "@/components/locationlist";
+import PlotPriceCard from "../../../components/plotPriceCard";
+import LocationList from "../../../components/locationlist";
 import { FaCircleCheck } from "react-icons/fa6";
 
 // Sample base64 image data for blurDataURL (usually much smaller)
@@ -259,7 +259,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
 
       if (response.ok && data.ResultCode === "0") {
         console.log("Form successfully submitted");
-        console.log(jsonData)
+        console.log(jsonData);
         setToastMessage(data.ResultDesc);
       } else {
         console.error("Error submitting form:", data.ResultDesc);
