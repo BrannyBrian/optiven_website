@@ -26,6 +26,7 @@ const index = ({ projectUpdate, projects }: any) => {
       )
     )
   ).sort();
+  
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">

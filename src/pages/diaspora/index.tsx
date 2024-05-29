@@ -2,12 +2,26 @@ import React from "react";
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import { Popover } from "@headlessui/react";
 import Link from "next/link";
-import { ChevronsRight } from "react-feather";
+import LocationList from "@/components/locationlist";
 
-const index = ({ diaspora }: any) => {
+const index = ({ diaspora, projects }: any) => {
   const { diasporaContent } = diaspora.data[0].attributes;
+
+  const projectsWithLocationsArray = projects.data
+    .filter((project: any) => project.attributes.isActive === true)
+    .map((project: any) => project.attributes.projectLocation.data)
+    .filter((project: any) => project !== null);
+
+  // Deduplicate and sort locations
+  const uniqueLocations = Array.from(
+    new Set(
+      projectsWithLocationsArray.map(
+        (location: any) => location.attributes.projectLocation
+      )
+    )
+  ).sort();
+
   return (
     <Stairs>
       {/* Breadcrumbs */}
@@ -60,12 +74,17 @@ const index = ({ diaspora }: any) => {
         </nav>
       </div>
       <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full">
-        <div className="max-w-2xl w-full px-4 py-8">
+        <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
             Diaspora
           </h1>
-          <div className="format md:text-xl lg:text-2xl">
-            <BlocksRenderer content={diasporaContent} />
+          <div className="md:flex">
+            <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-3/4">
+              <BlocksRenderer content={diasporaContent} />
+            </div>
+            <aside className="md:w-1/4 md:ml-2" style={{ zIndex: 16 }}>
+              <LocationList locations={uniqueLocations} />
+            </aside>
           </div>
         </div>
       </section>
@@ -77,11 +96,14 @@ export async function getStaticProps() {
   try {
     const diasporaResponse = await fetcher<any>("diasporas?populate=*");
 
+    const projectsResponse = await fetcher<any>("projects?populate=*");
+
     // console.log(diasporaResponse.data);
 
     return {
       props: {
         diaspora: diasporaResponse,
+        projects: projectsResponse,
       },
     };
   } catch (error) {
@@ -89,6 +111,7 @@ export async function getStaticProps() {
     return {
       props: {
         diaspora: [],
+        projects: [],
       },
     };
   }

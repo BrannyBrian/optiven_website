@@ -3,11 +3,24 @@ import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import { Popover } from "@headlessui/react";
-import { ChevronsRight } from "react-feather";
+import LocationList from "@/components/locationlist";
 
-const index = ({ whyUs }: any) => {
+const index = ({ whyUs, projects }: any) => {
   const { content } = whyUs.data[0].attributes;
+  const projectsWithLocationsArray = projects.data
+    .filter((project: any) => project.attributes.isActive === true)
+    .map((project: any) => project.attributes.projectLocation.data)
+    .filter((project: any) => project !== null);
+
+  // Deduplicate and sort locations
+  const uniqueLocations = Array.from(
+    new Set(
+      projectsWithLocationsArray.map(
+        (location: any) => location.attributes.projectLocation
+      )
+    )
+  ).sort();
+
   return (
     <Stairs>
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
@@ -46,10 +59,18 @@ const index = ({ whyUs }: any) => {
         </div>
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
       </section>
-      <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full">
-        <div className="max-w-2xl w-full px-4 py-8">
-          <div style={{ zIndex: 16 }} className="format md:text-xl lg:text-2xl">
-            <BlocksRenderer content={content} />
+      <section className="bg-white dark:bg-gray-900">
+        <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
+          <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
+            Why Choose Optiven?
+          </h1>
+          <div className="md:flex">
+            <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-3/4" style={{ zIndex: 16 }}>
+              <BlocksRenderer content={content} />
+            </div>
+            <aside className="md:w-1/4 md:ml-2" style={{ zIndex: 16 }}>
+              <LocationList locations={uniqueLocations} />
+            </aside>
           </div>
         </div>
       </section>
@@ -60,12 +81,14 @@ const index = ({ whyUs }: any) => {
 export async function getStaticProps() {
   try {
     const whyUsResponse = await fetcher<any>("why-uses?populate=*");
+    const projectsResponse = await fetcher<any>("projects?populate=*");
 
     // console.log(whyUsResponse.data);
 
     return {
       props: {
         whyUs: whyUsResponse,
+        projects: projectsResponse,
       },
     };
   } catch (error) {
@@ -73,6 +96,7 @@ export async function getStaticProps() {
     return {
       props: {
         whyUs: [],
+        projects: [],
       },
     };
   }
