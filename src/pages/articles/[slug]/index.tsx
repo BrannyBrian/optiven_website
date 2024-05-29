@@ -104,7 +104,7 @@ const index = ({ article, projects }: any) => {
       </div>
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
-          <h1 className="text-4xl text-start font-bold text-gray-700 lg:text-5xl sm:px-16 lg:px-48 dark:text-gray-400">
+          <h1 className="text-4xl text-start font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
             {article.data.attributes.articleTitle}
           </h1>
           <div className="md:flex">
@@ -152,6 +152,7 @@ export async function getServerSideProps({ params }: Params) {
     return {
       props: {
         article: null,
+        projects: []
       },
     };
   }
