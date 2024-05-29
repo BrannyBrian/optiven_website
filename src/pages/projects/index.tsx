@@ -133,7 +133,9 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="md:flex md:justify-center -mt-10">
           <div className="mb-4 flex flex-col md:mr-2">
-            <label className="font-bold text-sm">Property Rating</label>
+            <label className="font-bold text-sm text-green-600">
+              Property Rating
+            </label>
             <select
               style={{ zIndex: 16 }}
               onChange={(e) =>
@@ -152,7 +154,9 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </select>
           </div>
           <div className="mb-4 flex flex-col">
-            <label className="font-bold text-sm">Property Location</label>
+            <label className="font-bold text-sm text-green-600">
+              Property Location
+            </label>
             <select
               style={{ zIndex: 16 }}
               onChange={(e) => setSelectedLocation(e.target.value)}
