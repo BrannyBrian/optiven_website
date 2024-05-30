@@ -13,7 +13,27 @@ gsap.registerPlugin(ScrollTrigger);
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
-const index = ({ projectUpdates }: any) => {
+type ProjectUpdate = {
+  id: number;
+  attributes: {
+    projectUpdateTitle: string;
+    projectUpdateIntro: string;
+    projectUpdateBody: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    isFeatured: boolean;
+    projectUpdateMainImage: any;
+  };
+};
+
+type ProjectUpdatesProps = {
+  projectUpdates: {
+    data: ProjectUpdate[];
+  };
+};
+
+const index = ({ projectUpdates }: ProjectUpdatesProps) => {
   useGSAP(() => {
     gsap.from(".update-card", {
       duration: 1,
@@ -47,6 +67,14 @@ const index = ({ projectUpdates }: any) => {
     // Return both the URL and the blurDataURL (the same static placeholder for now)
     return { url: imageUrl, blurDataURL: placeholderImage };
   };
+
+  // Sort project updates by publication date (newest first)
+  const sortedProjectUpdates = projectUpdates.data.sort((a, b) => {
+    return (
+      new Date(b.attributes.publishedAt).getTime() -
+      new Date(a.attributes.publishedAt).getTime()
+    );
+  });
 
   return (
     <Stairs>
@@ -95,8 +123,9 @@ const index = ({ projectUpdates }: any) => {
       </section>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
-          {projectUpdates.data.map((projectUpdate: ProjectUpdate) => (
+          {sortedProjectUpdates.map((projectUpdate: ProjectUpdate) => (
             <div
+              key={projectUpdate.id}
               className="overflow-hidden transition-shadow duration-300 bg-white rounded-lg update-card"
               style={{ zIndex: 16 }}
             >
@@ -182,20 +211,6 @@ const index = ({ projectUpdates }: any) => {
       </div>
     </Stairs>
   );
-};
-
-type ProjectUpdate = {
-  id: number;
-  attributes: {
-    projectUpdateTitle: string;
-    projectUpdateIntro: string;
-    projectUpdateBody: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-    isFeatured: boolean;
-    projectUpdateMainImage: any;
-  };
 };
 
 export async function getStaticProps() {
