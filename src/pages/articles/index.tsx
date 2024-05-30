@@ -13,7 +13,13 @@ gsap.registerPlugin(ScrollTrigger);
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
-const index = ({ articles }: any) => {
+type ArticlesProps = {
+  articles: {
+    data: Article[];
+  };
+};
+
+const index = ({ articles }: ArticlesProps) => {
   useGSAP(() => {
     gsap.from(".article-card", {
       duration: 1,
@@ -47,6 +53,14 @@ const index = ({ articles }: any) => {
     // Return both the URL and the blurDataURL (the same static placeholder for now)
     return { url: imageUrl, blurDataURL: placeholderImage };
   };
+
+  // Sort articles by publication date (newest first)
+  const sortedArticles = articles.data.sort((a, b) => {
+    return (
+      new Date(b.attributes.publishedAt).getTime() -
+      new Date(a.attributes.publishedAt).getTime()
+    );
+  });
 
   return (
     <Stairs>
@@ -94,7 +108,7 @@ const index = ({ articles }: any) => {
       </section>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
-          {articles.data.map((article: any) => (
+          {sortedArticles.map((article: any) => (
             <div
               style={{ zIndex: 16 }}
               className="overflow-hidden transition-shadow duration-300 bg-white rounded-lg article-card"
@@ -182,6 +196,8 @@ type Article = {
 export async function getStaticProps() {
   try {
     const articlesResponse = await fetcher<Article[]>("articles?populate=*");
+
+    // console.log(articlesResponse.data[0]);
 
     return {
       props: {
