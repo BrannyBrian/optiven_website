@@ -413,10 +413,10 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               onChange={(e) => setCurrency(e.target.value)}
               className="p-2 border-green-600 border-2 rounded-lg w-full md:w-1/2 lg:w-1/4"
             >
-              <option value="KES">KES</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
+              <option value="KES">Kenyan Shilling - KES</option>
+              <option value="USD">United States Dollar - USD</option>
+              <option value="EUR">Euro - EUR</option>
+              <option value="GBP">Pound Sterling - GBP</option>
             </select>
           </div>
         </div>
