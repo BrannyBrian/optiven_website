@@ -11,7 +11,6 @@ import PlotPriceCard from "@/components/PlotPriceCard";
 import LocationList from "@/components/locationlist";
 import { FaCircleCheck } from "react-icons/fa6";
 
-// Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
@@ -46,33 +45,28 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
         cashPrice: formatPrice(attributes.eighthAcreCashPrice),
         threeMonthsPrice: formatPrice(attributes.eigthAcre3MonthsPrice),
         sixMonthsPrice: formatPrice(attributes.eighthAcre6MonthsPrice),
-        // twelveMonthsPrice: formatPrice(attributes.eighthAcre12MonthsPrice),
         deposit: formatPrice(attributes.eighthAcreDeposit),
       },
       "1/4 Acre": {
         cashPrice: formatPrice(attributes.quarterAcreCashPrice),
         threeMonthsPrice: formatPrice(attributes.quarterAcre3MonthsPrice),
         sixMonthsPrice: formatPrice(attributes.quarterAcre6MonthsPrice),
-        // twelveMonthsPrice: formatPrice(attributes.quarterAcre12MonthsPrice),
         deposit: formatPrice(attributes.quarterAcreDeposit),
       },
       "1/2 Acre": {
         cashPrice: formatPrice(attributes.halfAcreCashPrice),
         threeMonthsPrice: formatPrice(attributes.halfAcre3MonthsPrice),
         sixMonthsPrice: formatPrice(attributes.halfAcre6MonthsPrice),
-        // twelveMonthsPrice: formatPrice(attributes.halfAcre12MonthsPrice),
         deposit: formatPrice(attributes.halfAcreDeposit),
       },
       Acre: {
         cashPrice: formatPrice(attributes.acreCashPrice),
         threeMonthsPrice: formatPrice(attributes.acre3MonthsPrice),
         sixMonthsPrice: formatPrice(attributes.acre6MonthsPrice),
-        // twelveMonthsPrice: formatPrice(attributes.acre12MonthsPrice),
         deposit: formatPrice(attributes.acreDeposit),
       },
     };
 
-    // console.log("Prepared Initial Prices:", initialPrices);
     return initialPrices;
   };
 
@@ -132,12 +126,6 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                   sanitizePrice(plotPrices.sixMonthsPrice) / rate
                 ).toLocaleString()
               : "-",
-          // twelveMonthsPrice:
-          //   sanitizePrice(plotPrices.twelveMonthsPrice) !== null
-          //     ? Math.round(
-          //         sanitizePrice(plotPrices.twelveMonthsPrice) / rate
-          //       ).toLocaleString()
-          //     : "-",
           deposit:
             sanitizePrice(plotPrices.deposit) !== null
               ? Math.round(
@@ -180,7 +168,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
   }, [project]);
 
   const getBestAvailableImageUrl = (formats: any) => {
-    let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
+    let imageUrl = formats.thumbnail?.url || "";
     if (formats.large) {
       imageUrl = formats.large.url;
     } else if (formats.medium) {
@@ -189,7 +177,6 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
       imageUrl = formats.small.url;
     }
 
-    // Return both the URL and the blurDataURL (the same static placeholder for now)
     return { url: imageUrl, blurDataURL: placeholderImage };
   };
 
@@ -198,7 +185,6 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
     .map((project: any) => project.attributes.projectLocation.data)
     .filter((project: any) => project !== null);
 
-  // Deduplicate and sort locations
   const uniqueLocations = Array.from(
     new Set(
       projectsWithLocationsArray.map(
@@ -213,11 +199,10 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmissionStatus(""); // Reset status
+    setSubmissionStatus("");
 
     const formData = new FormData(event.currentTarget);
 
-    // Validate mandatory fields
     if (
       !formData.get("name") ||
       !formData.get("phone") ||
@@ -228,12 +213,10 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
       return;
     }
 
-    // Prepend project name to the message
     const message = `Inquiry about ${projectName}\n\n${formData.get(
       "message"
     )}`;
 
-    // Construct JSON object from form data
     const jsonData = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
@@ -276,7 +259,6 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
   return (
     <Stairs>
       <div className="bg-white dark:bg-gray-900 flex flex-col justify-center items-center h-full w-full">
-        {/* Breadcrumbs */}
         <nav
           className="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
           aria-label="Breadcrumb"
@@ -334,18 +316,18 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               width={640}
               height={480}
               alt={`Main banner image for ${projectName}`}
-              className="rounded-lg md:h-1/2 lg:h-full mb-4 lg:mb-8"
+              className="rounded-lg w-auto shadow-lg md:h-1/2 md:w-auto lg:h-full mb-4 lg:mb-8"
             />
           </div>
           <h1 className="text-3xl font-bold text-green-600">Value Additions</h1>
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-4 mb-8 lg:w-full">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 mb-8 lg:w-full">
             {valueAdditions.data.map((valueAddition: any) => (
               <div
-                className={`flex items-center border p-2 text-gray-700 rounded-xl value-addition-${project.id}`}
+                className={`flex items-center border p-4 text-gray-700 bg-white rounded-lg shadow-md transition-transform transform hover:scale-105 value-addition-${project.id}`}
                 key={valueAddition.id}
               >
-                <CheckCircle color="black" size={16} />
-                <h1 className="ml-1 font-semibold">
+                <CheckCircle color="green" size={24} className="mr-2" />
+                <h1 className="font-semibold">
                   {valueAddition.attributes.valueAdditionTitle}
                 </h1>
               </div>
@@ -386,14 +368,14 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
             <Link
               href={subDivisionMapLink || "#"}
               target="_blank"
-              className="text-xl flex un hover:text-green-600 lg:text-3xl"
+              className="text-xl flex items-center hover:text-green-600 lg:text-3xl"
             >
               Grand Master Plan <ChevronRight size={24} />
             </Link>
             <Link
               href={onlineOfferLetterLink || "#"}
               target="_blank"
-              className="text-xl flex un hover:text-green-600 lg:text-3xl"
+              className="text-xl flex items-center hover:text-green-600 lg:text-3xl"
             >
               Offer Letter <ChevronRight size={24} />
             </Link>
@@ -403,15 +385,56 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                 "#"
               }
               target="_blank"
-              className="text-xl flex un hover:text-green-600 lg:text-3xl"
+              className="text-xl flex items-center hover:text-green-600 lg:text-3xl"
             >
               Water Application Form <ChevronRight size={24} />
             </Link>
           </div>
         </div>
       </div>
+      <div className="w-screen py-4 px-4 md:py-6 md:px-6 lg:py-10 lg:px-10">
+        <div className="text-center">
+          <h2 className="mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
+            Investment
+          </h2>
+          <p className="text-base text-gray-700 md:text-lg">
+            *Prices in 6 and 12 Months are inclusive of deposit placed.
+          </p>
+          <div className="my-4 flex flex-col justify-center items-center">
+            <label
+              htmlFor="currency-select"
+              className="font-bold text-green-600 md:text-lg"
+            >
+              Please Select Your Locality's Currency
+            </label>
+            <select
+              title="currency-select"
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              className="p-2 border-green-600 border-2 rounded-lg w-full md:w-1/2 lg:w-1/4"
+            >
+              <option value="KES">KES</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+          </div>
+        </div>
+        <div className="grid gap-4 row-gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {Object.keys(displayPrices).map((plotSize) => (
+            <PlotPriceCard
+              key={plotSize}
+              plotSize={plotSize}
+              cashPrice={displayPrices[plotSize].cashPrice}
+              threeMonthsPrice={displayPrices[plotSize].threeMonthsPrice}
+              sixMonthsPrice={displayPrices[plotSize].sixMonthsPrice}
+              deposit={displayPrices[plotSize].deposit}
+            />
+          ))}
+        </div>
+      </div>
       <div className="container px-2 py-8 mx-auto flex flex-wrap sm:flex-nowrap">
-        <div className="w-full lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 flex items-end justify-start relative">
+        <div className="w-full lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 flex items-end justify-start relative shadow-lg">
           <iframe
             width="100%"
             height="100%"
@@ -421,7 +444,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
             src={projectMapLocationLink}
           />
         </div>
-        <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
+        <div className="p-4 lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0 rounded-lg shadow-lg">
           <h2 className="text-lg mb-1 font-bold uppercase">
             Secure your piece of{" "}
             <span className="text-green-600">{projectName}</span> today
@@ -515,48 +538,6 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
           </form>
         </div>
       </div>
-      <div className="w-screen py-4 px-4 md:py-6 md:px-6 lg:py-10 lg:px-10">
-        <div className="text-center">
-          <h2 className="mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
-            Investment
-          </h2>
-          <p className="text-base text-gray-700 md:text-lg">
-            *Prices in 6 and 12 Months are inclusive of deposit placed.
-          </p>
-          <div className="my-4 flex flex-col justify-center items-center">
-            <label
-              htmlFor="currency-select"
-              className="font-bold text-green-600 md:text-lg"
-            >
-              Please Select Your Locality's Currency
-            </label>
-            <select
-              title="currency-select"
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-              className="p-2 border-green-600 border-2 rounded-lg w-full md:w-1/2 lg:w-1/4"
-            >
-              <option value="KES">KES</option>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="GBP">GBP</option>
-            </select>
-          </div>
-        </div>
-        <div className="grid gap-4 row-gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          {Object.keys(displayPrices).map((plotSize) => (
-            <PlotPriceCard
-              key={plotSize}
-              plotSize={plotSize}
-              cashPrice={displayPrices[plotSize].cashPrice}
-              threeMonthsPrice={displayPrices[plotSize].threeMonthsPrice}
-              sixMonthsPrice={displayPrices[plotSize].sixMonthsPrice}
-              // twelveMonthsPrice={displayPrices[plotSize].twelveMonthsPrice}
-              deposit={displayPrices[plotSize].deposit}
-            />
-          ))}
-        </div>
-      </div>
     </Stairs>
   );
 };
@@ -588,12 +569,6 @@ export async function getServerSideProps({ params }: Params) {
     const projectDetails = await projectResponse.json();
 
     const currenciesResponse = await fetcher<any>("currencies?populate=*");
-
-    // console.log(
-    //   projectDetails.data.attributes.valueAdditions.data.map(
-    //     (item: any) => item.attributes.valueAdditionTitle
-    //   )
-    // );
 
     return {
       props: {
