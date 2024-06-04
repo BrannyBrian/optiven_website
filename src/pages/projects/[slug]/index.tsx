@@ -1,7 +1,7 @@
 import Stairs from "@/components/stairs";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
-import { CheckCircle, ChevronRight } from "react-feather";
+import { CheckCircle, ChevronRight, Home } from "react-feather";
 import { Button, Carousel, Toast } from "flowbite-react";
 import Image from "next/image";
 import { fetcher } from "../../../../lib/api";
@@ -287,35 +287,13 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                 href="/"
                 className="inline-flex items-center text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 dark:text-gray-400 dark:hover:text-white"
               >
-                <svg
-                  className="w-3 h-3 me-2.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                </svg>
+                <Home size={16} className="-mt-2 mr-2" />
                 Home
               </Link>
             </li>
             <li>
               <div className="flex items-center">
-                <svg
-                  className="rtl:rotate-180 block w-3 h-3 mx-1 text-gray-400 "
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
+                <ChevronRight size={16} className="-mt-2" />
                 <Link
                   href="/projects"
                   className="ms-1 text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
@@ -326,22 +304,8 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
             </li>
             <li aria-current="page">
               <div className="flex items-center">
-                <svg
-                  className="rtl:rotate-180  w-3 h-3 mx-1 text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
-                <span className="ms-1 text-xs md:text-lg font-bold text-gray-500 md:ms-2 dark:text-gray-400">
+                <ChevronRight size={16} className="-mt-2" />
+                <span className="text-xs md:text-lg font-bold text-gray-500 dark:text-gray-400">
                   {projectName}
                 </span>
               </div>
@@ -350,7 +314,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
         </nav>
       </div>
       <div className="flex flex-col items-center justify-center mt-8">
-        <h1 className="text-4xl font-bold text-center text-gray-700 lg:text-7xl dark:text-gray-400">
+        <h1 className="text-3xl font-bold text-center text-green-600 lg:text-7xl dark:text-gray-400">
           {projectName}
         </h1>
         <div className="px-4">
@@ -367,14 +331,14 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                   projectMainBanner.data.attributes.formats
                 ).blurDataURL
               }
-              width={1000}
-              height={600}
+              width={640}
+              height={480}
               alt={`Main banner image for ${projectName}`}
-              className="rounded-lg mb-4 lg:mb-8"
+              className="rounded-lg md:h-1/2 lg:h-full mb-4 lg:mb-8"
             />
           </div>
-          <h1 className="text-3xl font-bold">Value Additions</h1>
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 my-4 lg:w-full">
+          <h1 className="text-3xl font-bold text-green-600">Value Additions</h1>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 mt-4 mb-8 lg:w-full">
             {valueAdditions.data.map((valueAddition: any) => (
               <div
                 className={`flex items-center border p-2 text-gray-700 rounded-xl value-addition-${project.id}`}
@@ -387,17 +351,17 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               </div>
             ))}
           </div>
-          <div className=" mt-4 md:flex">
-            <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-3/4">
+          <div className="mt-4 md:flex md:justify-between">
+            <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-8/12">
               <BlocksRenderer content={projectContent} />
             </div>
-            <aside className="lg:w-1/4">
+            <aside className="hidden md:block lg:w-1/4">
               <LocationList locations={uniqueLocations} />
             </aside>
           </div>
           {imageUrls.length > 0 && (
             <div className="my-8 flex justify-center">
-              <Carousel slideInterval={3000}>
+              <Carousel slideInterval={3000} className="lg:w-3/4">
                 {imageUrls.map((imageUrl, index) => (
                   <div
                     key={index}
@@ -411,6 +375,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                       alt={`Carousel image ${index + 1} for ${projectName}`}
                       placeholder="blur"
                       blurDataURL={placeholderImage}
+                      quality={90} // Increased image quality
                     />
                   </div>
                 ))}
@@ -445,8 +410,8 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
           </div>
         </div>
       </div>
-      <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
-        <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 flex items-end justify-start relative">
+      <div className="container px-2 py-8 mx-auto flex flex-wrap sm:flex-nowrap">
+        <div className="w-full lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 flex items-end justify-start relative">
           <iframe
             width="100%"
             height="100%"
@@ -458,7 +423,8 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
         </div>
         <div className="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
           <h2 className="text-lg mb-1 font-bold uppercase">
-            Secure your piece of {projectName} today
+            Secure your piece of{" "}
+            <span className="text-green-600">{projectName}</span> today
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="relative mb-4">
@@ -560,7 +526,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
           <div className="my-4 flex flex-col justify-center items-center">
             <label
               htmlFor="currency-select"
-              className="font-bold text-green-600"
+              className="font-bold text-green-600 md:text-lg"
             >
               Please Select Your Locality's Currency
             </label>
@@ -568,7 +534,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
               title="currency-select"
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
-              className="p-2 border rounded w-full md:w-1/2 lg:w-1/4"
+              className="p-2 border-green-600 border-2 rounded-lg w-full md:w-1/2 lg:w-1/4"
             >
               <option value="KES">KES</option>
               <option value="USD">USD</option>

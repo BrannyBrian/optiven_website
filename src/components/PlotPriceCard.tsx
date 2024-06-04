@@ -18,37 +18,39 @@ const PlotPriceCard: React.FC<PlotPriceCardProps> = ({
   deposit,
 }) => {
   return (
-    <div className="flex flex-col justify-between p-8 transition-shadow duration-300 bg-white border rounded shadow-sm sm:items-center hover:shadow">
-      <div className="text-center">
-        <div className="flex items-center justify-center mb-2">
-          <div className="font-bold border border-black pt-1 px-3">
-            {plotSize}
-          </div>
+    <div className="flex flex-col justify-between p-8 transition-shadow duration-300 bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-2xl">
+      <div className="text-center mb-4">
+        <div className="inline-block px-4 py-2 mb-2 text-lg font-extrabold text-white bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-md">
+          {plotSize}
         </div>
       </div>
-      <div className="flex flex-col text-center pt-4">
+      <div className="flex flex-col text-center space-y-4">
         <div>
-          <label className="text-lg font-semibold text-green-600">
+          <label className="text-lg font-semibold text-gray-700">
             Cash Price
           </label>
           <div className="flex items-center justify-center mt-2">
-            <div className="text-5xl font-bold">{cashPrice}</div>
+            <div className="text-5xl font-bold text-green-600">{cashPrice}</div>
           </div>
         </div>
         <div>
-          <label className="text-lg font-semibold text-green-600">
+          <label className="text-lg font-semibold text-gray-700">
             3 Months Price
           </label>
           <div className="flex items-center justify-center mt-2">
-            <div className="text-5xl font-bold">{threeMonthsPrice}</div>
+            <div className="text-5xl font-bold text-green-600">
+              {threeMonthsPrice}
+            </div>
           </div>
         </div>
         <div>
-          <label className="text-lg font-semibold text-green-600">
+          <label className="text-lg font-semibold text-gray-700">
             6 Months Price
           </label>
           <div className="flex items-center justify-center mt-2">
-            <div className="text-5xl font-bold">{sixMonthsPrice}</div>
+            <div className="text-5xl font-bold text-green-600">
+              {sixMonthsPrice}
+            </div>
           </div>
         </div>
         {/* <div>
@@ -59,9 +61,11 @@ const PlotPriceCard: React.FC<PlotPriceCardProps> = ({
             <div className="text-5xl font-bold">{twelveMonthsPrice}</div>
           </div>
         </div> */}
-        <label className="text-lg font-semibold text-green-600">Deposit</label>
-        <div className="flex items-center justify-center mt-2">
-          <div className="text-5xl font-bold">{deposit}</div>
+        <div>
+          <label className="text-lg font-semibold text-gray-700">Deposit</label>
+          <div className="flex items-center justify-center mt-2">
+            <div className="text-5xl font-bold text-green-600">{deposit}</div>
+          </div>
         </div>
       </div>
     </div>
