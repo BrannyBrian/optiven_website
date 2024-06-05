@@ -5,7 +5,6 @@ import { Card, Select, TextInput } from "flowbite-react";
 import Link from "next/link";
 import { Briefcase, ChevronRight, MapPin, ChevronsRight } from "react-feather";
 import { fetcher } from "../../../lib/api";
-import { Popover } from "@headlessui/react";
 
 export default function Careers({ careers, locations }: any) {
   const [jobTitle, setJobTitle] = useState("");
@@ -43,16 +42,16 @@ export default function Careers({ careers, locations }: any) {
           <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
             <Link
               href="/about"
-              className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+              className="inline-flex justify-between items-center py-2 px-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
             >
-              <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+              <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 mr-3">
                 About Us
               </span>{" "}
               <span className="text-sm font-medium">
                 Get to learn what we're all about and what we stand for
               </span>
               <svg
-                className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+                className="w-2.5 h-2.5 ml-2 rtl:rotate-180"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -114,7 +113,7 @@ export default function Careers({ careers, locations }: any) {
               encounter please contact us:
             </p>
             <div>
-              <ul>
+              <ul className="list-disc ml-6 mt-2">
                 <li>
                   <span className="font-bold">Call:</span> 0715 9280112
                 </li>
@@ -140,11 +139,13 @@ export default function Careers({ careers, locations }: any) {
               onChange={(e) => setJobTitle(e.target.value)}
               placeholder="Search by Job Title"
               type="text"
+              className="rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200"
             />
             <Select
               value={jobLocation}
               onChange={handleLocationChange}
               title="job-select"
+              className="rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200"
             >
               <option value="">All Locations</option>
               {locations.data.map((location: any, index: number) => (
@@ -154,35 +155,37 @@ export default function Careers({ careers, locations }: any) {
               ))}
             </Select>
           </div>
-          {/* List of jobs */}
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredCareers.map((job: Career, index: number) => (
-              <Card className="py-4" key={index}>
-                <div className="flex space-x-2">
-                  <Briefcase />
+              <Card
+                key={index}
+                className="py-4 transition-shadow duration-300 hover:shadow-xl"
+              >
+                <div className="flex space-x-2 items-center mb-2">
+                  <Briefcase className="text-green-600" />
                   <Link
                     href={`careers/${job.id}`}
-                    className="text-2xl font-bold"
+                    className="text-xl font-bold text-gray-900 dark:text-white hover:text-green-600"
                   >
                     {job.attributes.jobTitle}
                   </Link>
                 </div>
-                <div className="flex space-x-2">
-                  <MapPin size={16} />
-                  <p className="flex items-center text-sm">
-                    {job.attributes.jobLocations.data.map(
-                      (item: any) => item.attributes.jobLocation
-                    )}
+                <div className="flex space-x-2 items-center mb-4">
+                  <MapPin size={16} className="text-green-600" />
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    {job.attributes.jobLocations.data
+                      .map((item: any) => item.attributes.jobLocation)
+                      .join(", ")}
                   </p>
                 </div>
-                <div className="flex justify-end hover:text-green-600 hover:underline">
+                <div className="flex justify-end">
                   <Link
                     href={`careers/${job.id}`}
-                    className="flex items-center text-xs justify-end"
+                    className="inline-flex items-center text-green-600 hover:text-green-800 dark:text-green-300 dark:hover:text-green-500"
                   >
-                    View More
+                    View Details
+                    <ChevronRight size={16} />
                   </Link>
-                  <ChevronRight size={12} />
                 </div>
               </Card>
             ))}

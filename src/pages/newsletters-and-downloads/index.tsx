@@ -2,31 +2,30 @@ import React from "react";
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import { FaFilePdf } from "react-icons/fa";
-import { Popover } from "@headlessui/react";
 import Link from "next/link";
-import { ChevronsRight } from "react-feather";
 
 const Index = ({ files }: any) => {
   const data = files.data.map((file: any) => ({
     url: file.attributes.mediaFile.data.attributes.url,
     name: file.attributes.mediaFile.data.attributes.name,
   }));
+
   return (
     <Stairs>
-      <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+      <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')] relative overflow-hidden">
         <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
           <Link
             href="/projects"
-            className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+            className="inline-flex justify-between items-center py-2 px-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
           >
-            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 mr-3">
               Properties
-            </span>{" "}
+            </span>
             <span className="text-sm font-medium">
               Have a look at our various properties
             </span>
             <svg
-              className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+              className="w-2.5 h-2.5 ml-2 rtl:rotate-180"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -57,20 +56,23 @@ const Index = ({ files }: any) => {
         </div>
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
       </section>
-      <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full">
-        <div className="max-w-2xl w-full px-4 py-8">
-          <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
+      <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full py-16">
+        <div className="max-w-3xl w-full px-4 py-8">
+          <h2 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400 mb-8 text-center">
             Newsletters and Downloads
-          </h1>
-          <ul>
+          </h2>
+          <ul className="space-y-4">
             {data.map((file: any, index: number) => (
-              <li key={index}>
-                <div className="flex m-2">
-                  <FaFilePdf className="text-gray-500" />
+              <li
+                key={index}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105"
+              >
+                <div className="flex items-center">
+                  <FaFilePdf className="text-red-500 text-3xl" />
                   <a
                     href={file.url}
                     download
-                    className="ml-2 font-semibold text-green-500"
+                    className="ml-4 text-xl font-semibold text-green-600 hover:underline dark:text-green-400"
                   >
                     {file.name}
                   </a>

@@ -10,7 +10,6 @@ import { useGSAP } from "@gsap/react";
 import StarRating from "@/components/starRating";
 gsap.registerPlugin(ScrollTrigger);
 
-// Sample base64 image data for blurDataURL (usually much smaller)
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
@@ -24,29 +23,26 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
     gsap.from(".project-card", {
       duration: 1,
       opacity: 0,
-      y: 50, // moves up from 50 pixels below
-      stagger: 0.66, // delay between each card animation
+      y: 50,
+      stagger: 0.66,
       scrollTrigger: {
         trigger: ".projects-container",
-        start: "top bottom", // starts when the top of ".projects-container" hits the bottom of the viewport
-        end: "bottom top", // ends when the bottom hits the top of the viewport
+        start: "top bottom",
+        end: "bottom top",
         toggleActions: "play none none none",
       },
     });
 
-    // Cleanup function to kill all ScrollTriggers to prevent memory leaks
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
-  // Extract projects with locations
   const projectsWithLocationsArray = projects.data
     .filter((project: any) => project.attributes.isActive === true)
     .map((project: Project) => project.attributes.projectLocation.data)
     .filter((project: any) => project !== null);
 
-  // Deduplicate and sort locations
   const uniqueLocations = Array.from(
     new Set(
       projectsWithLocationsArray.map(
@@ -55,7 +51,6 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
     )
   ).sort();
 
-  // Filter projects based on selected rating and location
   const filteredProjects = projects.data
     .filter((project) => {
       const matchesRating =
@@ -73,7 +68,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
     );
 
   const getBestAvailableImageUrl = (formats: any) => {
-    let imageUrl = formats.thumbnail?.url || ""; // Use thumbnail as a fallback
+    let imageUrl = formats.thumbnail?.url || "";
     if (formats.large) {
       imageUrl = formats.large.url;
     } else if (formats.medium) {
@@ -82,7 +77,6 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
       imageUrl = formats.small.url;
     }
 
-    // Return both the URL and the blurDataURL (the same static placeholder for now)
     return { url: imageUrl, blurDataURL: placeholderImage };
   };
 
@@ -92,16 +86,16 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
         <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
           <Link
             href="/customer-information"
-            className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+            className="inline-flex justify-between items-center py-2 px-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
           >
-            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 mr-3">
               Important
-            </span>{" "}
+            </span>
             <span className="text-sm font-medium">
               See more information about our properties
             </span>
             <svg
-              className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+              className="w-2.5 h-2.5 ml-2 rtl:rotate-180"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -130,10 +124,10 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
         </div>
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
       </section>
-      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
-        <div className="md:flex md:justify-center -mt-10">
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+        <div className="md:flex md:justify-center mb-10">
           <div className="mb-4 flex flex-col md:mr-2">
-            <label className="font-bold text-sm text-green-600">
+            <label className="font-bold text-sm text-green-600 mb-2">
               Property Rating
             </label>
             <select
@@ -143,7 +137,7 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
                   e.target.value === "all" ? "all" : parseInt(e.target.value)
                 )
               }
-              className="w-full md:w-72 rounded-lg"
+              className="w-full md:w-72 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200"
             >
               <option value="all">All Ratings</option>
               <option value="5">Platinum ★★★★★</option>
@@ -154,14 +148,14 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </select>
           </div>
           <div className="mb-4 flex flex-col">
-            <label className="font-bold text-sm text-green-600">
+            <label className="font-bold text-sm text-green-600 mb-2">
               Property Location
             </label>
             <select
               style={{ zIndex: 16 }}
               onChange={(e) => setSelectedLocation(e.target.value)}
               value={selectedLocation}
-              className="w-full md:w-72 rounded-lg"
+              className="w-full md:w-72 rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring focus:ring-green-200"
             >
               <option value="all">All Locations</option>
               {uniqueLocations.map((location) => (
@@ -172,13 +166,13 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
             </select>
           </div>
         </div>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full projects-container">
           {filteredProjects.length > 0 ? (
             filteredProjects
               .filter((project: any) => project.attributes.isActive === true)
               .map((project: any) => (
                 <div
-                  className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white project-card"
+                  className="overflow-hidden rounded-xl transition-shadow duration-300 bg-white dark:bg-gray-800 shadow-lg project-card"
                   key={project.id}
                 >
                   <Link href={`projects/${project.id}`} aria-label="Project">
@@ -202,25 +196,25 @@ const Index = ({ projects }: { projects: { data: Project[] } }) => {
                       alt={`Image for ${project.attributes.projectName}`}
                     />
                   </Link>
-                  <div className="p-4 border border-t-0">
+                  <div className="p-4 border-t dark:border-gray-700">
                     <Link
                       href={`projects/${project.id}`}
                       aria-label="Project"
-                      className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-700"
+                      className="inline-block text-black dark:text-white transition-colors duration-200 hover:text-green-600"
                     >
-                      <p className="secondary-text text-2xl font-bold transition-colors duration-200 hover:text-green-600">
+                      <h2 className="text-2xl font-bold">
                         {project.attributes.projectName.length > 40
                           ? `${project.attributes.projectName.substring(
                               0,
                               40
                             )}...`
                           : project.attributes.projectName}
-                      </p>
+                      </h2>
                     </Link>
                     <div className="mb-2">
                       <StarRating rating={project.attributes.projectRating} />
                     </div>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       {project.attributes.projectSummary.length > 120
                         ? `${project.attributes.projectSummary.substring(
                             0,

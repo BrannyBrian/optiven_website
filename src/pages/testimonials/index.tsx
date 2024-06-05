@@ -16,7 +16,7 @@ export default function Testimonials({ testimonials, photos, video }: any) {
   }, []);
 
   const getBestAvailableImageUrl = (formats: any) => {
-    let imageUrl = formats?.thumbnail?.url || ""; // Default to thumbnail if available
+    let imageUrl = formats?.thumbnail?.url || "";
     if (formats?.large) {
       imageUrl = formats.large.url;
     } else if (formats?.medium) {
@@ -34,16 +34,16 @@ export default function Testimonials({ testimonials, photos, video }: any) {
         <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
           <Link
             href="/projects"
-            className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+            className="inline-flex justify-between items-center py-2 px-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
           >
-            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 mr-3">
               Properties
-            </span>{" "}
+            </span>
             <span className="text-sm font-medium">
               Have a look at our various properties
             </span>
             <svg
-              className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+              className="w-2.5 h-2.5 ml-2 rtl:rotate-180"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -72,7 +72,7 @@ export default function Testimonials({ testimonials, photos, video }: any) {
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
       </section>
       <div>
-        <div className="container px-5 py-4 mx-auto">
+        <div className="container px-5 py-10 mx-auto">
           {clientRendered && (
             <TestimonialsCarousel testimonials={testimonials.data} />
           )}
@@ -81,7 +81,7 @@ export default function Testimonials({ testimonials, photos, video }: any) {
       <div className="text-gray-600 body-font">
         <div className="container px-5 py-10 mx-auto">
           {clientRendered && video.data.length > 0 && (
-            <div className="mb-4">
+            <div className="mb-8">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Featured Video
               </h2>
@@ -92,7 +92,7 @@ export default function Testimonials({ testimonials, photos, video }: any) {
                 <iframe
                   src={video.data[0].attributes.video.data.attributes.url}
                   allowFullScreen
-                  className="absolute top-0 left-0 w-full h-full"
+                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
                   title="Featured Video"
                 ></iframe>
               </div>
@@ -125,7 +125,10 @@ export default function Testimonials({ testimonials, photos, video }: any) {
                 }
                 const { url, blurDataURL } = getBestAvailableImageUrl(formats);
                 return (
-                  <div key={photo.id} className="mb-4 break-inside-avoid">
+                  <div
+                    key={photo.id}
+                    className="mb-4 break-inside-avoid transition-shadow duration-300 hover:shadow-lg"
+                  >
                     <Image
                       src={url}
                       placeholder="blur"
