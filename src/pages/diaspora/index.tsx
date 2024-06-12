@@ -5,13 +5,15 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
 import LocationList from "@/components/locationlist";
 import { Carousel } from "flowbite-react";
+import { format } from "date-fns";
 import Image from "next/image";
 import FaqItem from "@/components/faqItem";
+import { ChevronRight } from "react-feather";
 
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
-const Index = ({ diaspora, projects, categoriesWithFaqs }: any) => {
+const Index = ({ diaspora, projects, categoriesWithFaqs, messages }: any) => {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [openFaqId, setOpenFaqId] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | "all">(
@@ -165,6 +167,75 @@ const Index = ({ diaspora, projects, categoriesWithFaqs }: any) => {
           </div>
         </div>
       </section>
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-10">
+        <h1 className="text-4xl border-b mb-4">Diaspora Message Board</h1>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 sm:max-w-sm sm:mx-auto md:max-w-full">
+          {messages.data
+            .filter((message: any) => message.attributes.isFeatured === true)
+            .map((message: any, index: number) => (
+              <div
+                className="overflow-hidden transition-shadow duration-300 bg-white h-max rounded-lg"
+                key={index}
+              >
+                <Image
+                  src={
+                    getBestAvailableImageUrl(
+                      message.attributes.itemThumbnail.data.attributes.formats
+                    ).url
+                  }
+                  placeholder="blur"
+                  blurDataURL={
+                    getBestAvailableImageUrl(
+                      message.attributes.itemThumbnail.data.attributes.formats
+                    ).blurDataURL
+                  }
+                  height={400}
+                  width={700}
+                  className="object-cover w-full h-64 md:h-72 lg:h-80"
+                  alt={`Image for ${message.attributes.itemTitle}`}
+                />
+                <div className="p-5 border border-t-0">
+                  <p className="mb-3 text-xs font-semibold tracking-wide uppercase">
+                    <span className="text-gray-800">
+                      {format(
+                        new Date(message.attributes.publishedAt),
+                        "MMMM dd, yyyy"
+                      )}
+                    </span>
+                  </p>
+                  <Link
+                    href={`diaspora/${message.id}`}
+                    className="secondary-text mb-3 text-2xl font-bold transition-colors duration-200 hover:text-green-600"
+                  >
+                    {message.attributes.itemTitle.length > 40
+                      ? `${message.attributes.itemTitle.substring(0, 40)}...`
+                      : message.attributes.itemTitle}
+                  </Link>
+                  <p className="text-gray-700">
+                    {message.attributes.itemIntro.length > 120
+                      ? `${message.attributes.itemIntro.substring(0, 100)}...`
+                      : message.attributes.itemIntro}
+                    {message.attributes.itemIntro.length > 120 && (
+                      <Link
+                        href={`diaspora/${message.id}`}
+                        className="text-green-600 font-bold hover:underline"
+                      >
+                        read more
+                      </Link>
+                    )}
+                  </p>
+                  <Link
+                    href={`diaspora/${message.id}`}
+                    className="flex text-sm font-bold mt-4 w-24 hover:text-green-600 hover:underline"
+                  >
+                    Read More
+                    <ChevronRight size={16} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
         <div className="mb-8 flex justify-center">
           <select
@@ -290,6 +361,9 @@ export async function getStaticProps() {
   try {
     const diasporaResponse = await fetcher<any>("diasporas?populate=*");
     const projectsResponse = await fetcher<any>("projects?populate=*");
+    const messageBoardResponse = await fetcher<any>(
+      "diaspora-message-boards?populate=*"
+    );
     const faqsResponse: FaqsApiResponse = await fetcher(
       "diaspora-faqs?populate=*"
     );
@@ -309,11 +383,13 @@ export async function getStaticProps() {
       })
     );
 
+
     return {
       props: {
         diaspora: diasporaResponse,
         projects: projectsResponse,
         categoriesWithFaqs,
+        messages: messageBoardResponse,
       },
     };
   } catch (error) {
@@ -323,6 +399,7 @@ export async function getStaticProps() {
         diaspora: [],
         projects: [],
         categoriesWithFaqs: [],
+        messages: [],
       },
     };
   }
