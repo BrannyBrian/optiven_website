@@ -1,0 +1,166 @@
+import React from "react";
+import Stairs from "@/components/stairs";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+import Link from "next/link";
+import { fetcher } from "../../../../lib/api";
+import LocationList from "@/components/locationlist";
+
+type Params = {
+  params: {
+    slug: string;
+  };
+};
+
+const Index = ({ message, projects }: any) => {
+  const { itemTitle, itemBody } = message.data.attributes;
+
+  const leaseholdProjectsWithLocationsArray = projects.data
+    .filter((project: any) => {
+      const isActive = project.attributes.isActive === true;
+      const ownershipType =
+        project.attributes.ownershipType?.data?.attributes?.name ===
+        "Leasehold";
+      const projectLocation = project.attributes.projectLocation?.data !== null;
+      return isActive && ownershipType && projectLocation;
+    })
+    .map((project: any) => project.attributes.projectLocation.data);
+
+  const uniqueLocations = Array.from(
+    new Set(
+      leaseholdProjectsWithLocationsArray.map(
+        (location: any) => location.attributes.projectLocation
+      )
+    )
+  ).sort();
+
+  return (
+    <Stairs>
+      <div className="bg-white dark:bg-gray-900 flex flex-col justify-center items-center h-full w-full">
+        {/* Breadcrumbs */}
+        <nav
+          className="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
+          aria-label="Breadcrumb"
+        >
+          <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+            <li className="inline-flex items-center">
+              <Link
+                href="/"
+                className="inline-flex items-center text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 dark:text-gray-400 dark:hover:text-white"
+              >
+                <svg
+                  className="w-3 h-3 me-2.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                </svg>
+                Home
+              </Link>
+            </li>
+            <li>
+              <div className="flex items-center">
+                <svg
+                  className="rtl:rotate-180 block w-3 h-3 mx-1 text-gray-400 "
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="m1 9 4-4-4-4"
+                  />
+                </svg>
+                <Link
+                  href="/diaspora"
+                  className="ms-1 text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+                >
+                  Diaspora
+                </Link>
+              </div>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center">
+                <svg
+                  className="rtl:rotate-180  w-3 h-3 mx-1 text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 6 10"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="m1 9 4-4-4-4"
+                  />
+                </svg>
+                <span className="ms-1 text-xs md:text-lg font-bold text-gray-500 md:ms-2 dark:text-gray-400">
+                  {itemTitle}
+                </span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+      </div>
+      <section className="bg-white dark:bg-gray-900">
+        <div className="py-8 px-4 mx-auto max-w-screen-lg lg:py-16">
+          <h1 className="text-4xl text-start font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
+            {itemTitle}
+          </h1>
+          <div className="md:flex">
+            <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-3/4">
+              <BlocksRenderer content={itemBody} />
+            </div>
+            <aside className="md:w-1/4 md:ml-2">
+              <LocationList locations={uniqueLocations} />
+            </aside>
+          </div>
+        </div>
+      </section>
+    </Stairs>
+  );
+};
+
+export async function getServerSideProps({ params }: Params) {
+  const { slug } = params;
+  try {
+    const response = await fetch(
+      `${process.env.STRAPI_URL_PROD}diaspora-message-boards/${slug}?populate=*`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN_PROD}`,
+        },
+      }
+    );
+    const projectsResponse = await fetcher<any>("projects?populate=*");
+
+    if (!response.ok) {
+      throw new Error(`Error fetching message details: ${response.statusText}`);
+    }
+
+    const messageDetails = await response.json();
+    return {
+      props: {
+        message: messageDetails,
+        projects: projectsResponse,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching message details:", error);
+    return {
+      props: {
+        message: null,
+        projects: [],
+      },
+    };
+  }
+}
+
+export default Index;
