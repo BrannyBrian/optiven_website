@@ -488,7 +488,7 @@ export default function Home({
                           : article.attributes.articleIntro}
                         {article.attributes.articleIntro.length > 120 && (
                           <Link
-                            href={`projects/${article.id}`}
+                            href={`articles/${article.id}`}
                             className="text-green-600 font-bold hover:underline"
                           >
                             read more
