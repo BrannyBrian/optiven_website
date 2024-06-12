@@ -11,8 +11,8 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 
 type FAQAttributes = {
   question: string;
-  answer: string;
-  category: string; // Assuming the category is just a string here. Adjust if it's more complex.
+  answer: any;
+  category: any;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

@@ -6,12 +6,43 @@ import Link from "next/link";
 import LocationList from "@/components/locationlist";
 import { Carousel } from "flowbite-react";
 import Image from "next/image";
+import FaqItem from "@/components/faqItem";
 
 const placeholderImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
-const index = ({ diaspora, projects }: any) => {
+const Index = ({ diaspora, projects, categoriesWithFaqs }: any) => {
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [openFaqId, setOpenFaqId] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | "all">(
+    "all"
+  );
+
+  const handleFaqClick = (faqId: number) => {
+    if (openFaqId === faqId) {
+      setOpenFaqId(null);
+    } else {
+      setOpenFaqId(faqId);
+    }
+  };
+
+  const getBestAvailableImageUrl = (formats: any) => {
+    let imageUrl = formats.thumbnail?.url || "";
+    if (formats.large) {
+      imageUrl = formats.large.url;
+    } else if (formats.medium) {
+      imageUrl = formats.medium.url;
+    } else if (formats.small) {
+      imageUrl = formats.small.url;
+    }
+    return { url: imageUrl, blurDataURL: placeholderImage };
+  };
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedCategory(event.target.value);
+  };
 
   const { diasporaContent, carouselImages } = diaspora.data[0].attributes;
 
@@ -26,7 +57,6 @@ const index = ({ diaspora, projects }: any) => {
     })
     .map((project: any) => project.attributes.projectLocation.data);
 
-  // Deduplicate and sort locations
   const uniqueLocations = Array.from(
     new Set(
       leaseholdProjectsWithLocationsArray.map(
@@ -47,14 +77,13 @@ const index = ({ diaspora, projects }: any) => {
         },
         []
       );
-      console.log("Images found in useEffect:", images); // Add debugging line here
+      console.log("Images found in useEffect:", images);
       setImageUrls(images || []);
     }
   }, [carouselImages]);
 
   return (
     <Stairs>
-      {/* Breadcrumbs */}
       <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
         <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
           <Link
@@ -99,7 +128,6 @@ const index = ({ diaspora, projects }: any) => {
         </div>
         <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
       </section>
-
       <div className="p-4">
         {imageUrls.length > 0 && (
           <div className="flex justify-center">
@@ -117,7 +145,7 @@ const index = ({ diaspora, projects }: any) => {
                     alt={`Carousel image ${index + 1}`}
                     placeholder="blur"
                     blurDataURL={placeholderImage}
-                    quality={90} // Increased image quality
+                    quality={90}
                   />
                 </div>
               ))}
@@ -137,19 +165,155 @@ const index = ({ diaspora, projects }: any) => {
           </div>
         </div>
       </section>
+      <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+        <div className="mb-8 flex justify-center">
+          <select
+            onChange={handleCategoryChange}
+            className="border border-gray-300 rounded-md px-3 py-2 mr-2 w-72"
+            defaultValue="all"
+          >
+            <option value="all">All Categories</option>
+            {categoriesWithFaqs.map((category: Category) => (
+              <option key={category.id} value={category.attributes.name}>
+                {category.attributes.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {categoriesWithFaqs
+            .filter(
+              (category: Category) =>
+                selectedCategory === "all" ||
+                category.attributes.name === selectedCategory
+            )
+            .map((category: any) => (
+              <div
+                key={category.id}
+                className="category-card"
+                style={{
+                  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+                  border: "1px solid #e0e0e0",
+                  borderRadius: "8px",
+                  padding: "20px",
+                  backgroundColor: "#fff",
+                  zIndex: 16,
+                }}
+              >
+                <div className="relative w-full h-40 overflow-hidden rounded-t-lg">
+                  <Image
+                    src={
+                      getBestAvailableImageUrl(
+                        category.attributes.banner.data.attributes.formats
+                      ).url
+                    }
+                    placeholder="blur"
+                    blurDataURL={
+                      getBestAvailableImageUrl(
+                        category.attributes.banner.data.attributes.formats
+                      ).blurDataURL
+                    }
+                    layout="fill"
+                    objectFit="cover"
+                    alt={category.attributes.category}
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <h1 className="category-title text-white text-3xl font-bold">
+                      {category.attributes.category}
+                    </h1>
+                  </div>
+                </div>
+                <div className="faq-content space-y-4">
+                  {category.faqs.map((faq: any, index: number) => (
+                    <FaqItem
+                      key={index}
+                      id={faq.id}
+                      title={faq.attributes.question}
+                      isOpen={openFaqId === faq.id}
+                      onToggle={() => handleFaqClick(faq.id)}
+                    >
+                      <div
+                        style={{ zIndex: 16 }}
+                        className="format md:text-xl lg:text-2xl"
+                      >
+                        <BlocksRenderer content={faq.attributes.answer} />
+                      </div>
+                    </FaqItem>
+                  ))}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
     </Stairs>
   );
+};
+
+type FAQAttributes = {
+  question: string;
+  answer: any;
+  diasporaFaqCategory: any;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+};
+
+type FAQ = {
+  id: number;
+  attributes: FAQAttributes;
+};
+
+type CategoryAttributes = {
+  name: string;
+  banner: any;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+};
+
+type Category = {
+  id: number;
+  attributes: CategoryAttributes;
+  faqs: FAQ[];
+};
+
+type FaqsApiResponse = {
+  data: FAQ[];
+};
+
+type CategoriesApiResponse = {
+  data: Category[];
 };
 
 export async function getStaticProps() {
   try {
     const diasporaResponse = await fetcher<any>("diasporas?populate=*");
     const projectsResponse = await fetcher<any>("projects?populate=*");
+    const faqsResponse: FaqsApiResponse = await fetcher(
+      "diaspora-faqs?populate=*"
+    );
+    const categoriesResponse: CategoriesApiResponse = await fetcher(
+      "diaspora-faq-categories?populate=*"
+    );
+
+    // Combine FAQs into their categories
+    const categoriesWithFaqs = categoriesResponse.data.map(
+      (category: Category) => ({
+        ...category,
+        faqs: faqsResponse.data.filter(
+          (faq: FAQ) =>
+            faq.attributes.diasporaFaqCategory.data.attributes.name ===
+            category.attributes.name
+        ),
+      })
+    );
 
     return {
       props: {
         diaspora: diasporaResponse,
         projects: projectsResponse,
+        categoriesWithFaqs,
       },
     };
   } catch (error) {
@@ -158,9 +322,10 @@ export async function getStaticProps() {
       props: {
         diaspora: [],
         projects: [],
+        categoriesWithFaqs: [],
       },
     };
   }
 }
 
-export default index;
+export default Index;
