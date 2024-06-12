@@ -1,88 +1,137 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Stairs from "@/components/stairs";
 import { fetcher } from "../../../lib/api";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
 import LocationList from "@/components/locationlist";
+import { Carousel } from "flowbite-react";
+import Image from "next/image";
+
+const placeholderImage =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwAB/aurH8kAAAAASUVORK5CYII=";
 
 const index = ({ diaspora, projects }: any) => {
-  const { diasporaContent } = diaspora.data[0].attributes;
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
-  const projectsWithLocationsArray = projects.data
-    .filter((project: any) => project.attributes.isActive === true)
-    .map((project: any) => project.attributes.projectLocation.data)
-    .filter((project: any) => project !== null);
+  const { diasporaContent, carouselImages } = diaspora.data[0].attributes;
+
+  const leaseholdProjectsWithLocationsArray = projects.data
+    .filter((project: any) => {
+      const isActive = project.attributes.isActive === true;
+      const ownershipType =
+        project.attributes.ownershipType?.data?.attributes?.name ===
+        "Leasehold";
+      const projectLocation = project.attributes.projectLocation?.data !== null;
+      return isActive && ownershipType && projectLocation;
+    })
+    .map((project: any) => project.attributes.projectLocation.data);
 
   // Deduplicate and sort locations
   const uniqueLocations = Array.from(
     new Set(
-      projectsWithLocationsArray.map(
+      leaseholdProjectsWithLocationsArray.map(
         (location: any) => location.attributes.projectLocation
       )
     )
   ).sort();
 
+  useEffect(() => {
+    if (carouselImages && carouselImages.data) {
+      const images = carouselImages.data.reduce(
+        (acc: string[], carousel: any) => {
+          const formats = carousel.attributes.formats;
+          const imageUrl =
+            formats.large?.url || formats.medium?.url || formats.small?.url;
+          if (imageUrl) acc.push(imageUrl);
+          return acc;
+        },
+        []
+      );
+      console.log("Images found in useEffect:", images); // Add debugging line here
+      setImageUrls(images || []);
+    }
+  }, [carouselImages]);
+
   return (
     <Stairs>
       {/* Breadcrumbs */}
-      <div className="bg-white dark:bg-gray-900 flex flex-col justify-center items-center h-full w-full">
-        <nav
-          className="flex px-5 py-3 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
-          aria-label="Breadcrumb"
-        >
-          <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-            <li className="inline-flex items-center">
-              <Link
-                href="/"
-                className="inline-flex items-center text-xs md:text-lg md:font-bold text-gray-700 hover:text-green-600 dark:text-gray-400 dark:hover:text-white"
-              >
-                <svg
-                  className="w-3 h-3 me-2.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                </svg>
-                Home
-              </Link>
-            </li>
-            <li aria-current="page">
-              <div className="flex items-center">
-                <svg
-                  className="rtl:rotate-180  w-3 h-3 mx-1 text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 6 10"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="m1 9 4-4-4-4"
-                  />
-                </svg>
-                <span className="ms-1 text-xs md:text-lg font-bold text-gray-500 md:ms-2 dark:text-gray-400">
-                  Diaspora
-                </span>
-              </div>
-            </li>
-          </ol>
-        </nav>
-      </div>
-      <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-700 lg:text-5xl dark:text-gray-400">
+      <section className="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
+        <div className="pt-8 px-4 mx-auto max-w-screen-xl text-center lg:pt-16 z-10 relative">
+          <Link
+            href="/projects"
+            className="inline-flex justify-between items-center py-1 px-1 pe-4 mb-7 text-sm text-green-700 bg-green-100 rounded-full dark:bg-green-900 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800"
+          >
+            <span className="text-xs bg-green-600 rounded-full text-white px-4 py-1.5 me-3">
+              Properties
+            </span>{" "}
+            <span className="text-sm font-medium">
+              Have a look at our various properties
+            </span>
+            <svg
+              className="w-2.5 h-2.5 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </Link>
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Diaspora
           </h1>
-          <div className="md:flex">
-            <div className="format md:text-xl md:w-1/2 lg:text-2xl lg:w-3/4">
+          <p className="text-start mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
+            Optiven is committed to providing versatile investment solutions
+            tailored for the diaspora community. Whether you're looking for
+            residential or commercial ventures, our prime plots in promising
+            locations ensure optimal returns. Our properties are accessible and
+            affordable, designed to deliver quality without compromise. With
+            flexible installment plans starting at accessible rates, securing
+            your future has never been easier, no matter where you are in the
+            world.
+          </p>
+        </div>
+        <div className="bg-gradient-to-b from-green-50 to-transparent dark:from-green-900 w-full h-full absolute top-0 left-0 z-0" />
+      </section>
+
+      <div className="p-4">
+        {imageUrls.length > 0 && (
+          <div className="flex justify-center">
+            <Carousel slideInterval={3000} className="lg:w-3/4">
+              {imageUrls.map((imageUrl, index) => (
+                <div
+                  key={index}
+                  className="relative"
+                  style={{ paddingBottom: "56.25%" }}
+                >
+                  <Image
+                    src={imageUrl}
+                    layout="fill"
+                    objectFit="cover"
+                    alt={`Carousel image ${index + 1}`}
+                    placeholder="blur"
+                    blurDataURL={placeholderImage}
+                    quality={90} // Increased image quality
+                  />
+                </div>
+              ))}
+            </Carousel>
+          </div>
+        )}
+      </div>
+      <section className="bg-white dark:bg-gray-900 flex justify-center items-center h-full">
+        <div className="mb-8 p-4">
+          <div className="mt-4 md:flex md:justify-between">
+            <div className="format md:text-xl lg:text-2xl lg:w-8/12">
               <BlocksRenderer content={diasporaContent} />
             </div>
-            <aside className="md:w-1/4 md:ml-2" style={{ zIndex: 16 }}>
+            <aside className="md:ml-2" style={{ zIndex: 16 }}>
               <LocationList locations={uniqueLocations} />
             </aside>
           </div>
@@ -95,10 +144,7 @@ const index = ({ diaspora, projects }: any) => {
 export async function getStaticProps() {
   try {
     const diasporaResponse = await fetcher<any>("diasporas?populate=*");
-
     const projectsResponse = await fetcher<any>("projects?populate=*");
-
-    // console.log(diasporaResponse.data);
 
     return {
       props: {
