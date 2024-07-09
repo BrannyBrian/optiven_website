@@ -29,17 +29,17 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
     onlineOfferLetterLink,
     projectMapLocationLink,
     valueAdditions,
+    subProjects,
   } = project.data.attributes;
 
-  const prepareInitialPrices = (attributes: any) => {
-    const formatPrice = (price: any) => {
-      const numericPrice =
-        typeof price === "string" ? parseFloat(price) : price;
-      return numericPrice && numericPrice !== 0
-        ? numericPrice.toLocaleString()
-        : "-";
-    };
+  const formatPrice = (price: any) => {
+    const numericPrice = typeof price === "string" ? parseFloat(price) : price;
+    return numericPrice && numericPrice !== 0
+      ? numericPrice.toLocaleString()
+      : "-";
+  };
 
+  const prepareInitialPrices = (attributes: any) => {
     const initialPrices = {
       "1/8 Acre": {
         cashPrice: formatPrice(attributes.eighthAcreCashPrice),
@@ -70,10 +70,53 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
     return initialPrices;
   };
 
+  const prepareSubProjectPrices = (subProjects: any) => {
+    return subProjects.data.map((subProject: any) => {
+      const { attributes } = subProject;
+      return {
+        subProjectName: attributes.subProjectName,
+        prices: {
+          "1/8 Acre": {
+            cashPrice: formatPrice(attributes.eighthAcreCashPrice),
+            threeMonthsPrice: formatPrice(attributes.eighthAcre3MonthsPrice),
+            sixMonthsPrice: formatPrice(attributes.eighthAcre6MonthsPrice),
+            twelveMonthsPrice: formatPrice(attributes.eighthAcre12MonthsPrice),
+            deposit: formatPrice(attributes.eighthAcreDeposit),
+          },
+          "1/4 Acre": {
+            cashPrice: formatPrice(attributes.quarterAcreCashPrice),
+            threeMonthsPrice: formatPrice(attributes.quarterAcre3MonthsPrice),
+            sixMonthsPrice: formatPrice(attributes.quarterAcre6MonthsPrice),
+            twelveMonthsPrice: formatPrice(attributes.quarterAcre12MonthsPrice),
+            deposit: formatPrice(attributes.quarterAcreDeposit),
+          },
+          "1/2 Acre": {
+            cashPrice: formatPrice(attributes.halfAcreCashPrice),
+            threeMonthsPrice: formatPrice(attributes.halfAcre3MonthsPrice),
+            sixMonthsPrice: formatPrice(attributes.halfAcre6MonthsPrice),
+            twelveMonthsPrice: formatPrice(attributes.halfAcre12MonthsPrice),
+            deposit: formatPrice(attributes.halfAcreDeposit),
+          },
+          Acre: {
+            cashPrice: formatPrice(attributes.acreCashPrice),
+            threeMonthsPrice: formatPrice(attributes.acre3MonthsPrice),
+            sixMonthsPrice: formatPrice(attributes.acre6MonthsPrice),
+            twelveMonthsPrice: formatPrice(attributes.acre12MonthsPrice),
+            deposit: formatPrice(attributes.acreDeposit),
+          },
+        },
+      };
+    });
+  };
+
   const initialPrices: any = prepareInitialPrices(project.data.attributes);
+  const initialSubProjectPrices: any = prepareSubProjectPrices(subProjects);
 
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [displayPrices, setDisplayPrices] = useState<any>(initialPrices);
+  const [displaySubProjectPrices, setDisplaySubProjectPrices] = useState<any>(
+    initialSubProjectPrices
+  );
   const [currency, setCurrency] = useState("KES");
 
   useEffect(() => {
@@ -138,11 +181,55 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
       {}
     );
 
+    const updatedSubProjectPrices = initialSubProjectPrices.map(
+      (subProject: any) => {
+        const updatedSubProject = { ...subProject };
+        Object.keys(subProject.prices).forEach((plotSize) => {
+          const plotPrices = subProject.prices[plotSize];
+          updatedSubProject.prices[plotSize] = {
+            cashPrice:
+              sanitizePrice(plotPrices.cashPrice) !== null
+                ? Math.round(
+                    sanitizePrice(plotPrices.cashPrice) / rate
+                  ).toLocaleString()
+                : "-",
+            threeMonthsPrice:
+              sanitizePrice(plotPrices.threeMonthsPrice) !== null
+                ? Math.round(
+                    sanitizePrice(plotPrices.threeMonthsPrice) / rate
+                  ).toLocaleString()
+                : "-",
+            sixMonthsPrice:
+              sanitizePrice(plotPrices.sixMonthsPrice) !== null
+                ? Math.round(
+                    sanitizePrice(plotPrices.sixMonthsPrice) / rate
+                  ).toLocaleString()
+                : "-",
+            twelveMonthsPrice:
+              sanitizePrice(plotPrices.twelveMonthsPrice) !== null
+                ? Math.round(
+                    sanitizePrice(plotPrices.twelveMonthsPrice) / rate
+                  ).toLocaleString()
+                : "-",
+            deposit:
+              sanitizePrice(plotPrices.deposit) !== null
+                ? Math.round(
+                    sanitizePrice(plotPrices.deposit) / rate
+                  ).toLocaleString()
+                : "-",
+          };
+        });
+        return updatedSubProject;
+      }
+    );
+
     setDisplayPrices(updatedPrices);
+    setDisplaySubProjectPrices(updatedSubProjectPrices);
   };
 
   const resetToKESPrices = () => {
     setDisplayPrices(initialPrices);
+    setDisplaySubProjectPrices(initialSubProjectPrices);
   };
 
   const handleUSDConversion = () =>
@@ -357,7 +444,7 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
                       alt={`Carousel image ${index + 1} for ${projectName}`}
                       placeholder="blur"
                       blurDataURL={placeholderImage}
-                      quality={90} // Increased image quality
+                      quality={90}
                     />
                   </div>
                 ))}
@@ -432,6 +519,28 @@ const index: NextPage<PageProps> = ({ project, projects, currencies }) => {
             />
           ))}
         </div>
+        {displaySubProjectPrices.map((subProject: any) => (
+          <div key={subProject.subProjectName} className="my-8">
+            <h2 className="text-3xl font-bold text-center text-green-600">
+              {subProject.subProjectName}
+            </h2>
+            <div className="grid gap-4 row-gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+              {Object.keys(subProject.prices).map((plotSize) => (
+                <PlotPriceCard
+                  key={plotSize}
+                  plotSize={plotSize}
+                  cashPrice={subProject.prices[plotSize].cashPrice}
+                  threeMonthsPrice={
+                    subProject.prices[plotSize].threeMonthsPrice
+                  }
+                  sixMonthsPrice={subProject.prices[plotSize].sixMonthsPrice}
+                  // twelveMonthsPrice={subProject.prices[plotSize].twelveMonthsPrice}
+                  deposit={subProject.prices[plotSize].deposit}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
       <div className="container px-2 py-8 mx-auto flex flex-wrap sm:flex-nowrap">
         <div className="w-full lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 flex items-end justify-start relative shadow-lg">
